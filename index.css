@@ -43,12 +43,13 @@
 .home-navbar:focus-visible {
   animation: inherit;
 }
-.home-button {
+.home-link {
   color: var(--dl-color-primary-100);
   font-style: normal;
   transition: 0.3s;
   font-weight: 700;
   border-width: 0px;
+  text-decoration: none;
 }
 
 .home-navbar-container1 {
@@ -111,7 +112,7 @@
   flex-direction: column;
   justify-content: space-between;
 }
-.home-link {
+.home-link1 {
   display: contents;
 }
 .home-egagasini-logo1 {
@@ -304,7 +305,7 @@
   text-align: center;
   margin-bottom: var(--dl-space-space-fourunits);
 }
-.home-link1 {
+.home-link2 {
   flex: 1;
   left: 0px;
   color: var(--dl-color-gray-white);
@@ -368,7 +369,7 @@
   text-transform: none;
   text-decoration: none;
 }
-.home-link2 {
+.home-link3 {
   flex: 1;
   left: 0px;
   color: var(--dl-color-gray-white);
@@ -430,7 +431,7 @@
   text-transform: none;
   text-decoration: none;
 }
-.home-link3 {
+.home-link4 {
   flex: 1;
   left: 0px;
   color: var(--dl-color-gray-white);
@@ -638,7 +639,7 @@
   border-left-width: 0px;
   border-right-width: 0px;
 }
-.home-link4 {
+.home-link5 {
   display: contents;
 }
 .home-name-and-position {
@@ -690,7 +691,7 @@
   border-left-width: 0px;
   border-right-width: 0px;
 }
-.home-link5 {
+.home-link6 {
   display: contents;
 }
 .home-name-and-position1 {
@@ -742,7 +743,7 @@
   border-left-width: 0px;
   border-right-width: 0px;
 }
-.home-link6 {
+.home-link7 {
   display: contents;
 }
 .home-name-and-position2 {
@@ -873,7 +874,7 @@
   width: 24px;
   height: 24px;
 }
-.home-link7 {
+.home-link8 {
   display: contents;
 }
 .home-image3 {
@@ -922,7 +923,7 @@
     color: rgb(33, 3, 255);
     font-size: 16px;
   }
-  .home-link1 {
+  .home-link2 {
     left: 0px;
     color: var(--dl-color-gray-white);
     right: 0px;
@@ -950,7 +951,7 @@
   .home-text43 {
     color: var(--dl-color-primary-100);
   }
-  .home-link2 {
+  .home-link3 {
     left: 0px;
     color: var(--dl-color-gray-white);
     right: 0px;
@@ -986,7 +987,7 @@
     text-transform: none;
     text-decoration: none;
   }
-  .home-link3 {
+  .home-link4 {
     left: 0px;
     color: var(--dl-color-gray-white);
     right: 0px;
@@ -1157,7 +1158,7 @@
   }
 }
 @media(max-width: 767px) {
-  .home-button {
+  .home-link {
     color: var(--dl-color-primary-100);
     font-size: 14px;
     font-style: normal;
@@ -1295,7 +1296,7 @@
   .home-navbar-container {
     height: 45px;
   }
-  .home-button {
+  .home-link {
     color: var(--dl-color-primary-100);
     text-align: center;
   }
