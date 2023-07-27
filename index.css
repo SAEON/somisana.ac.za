@@ -45,6 +45,7 @@
 }
 .home-link {
   color: var(--dl-color-primary-100);
+  font-size: 18px;
   font-style: normal;
   transition: 0.3s;
   font-weight: 700;
@@ -705,6 +706,13 @@
   .home-navbar-container {
     height: 30px;
   }
+  .home-link {
+    color: var(--dl-color-primary-100);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    text-decoration: none;
+  }
   .home-text02 {
     text-transform: uppercase;
   }
@@ -816,6 +824,13 @@
   .home-navbar-container {
     height: 40px;
   }
+  .home-link {
+    color: var(--dl-color-primary-100);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    text-decoration: none;
+  }
   .home-name-and-position {
     width: 327px;
   }
@@ -836,6 +851,13 @@
 @media(max-width: 991px) {
   .home-navbar-container {
     height: 40px;
+  }
+  .home-link {
+    color: var(--dl-color-primary-100);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    text-decoration: none;
   }
   .home-about-us {
     max-width: 100%;
@@ -883,6 +905,7 @@
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
+    text-decoration: none;
   }
   .home-data-link {
     display: none;
@@ -963,7 +986,10 @@
   }
   .home-link {
     color: var(--dl-color-primary-100);
+    font-style: normal;
     text-align: center;
+    font-weight: 700;
+    text-decoration: none;
   }
   .home-navbar1 {
     width: 94px;
