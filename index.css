@@ -233,7 +233,7 @@
   flex-direction: column;
 }
 .home-image {
-  width: auto;
+  width: 478px;
   height: 543px;
   object-fit: cover;
 }
