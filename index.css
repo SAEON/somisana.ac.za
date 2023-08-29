@@ -222,6 +222,7 @@
   display: flex;
   align-items: flex-start;
   padding-right: var(--dl-space-space-doubleunit);
+  padding-right: var(--dl-space-space-TenUnits);
   flex-direction: column;
   justify-content: center;
 }
