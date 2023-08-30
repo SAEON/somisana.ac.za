@@ -950,8 +950,12 @@
   }
   .home-container1-about-us {
     width: 100%;
-    height: auto;
-    padding-top: var(--dl-space-space-tenunits);
+    height: 636px;
+    padding-top: 0px;
+    padding-bottom: var(--dl-space-space-doubleunit);
+  }
+  .home-text11 {
+    padding-top: var(--dl-space-space-fiveunits);
   }
   .home-container2-about-us {
     width: 100%;
@@ -1070,9 +1074,10 @@
   .home-container1-about-us {
     width: 100%;
     height: auto;
+    padding-top: var(--dl-space-space-fiveunits);
   }
   .home-text11 {
-    height: 212px;
+    height: 242px;
     line-height: 1.3;
     margin-left: var(--dl-space-space-unit);
     padding-top: 0px;
@@ -1080,9 +1085,9 @@
     padding-bottom: var(--dl-space-space-doubleunit);
   }
   .home-text12 {
-    padding-top: var(--dl-space-space-tenunits);
+    padding-top: var(--dl-space-space-tripleunit);
     padding-left: var(--dl-space-space-unit);
-    padding-bottom: var(--dl-space-space-tenunits);
+    padding-bottom: var(--dl-space-space-tripleunit);
   }
   .home-image {
     width: 100%;
