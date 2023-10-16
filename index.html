@@ -49,9 +49,9 @@
       scroll-behavior: smooth;
       }
     </style>
-    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <link rel="stylesheet" href="./style.css" />
     <div>
       <link href="./index.css" rel="stylesheet" />
 
@@ -107,7 +107,7 @@
           </a>
           <a href="#data" class="home-data-link Anchor">Data</a>
           <a href="#people" class="home-people-link">People</a>
-          <a href="#news" class="home-new-link">News</a>
+          <span class="home-new-link">News</span>
           <a href="#contact" class="home-contacts-link Anchor">contact</a>
         </div>
         <div class="home-container1">
@@ -124,7 +124,6 @@
             </h1>
           </div>
         </div>
-        <div class="home-section-separator"></div>
         <div id="about-us" class="home-about-us">
           <div class="home-container1-about-us">
             <h1 class="content-header home-text11">
@@ -146,13 +145,13 @@
           <div class="home-container2-about-us content-header">
             <img
               alt="image"
-              src="public/pyramid_diagram4-1500w.jpg"
+              src="public/pyramid_diagram4-1600h.jpg"
               class="home-image"
             />
-            <h1 class="content-header">
+            <h1 class="content-header home-text13">
               The Case for Numerical Ocean Modelling
             </h1>
-            <span>
+            <span class="home-text14">
               <span>
                 Numerical modelling plays a crucial role in understanding and
                 predicting the complex dynamics of the ocean as it provides
@@ -185,10 +184,12 @@
               </span>
               <br />
             </span>
-            <h1 class="content-header-not-first-child content-header">
+            <h1
+              class="content-header-not-first-child content-header home-text22"
+            >
               Alignment with National Imperatives
             </h1>
-            <span>
+            <span class="home-text23">
               <span>
                 With the ratification of Operations Phakisa in 2014, an
                 initiative to fast-track the unlocking of the economic potential
@@ -209,7 +210,9 @@
               <br />
               <br />
             </span>
-            <h1 class="content-header-not-first-child content-header">
+            <h1
+              class="content-header-not-first-child content-header home-text28"
+            >
               Alignment with International Imperatives
             </h1>
             <span class="home-text29">
@@ -240,55 +243,94 @@
           </div>
         </div>
         <div id="data" class="home-data">
-          <div class="data-card-section">
-            <div class="data-card">
-              <h3 class="data-card-heading">THREDDS</h3>
+          <div class="data-card-section home-service-card">
+            <div class="home-card-content data-card">
+              <h3 class="data-card-heading">Data Access</h3>
               <span class="data-card-content">
-                <span class="home-text35">
-                  Utilize our THREDDS server for SOMISANA's extensive data
-                  library. As the standard protocol for accessing NetCDF files,
-                  it offers high-resolution ocean data to illuminate our
-                  regional domains. The server is adept at generating WMS
-                  web-maps, thereby enabling efficient creation of interactive,
-                  data-rich maps. Thanks to its user-friendly interface, large
-                  datasets can be navigated seamlessly, making it a vital tool
-                  for data-driven decision-making in multiple fields.
+                <span class="home-text35">Thredds Server</span>
+                <br class="home-text36" />
+                <span class="home-text37">
+                  Utilize our thredds server for&nbsp;
+                </span>
+                <span class="home-text38">
+                  SOMISANAs extensive data library,&nbsp;
+                </span>
+                <span class="home-text39">
+                  that provides our forecast outputs as&nbsp;
+                </span>
+                <span class="home-text40">
+                  NetCDF files, both raw and processed.
                 </span>
                 <br />
+                <br />
+                <span class="home-text43">Files Server</span>
+                <br />
+                <span>
+                  On our file server you have the ability to directly download
+                  raw files, providing flexibility to work with data in your
+                  preferred format. Additionally, you will find the model
+                  evaluation reports and readme’s there.
+                </span>
               </span>
               <a
                 href="https://thredds.somisana.ac.za/thredds/catalog/catalog.html"
                 target="_blank"
                 rel="noreferrer noopener"
-                class="data-card-button button"
+                class="home-link02 data-card-button button"
               >
-                <span>
-                  <span class="Anchor">Access Files</span>
+                <span class="home-thredds">
+                  <span class="home-text46 Anchor">Thredds Server</span>
                   <br />
                 </span>
               </a>
-            </div>
-          </div>
-          <div class="data-card-section">
-            <div class="data-card home-card-content1">
-              <h3 class="data-card-heading">Files</h3>
-              <span class="data-card-content home-text41">
-                <span class="home-text42">
-                  With our File Server, you have the ability to directly
-                  download raw files, providing flexibility to work with data in
-                  your preferred format. Additionally, it supports cutting-edge
-                  cloud-optimized file formats, such as Zarr directories and
-                  Kerchunked NetCDF v4 range pointers. This innovative approach
-                  guarantees users can manage substantial data volumes
-                  effectively, optimizing both time and resources.
-                </span>
-                <span class="Card-Text"></span>
-              </span>
               <a
                 href="https://mnemosyne.somisana.ac.za/somisana/"
                 target="_blank"
                 rel="noreferrer noopener"
-                class="data-card-button button"
+                class="home-link03 data-card-button button"
+              >
+                <span class="home-files-server">
+                  <span class="Anchor">File Server</span>
+                  <br />
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="data-card-section home-service-card1">
+            <div class="home-card-content1 data-card">
+              <h3 class="data-card-heading">Applications</h3>
+              <span class="home-text51 data-card-content">
+                <span class="home-text52">
+                  A tracking functionality has been developed by coupling
+                  our&nbsp;
+                </span>
+                <br class="home-text53" />
+                <span class="home-text54">
+                  forecast models with the
+                  OpenDrift&nbsp;(https://opendrift.github.io/) software. It has
+                  been set up to run as either an&nbsp;‘oil spill’ application
+                  or a so-called&nbsp;‘leeway’ application. The oil
+                  spill&nbsp;application takes many different oil&nbsp;types
+                  into account, their weathering&nbsp;characteristics and how
+                  they get mixed into the water column. The
+                  leeway&nbsp;application has a pre-defined list of&nbsp;85
+                  different objects, each with their&nbsp;own empirically
+                  determined drift characteristics. Should you require forecast
+                  information about drifting matter, feel free to contact our
+                  team on email:&nbsp;
+                </span>
+                <span class="home-text55">nc.memela@saeon.nrf.ac.za</span>
+                <span class="home-text56">or&nbsp;</span>
+                <span class="home-text57">g.fearon@saeon.nrf.ac.za</span>
+                <br />
+                <br class="home-text59" />
+                <span class="Card-Text"></span>
+              </span>
+              <a
+                href="https://opendrift.github.io/"
+                target="_blank"
+                rel="noreferrer noopener"
+                class="home-link04 data-card-button button"
               >
                 <span>
                   <span class="Anchor">Access Files</span>
@@ -297,10 +339,10 @@
               </a>
             </div>
           </div>
-          <div class="data-card-section">
-            <div class="data-card">
+          <div class="data-card-section home-service-card2">
+            <div class="home-card-content2 data-card">
               <h3 class="data-card-heading">Visualisations</h3>
-              <span class="data-card-content">
+              <span class="home-text65 data-card-content">
                 Venture into our operational forecast data through our
                 user-friendly web visualization platform. This tool presents a
                 comprehensive overview of our datasets, transforming raw
@@ -325,8 +367,8 @@
         </div>
         <div id="people" class="home-people">
           <div class="home-heading-container">
-            <h2 class="home-text52 Section-Heading">People</h2>
-            <span class="home-text53">
+            <h2 class="home-text69 Section-Heading">People</h2>
+            <span class="home-text70">
               National Ocean Modelling team for NRF-SAEON and OCIMS&nbsp;
             </span>
           </div>
@@ -341,7 +383,7 @@
                 <span class="Card-Heading">Dr Jennifer Veitch</span>
                 <br />
               </span>
-              <span class="home-text56">
+              <span class="home-text73">
                 Principal Numerical Ocean Modeler at SAEON Egagasini and founder
                 of the SOMISANA Initiative. Responsible for bringing SAEON and
                 OCIMS together on operational modelling.&nbsp;
@@ -354,7 +396,7 @@
                 class="home-image2"
               />
               <span class="home-heading1 Card-Heading">Dr Giles Fearon</span>
-              <span class="home-text57">
+              <span class="home-text74">
                 Senior Operational Ocean Modeler at SAEON, responsible for
                 expanding the modelling framework and for skills sharing and
                 development .&nbsp;
@@ -369,7 +411,7 @@
               <span class="home-heading2 Card-Heading">
                 Mr Nkululeko Memela
               </span>
-              <span class="home-text58">
+              <span class="home-text75">
                 Junior Operational Ocean Modeler at SAEON responsible for model
                 testing, evaluation, reporting and maintains this website.
               </span>
@@ -381,9 +423,9 @@
             href="https://www.ocims.gov.za/"
             target="_blank"
             rel="noreferrer noopener"
-            class="home-link05"
+            class="home-link06"
           >
-            <span class="home-text59">
+            <span class="home-text76">
               This work is supported by the DFFE's Ocean and Coastal Information
               Management System (OCIMS)&nbsp;
             </span>
@@ -392,8 +434,8 @@
         </div>
         <div id="news" class="home-news">
           <div class="home-heading-container1">
-            <h2 class="home-text61">News</h2>
-            <span class="home-text62">
+            <h2 class="home-text78">News</h2>
+            <span class="home-text79">
               Highlights from the most recent SAEON news-letter articles on
               ocean modeling.
             </span>
@@ -405,7 +447,7 @@
                   href="https://enews.saeon.ac.za/issue-03-2023/advancing-coastal-predictive-capabilities-for-a-sustainable-future/"
                   target="_blank"
                   rel="noreferrer noopener"
-                  class="home-link06"
+                  class="home-link07"
                 >
                   <div class="home-name-and-position">
                     <span class="home-name">
@@ -415,13 +457,13 @@
                       &nbsp;&nbsp;
                     </span>
                     <span class="home-position">
-                      <span class="home-text63">Date: 05 2023</span>
+                      <span class="home-text80">Date: 05 2023</span>
                       <br />
                     </span>
                   </div>
                 </a>
               </div>
-              <span class="home-text65">
+              <span class="home-text82">
                 A significant highlight of the PredictOnTime workshop was the
                 proposal to designate Algoa Bay as a pilot site for testing and
                 implementing predictive capabilities in the Southern African
@@ -434,7 +476,7 @@
                   href="https://enews.saeon.ac.za/issue-03-2023/learning-operational-coastal-modelling-from-the-best/"
                   target="_blank"
                   rel="noreferrer noopener"
-                  class="home-link07"
+                  class="home-link08"
                 >
                   <div class="home-name-and-position1">
                     <span class="home-name1">
@@ -443,13 +485,13 @@
                       &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
                     </span>
                     <span class="home-position1">
-                      <span class="home-text66">Date: 05 2023</span>
+                      <span class="home-text83">Date: 05 2023</span>
                       <br />
                     </span>
                   </div>
                 </a>
               </div>
-              <span class="home-text68">
+              <span class="home-text85">
                 SAEON’s participation highlighted its collaborative work in
                 marine information management and high-resolution ocean
                 forecasting that forms a fundamental part of Sustainable Ocean
@@ -462,7 +504,7 @@
                   href="https://enews.saeon.ac.za/issue-03-2023/saeon-participates-in-ocims-stakeholder-engagement-workshop/"
                   target="_blank"
                   rel="noreferrer noopener"
-                  class="home-link08"
+                  class="home-link09"
                 >
                   <div class="home-name-and-position2">
                     <span class="home-name2">
@@ -475,7 +517,7 @@
                   </div>
                 </a>
               </div>
-              <span class="home-text71">
+              <span class="home-text88">
                 Giles Fearon and Jenny Veitch were the only African
                 representatives to present at this year’s meeting of the Coastal
                 Ocean and Shelf-Seas Task Team of CoastPredict, shedding light
@@ -486,7 +528,7 @@
         </div>
         <div id="contact" class="home-contact">
           <div class="home-content-container">
-            <h2 class="home-text72 Section-Heading">
+            <h2 class="home-text89 Section-Heading">
               This is where to find us
             </h2>
             <div class="home-locations-container">
@@ -543,7 +585,7 @@
             href="https://www.bing.com/maps?&amp;mepi=107~Local~TopOfPage~Map_Image&amp;ty=17&amp;q=FORETRUST%20BUILDING%20CAPE%20TOWN&amp;segment=Local&amp;mb=-33.91988~18.404226~-34.025421~18.471695&amp;ppois=-33.91987991333008_18.43299674987793_FORETRUST_YN8202x3601206165141473682~-34.025421142578125_18.471694946289062_Foretrust%20Property_YN8202x1009651884089349953~-33.93073654174805_18.404226303100586_Foretrust%20Holdings_YN8202x12662855281682454723~&amp;usebfpr=true&amp;v=2&amp;sV=1&amp;FORM=SNAPST"
             target="_blank"
             rel="noreferrer noopener"
-            class="home-link09"
+            class="home-link10"
           >
             <img
               alt="image"
