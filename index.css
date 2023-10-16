@@ -1181,6 +1181,7 @@
     color: var(--dl-color-primary-100);
     width: 110%;
     height: auto;
+    font-size: 12px;
     font-style: normal;
     text-align: center;
     font-weight: 700;
@@ -1188,6 +1189,8 @@
   }
   .home-text {
     font-size: 12px;
+    font-style: italic;
+    font-weight: 400;
     line-height: 1.3;
   }
   .home-navbar-container1 {
@@ -1286,6 +1289,7 @@
     position: relative;
   }
   .home-service-card {
+    width: 100%;
     height: 100%;
   }
   .home-link02 {
@@ -1302,12 +1306,14 @@
     height: auto;
   }
   .home-service-card1 {
+    width: 100%;
     height: 100%;
   }
   .home-text51 {
     margin-right: var(--dl-space-space-tripleunit);
   }
   .home-service-card2 {
+    width: 100%;
     height: 100%;
   }
   .home-people {
