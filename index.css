@@ -1117,6 +1117,7 @@
   .home-egagasini-logo1 {
     width: 168px;
     height: 51px;
+    display: none;
   }
   .home-data-link {
     display: none;
@@ -1134,7 +1135,7 @@
     height: 100%;
   }
   .home-heading-container {
-    width: auto;
+    width: 100%;
     align-self: stretch;
   }
   .home-text09 {
@@ -1182,10 +1183,7 @@
     color: var(--dl-color-primary-100);
   }
   .home-card-content2 {
-    margin: 0px;
     margin-top: var(--dl-space-space-doubleunit);
-    margin-left: var(--dl-space-space-doubleunit);
-    margin-right: var(--dl-space-space-doubleunit);
     margin-bottom: var(--dl-space-space-doubleunit);
   }
   .home-feature-card {
