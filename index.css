@@ -1133,10 +1133,22 @@
   .home-about-us {
     height: 100%;
   }
+  .home-heading-container {
+    width: auto;
+    align-self: stretch;
+  }
+  .home-text09 {
+    text-align: center;
+  }
   .home-secondary-text {
     color: var(--dl-color-gray-black);
-    text-align: center;
+    align-self: flex-start;
+    box-shadow: rgb(212, 212, 212) 5px 5px 10px 0px;
+    text-align: justify;
     margin-bottom: 0px;
+  }
+  .home-text20 {
+    color: var(--dl-color-gray-black);
   }
   .home-container3 {
     width: 100%;
@@ -1145,19 +1157,35 @@
     width: 100%;
     height: 100%;
   }
+  .home-text24 {
+    text-align: justify;
+  }
+  .home-text33 {
+    text-align: justify;
+  }
+  .home-text39 {
+    text-align: justify;
+  }
   .home-card-content {
     margin-top: var(--dl-space-space-doubleunit);
+    margin-left: var(--dl-space-space-doubleunit);
+    margin-right: var(--dl-space-space-doubleunit);
     margin-bottom: var(--dl-space-space-doubleunit);
   }
   .home-card-content1 {
     margin-top: var(--dl-space-space-doubleunit);
+    margin-left: var(--dl-space-space-doubleunit);
+    margin-right: var(--dl-space-space-doubleunit);
     margin-bottom: var(--dl-space-space-doubleunit);
   }
   .home-text52 {
     color: var(--dl-color-primary-100);
   }
   .home-card-content2 {
+    margin: 0px;
     margin-top: var(--dl-space-space-doubleunit);
+    margin-left: var(--dl-space-space-doubleunit);
+    margin-right: var(--dl-space-space-doubleunit);
     margin-bottom: var(--dl-space-space-doubleunit);
   }
   .home-feature-card {
