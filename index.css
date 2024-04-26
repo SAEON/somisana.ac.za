@@ -1144,8 +1144,7 @@
   .home-secondary-text {
     color: var(--dl-color-gray-black);
     align-self: flex-start;
-    box-shadow: rgb(212, 212, 212) 5px 5px 10px 0px;
-    text-align: justify;
+    text-align: left;
     margin-bottom: 0px;
   }
   .home-text20 {
@@ -1159,13 +1158,13 @@
     height: 100%;
   }
   .home-text24 {
-    text-align: justify;
+    text-align: left;
   }
   .home-text33 {
-    text-align: justify;
+    text-align: left;
   }
   .home-text39 {
-    text-align: justify;
+    text-align: left;
   }
   .home-card-content {
     margin-top: var(--dl-space-space-doubleunit);
