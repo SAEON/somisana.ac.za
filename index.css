@@ -161,7 +161,7 @@
 }
 .home-container1 {
   width: 100%;
-  height: 100;
+  height: auto;
   display: flex;
   align-items: center;
   background-size: cover;
@@ -171,7 +171,7 @@
 .home-container2 {
   flex: 0 0 auto;
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -205,7 +205,7 @@
   background-color: var(--dl-color-gray-700);
 }
 .home-about-us {
-  width: 1696px;
+  width: 100%;
   height: 100%;
   display: flex;
   max-width: var(--dl-size-size-maxcontent);
@@ -743,7 +743,7 @@
 }
 .home-image6 {
   width: 50%;
-  height: 515px;
+  height: auto;
   object-fit: cover;
   text-decoration: none;
 }
@@ -1108,8 +1108,8 @@
     width: 94px;
   }
   .home-egagasini-logo {
-    width: 59px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
   }
   .home-navbar2 {
     width: 50%;
@@ -1143,7 +1143,22 @@
   }
   .home-image {
     width: 100%;
-    height: 256px;
+    height: 100%;
+  }
+  .home-card-content {
+    margin-top: var(--dl-space-space-doubleunit);
+    margin-bottom: var(--dl-space-space-doubleunit);
+  }
+  .home-card-content1 {
+    margin-top: var(--dl-space-space-doubleunit);
+    margin-bottom: var(--dl-space-space-doubleunit);
+  }
+  .home-text52 {
+    color: var(--dl-color-primary-100);
+  }
+  .home-card-content2 {
+    margin-top: var(--dl-space-space-doubleunit);
+    margin-bottom: var(--dl-space-space-doubleunit);
   }
   .home-feature-card {
     width: 100%;
@@ -1163,7 +1178,13 @@
   .home-testimonial-card {
     width: 100%;
   }
+  .home-name-and-position {
+    width: 100%;
+  }
   .home-testimonial-card1 {
+    width: 100%;
+  }
+  .home-name-and-position1 {
     width: 100%;
   }
   .home-testimonial-card2 {
