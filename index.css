@@ -171,7 +171,7 @@
 .home-container2 {
   flex: 0 0 auto;
   width: 100%;
-  height: var(--dl-size-size-maxcontent);
+  height: 770px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -754,6 +754,9 @@
   .home-link {
     color: var(--dl-color-primary-100);
   }
+  .home-container2 {
+    height: 700px;
+  }
   .home-text03 {
     text-transform: uppercase;
   }
@@ -900,6 +903,9 @@
     font-weight: 700;
     text-decoration: none;
   }
+  .home-container2 {
+    height: 650px;
+  }
   .home-about-us {
     width: 1154px;
     height: 2096px;
@@ -1012,6 +1018,9 @@
   }
   .home-contacts-link {
     display: none;
+  }
+  .home-container2 {
+    height: 500px;
   }
   .home-about-us {
     height: 100%;
@@ -1126,7 +1135,7 @@
     display: none;
   }
   .home-container2 {
-    height: var(--dl-size-size-maxcontent);
+    height: 650px;
     align-items: center;
   }
   .home-about-us {
