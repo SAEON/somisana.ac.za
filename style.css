@@ -1,0 +1,483 @@
+:root {
+  --dl-color-gray-500: #999999;
+  --dl-color-gray-700: #D9D9D9;
+  --dl-color-gray-900: #eaeaeaff;
+  --dl-color-gray-black: #000000;
+  --dl-color-gray-white: #FFFFFF;
+  --dl-space-space-unit: 8px;
+  --dl-color-primary-100: #3a26efff;
+  --dl-color-primary-500: #8469deff;
+  --dl-color-primary-700: #9a91e2ff;
+  --dl-radius-radius-round: 50%;
+  --dl-size-size-maxcontent: 1414px;
+  --dl-space-space-halfunit: 4px;
+  --dl-space-space-tenunits: 80px;
+  --dl-radius-radius-radius2: 2px;
+  --dl-radius-radius-radius4: 4px;
+  --dl-radius-radius-radius8: 8px;
+  --dl-space-space-fiveunits: 40px;
+  --dl-space-space-fourunits: 32px;
+  --dl-space-space-doubleunit: 16px;
+  --dl-space-space-tripleunit: 24px;
+}
+.teleport-show {
+  display: flex !important;
+  transform: none !important;
+}
+.list-item {
+  display: list-item;
+}
+.button {
+  color: var(--dl-color-gray-black);
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-family: Open Sans;
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: var(--dl-color-gray-white);
+}
+.list {
+  width: 100%;
+  margin: 1em 0px 1em 0px;
+  display: block;
+  padding: 0px 0px 0px 1.5rem;
+  list-style-type: none;
+  list-style-position: outside;
+}
+.textarea {
+  color: var(--dl-color-gray-black);
+  cursor: auto;
+  padding: 0.5rem;
+  font-family: Open Sans;
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: var(--dl-color-gray-white);
+}
+.input {
+  color: var(--dl-color-gray-black);
+  cursor: auto;
+  padding: 0.5rem 1rem;
+  font-family: Open Sans;
+  border-color: var(--dl-color-gray-black);
+  border-width: 1px;
+  border-radius: 4px;
+  background-color: var(--dl-color-gray-white);
+}
+.content-header {
+  align-self: flex-start;
+  margin-bottom: var(--dl-space-space-fourunits);
+}
+.content-header-not-first-child {
+  align-self: flex-start;
+  margin-top: var(--dl-space-space-doubleunit);
+}
+.data-card-heading {
+  color: var(--dl-color-gray-black);
+  font-size: 36px;
+  font-style: normal;
+  text-align: center;
+  font-family: Roboto;
+  font-weight: 700;
+  line-height: 1.55;
+  margin-bottom: var(--dl-space-space-fourunits);
+  text-transform: none;
+  text-decoration: none;
+}
+.data-card-content {
+  color: var(--dl-color-primary-100);
+  text-align: justify;
+  margin-bottom: var(--dl-space-space-fourunits);
+}
+.data-card {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  margin: var(--dl-space-space-fiveunits);
+  display: flex;
+  padding: var(--dl-space-space-fiveunits);
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.data-card-button {
+  color: var(--dl-color-gray-white);
+  margin-top: auto;
+  background-color: var(--dl-color-primary-100);
+}
+.data-card-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: var(--dl-color-gray-900);
+}
+.Section-Text {
+  font-size: 18px;
+  font-family: Open Sans;
+  font-weight: 400;
+  line-height: 1.55;
+  text-transform: none;
+  text-decoration: none;
+}
+.Card-Text {
+  font-size: 16px;
+  font-style: normal;
+  font-family: Open Sans;
+  font-weight: 400;
+  line-height: 1.55;
+  text-transform: none;
+  text-decoration: none;
+}
+.BigCard-Heading {
+  font-size: 36px;
+  font-style: normal;
+  font-family: Roboto;
+  font-weight: 700;
+  line-height: 1.55;
+  text-transform: none;
+  text-decoration: none;
+}
+.Content {
+  font-size: 16px;
+  font-family: Arial;
+  font-weight: 400;
+  line-height: 1.55;
+  text-transform: none;
+  text-decoration: none;
+}
+.Card-Heading {
+  font-size: 24px;
+  font-style: normal;
+  font-family: Roboto;
+  font-weight: 700;
+  line-height: 1.55;
+  text-transform: none;
+  text-decoration: none;
+}
+.Anchor {
+  font-size: 18px;
+  font-style: normal;
+  font-family: Roboto;
+  font-weight: 700;
+  line-height: 1.55;
+  text-transform: capitalize;
+  text-decoration: none;
+}
+.Section-Heading {
+  font-size: 48px;
+  font-family: Roboto;
+  font-weight: 700;
+  line-height: 1.22;
+  text-transform: none;
+  text-decoration: none;
+}
+/* Ensure the entire page fills the viewport */
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Page Header Section (Title and Go Back Button) */
+.page-header {
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  flex: 0 0 auto; /* Ensures this section does not grow */
+}
+
+/* Title Styling */
+.page-title {
+  font-size: 28px;
+  color: black;
+  margin: 0;
+}
+
+/* "Go Back" Button Styling */
+.go-back {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+}
+
+/* Container for the two sections to evenly split the remaining screen */
+.content-container {
+  display: flex;
+  flex: 1; /* Ensures it takes up remaining space */
+  flex-direction: column;
+}
+
+/* Each section takes half of the remaining screen */
+.section {
+  flex: 1; /* Makes each section take half of the remaining space */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers content vertically */
+  align-items: center; /* Centers content horizontally */
+  padding: 20px;
+}
+
+/* Top Section: Our Models */
+.models-section {
+  background-color: navy;
+  color: white;
+}
+
+/* Bottom Section: Satellite Derived Products */
+.satellite-section {
+  background-color: #2C3E50; /* Navy-grey */
+  color: white;
+}
+
+/* Button Styling (Reuses Existing Button Styles) */
+.data-card-button {
+  display: inline-block;
+  margin: 15px;
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.data-card-button:hover {
+  background-color: #0056b3;
+}
+
+/* Ensure buttons inside 'Satellite Derived Products' align side by side */
+.satellite-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.satellite-section h1 {
+  text-align: center;
+  width: 100%;
+}
+
+/* Button container to align buttons horizontally */
+.satellite-buttons {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping if buttons don’t fit */
+  justify-content: center; /* Centers buttons */
+  gap: 15px; /* Space between buttons */
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Ensure each button has proper spacing */
+.satellite-buttons .data-card-button {
+  flex: 1; /* Ensures buttons adjust size evenly */
+  min-width: 200px; /* Ensures buttons don’t get too small */
+  max-width: 300px; /* Prevents overly wide buttons */
+  text-align: center;
+}
+
+
+/* Layout for the Model Page */
+.model-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px;
+  gap: 40px;
+}
+
+/* Left Section: GIF */
+.model-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Right Section: Description */
+.model-description {
+  max-width: 50%;
+  font-size: 18px;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* Page Header */
+.page-header {
+  background-color: white;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+}
+
+/* Page Title */
+.page-title {
+  font-size: 28px;
+  color: black;
+  margin: 0;
+}
+
+/* Back Navigation (Left Arrow) */
+.back-nav {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 40px; /* Adjust size */
+  height: 40px;
+  display: inline-block;
+}
+
+.back-nav img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.back-nav img:hover {
+  opacity: 0.7; /* Makes it fade slightly on hover */
+}
+
+
+/* GIF Section (Side-by-Side on Desktop) */
+.model-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px; /* Space between GIFs */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Ensure GIFs take full width inside container */
+.gif-container img {
+  width: 100%;
+  max-width: 400px; /* Prevents excessive scaling */
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+
+/* Ensure each GIF container stacks title and GIF properly */
+.gif-container {
+  display: flex;
+  flex-direction: column; /* Stack title above GIF */
+  align-items: center; /* Center both title and GIF */
+  width: 45%; /* Each container takes up nearly half the screen */
+}
+
+/* Title for Each GIF */
+.gif-container h3 {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px; /* Space between title and GIF */
+}
+
+/* Ensure GIFs take full width inside container */
+.gif-container img {
+  width: 100%;
+  max-width: 400px; /* Prevents excessive scaling */
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.content-container {
+  border-bottom: 2px solid #ccc; /* Gray line between sections */
+  padding-bottom: 20px; /* Spacing before the border */
+  margin-bottom: 20px; /* Space after the border */
+}
+
+.content-container:last-child {
+  border-bottom: none; /* Remove border from the last section */
+}
+
+.page-header {
+  background-color: #d3d3d3; /* Light grey background */
+  padding: 15px; /* Adds space inside */
+  text-align: center; /* Center aligns text */
+  display: flex; /* Enables flexbox for alignment */
+  flex-direction: column; /* Ensures elements stack vertically */
+  align-items: center; /* Centers elements horizontally */
+  justify-content: center; /* Centers content vertically */
+  border-radius: 8px; /* Optional: Adds rounded corners */
+  width: 100%; /* Ensures it spans the full width */
+}
+
+/* Ensuring the title is centered */
+.page-header .page-title {
+  margin: 0; /* Remove default margin */
+  color: #000; /* Keep text readable */
+  font-size: 24px; /* Adjust title size */
+  text-align: center; /* Explicitly center title */
+}
+
+/* Ensuring the back button stays aligned */
+.page-header .back-nav img {
+  width: 30px; /* Adjust back arrow size */
+  height: auto;
+}
+
+
+
+
+@media(max-width: 1600px) {
+  .data-card-heading {
+    color: var(--dl-color-gray-black);
+    font-size: 36px;
+    font-style: normal;
+    font-family: Roboto;
+    font-weight: 700;
+    line-height: 1.55;
+    text-transform: none;
+    text-decoration: none;
+  }
+  .data-card-content {
+    color: rgb(33, 3, 255);
+    font-size: 16px;
+  }
+}
+
+
+/* RESPONSIVE DESIGN: Mobile View */
+@media screen and (max-width: 768px) {
+  
+  /* Stack the GIFs vertically on mobile */
+  .model-images {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Ensure GIF containers take full width */
+  .gif-container {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Ensure each GIF is visible and takes full width */
+  .gif-container img {
+    width: 100%;
+    max-width: 500px; /* Prevents GIFs from getting too large */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Ensure text (blurb) fills available space */
+  .model-description {
+    width: 100%;
+    max-width: none;
+    text-align: left;
+    padding: 20px;
+  }
+}
+
+
+
