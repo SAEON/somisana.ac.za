@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SA South East Model</title>
+    <title>SACOFS-southeast Model</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -11,48 +11,116 @@
     <!-- Page Header with Back Navigation -->
     <div class="page-header">
         <a href="newpage.html" class="back-nav">
-            <img src="public\left-arrow.png" alt="Back">
+            <img src="public/left-arrow.png" alt="Back">
         </a>
-        <h1 class="page-title">SA South East Model</h1>
+        <h1 class="page-title">SACOFS-southeast Model</h1>
     </div>
 
-    <!-- Content Section -->
+
+
+    <!-- Blurb Section (Now at the Top) -->
+    <div class="model-description">
+        <!--<h2>SA West Model</h2> -->
+        <hr>
+        <p>
+            Past, present and future ocean state at the water surface from a Coastal and Regional Ocean 
+            Community (CROCO) numerical model configuration of the South Benguela region. The model is 
+            initialized once a day, and produces output at an hourly temporal resolution for a period 
+            of 5 days into the past to 5 days into the future.
+
+            The provided variables are sea surface temperature (SST), sea surface height (SSH), salinity, 
+            and surface currents. Boundary conditions for the model are obtained from the ~9km resolution 
+            Mercator global ocean analysis and forecast product, while surface forcing is obtained from 
+            the Global Forecast System (GFS). 
+
+            Our configuration represents a 'downscaling' of the Mercator global ocean product to high 
+            resolution (~500 m) over Algoa Bay, allowing for the simulation of local bay-scale processes.
+        </p>
+    </div>
+
+    <hr> <!-- Boundary Line -->
+
+    <!-- First Section -->
+    <h2 class="section-header">MERCATOR-GFS</h2>
     <div class="content-container model-content">
-        
-        <!-- GIF Section -->
         <div class="model-images">
             <div class="gif-container">
-                <h3>SST</h3>
+                <h3>Sea Surface Temperature</h3>
                 <img src="public/croco_avg_temp_surf_Algoa.gif" alt="Sea Surface Temperature Animation">
             </div>
             <div class="gif-container">
-                <h3>Temp at 100m</h3>
+                <h3>Temperature at 100m</h3>
                 <img src="public/croco_avg_temp_100m_Algoa.gif" alt="Temperature at 100m Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Bottom Temperature</h3>
+                <img src="public/croco_avg_temp_bot _Algoa.gif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
+    </div>
+
+    <!-- <hr>  Boundary Line -->
+
+    <!-- Second Section -->
+    <h2 class="section-header">MERCATOR-SAWS</h2>
+    <div class="content-container model-content">
+        <div class="model-images">
+            <div class="gif-container">
+                <h3>Sea Surface Temperature</h3>
+                <img src="public/croco_avg_temp.gif" alt="Sea Surface Temperature Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Temperature at 100m</h3>
+                <img src="public/croco_avg.gif" alt="Temperature at 100m Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Bottom Temperature</h3>
+                <img src="public/croco_avggif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
+    </div>
+
+    <!-- <hr>  Boundary Line -->
+
+    <!-- Third Section -->
+    <h2 class="section-header">HYCOM-GFS</h2>
+    <div class="content-container model-content">
+        <div class="model-images">
+            <div class="gif-container">
+                <h3>Sea Surface Temperature</h3>
+                <img src="public/croco_avg_temp_surf_Algoa.gif" alt="Sea Surface Temperature Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Temperature at 100m</h3>
+                <img src="public/croco_avg_temp_100m_Algoa.gif" alt="Temperature at 100m Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Bottom Temperature</h3>
+                <img src="public/croco_avg_temp_bot _Algoa.gif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
+    </div>
+
+        <!-- Fourth Section -->
+        <h2 class="section-header">HYCOM-SAWS</h2>
+        <div class="content-container model-content">
+            <div class="model-images">
+                <div class="gif-container">
+                    <h3>Sea Surface Temperature</h3>
+                    <img src="public/croco_.gif" alt="Sea Surface Temperature Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Temperature at 100m</h3>
+                    <img src="public/croco_.gif" alt="Temperature at 100m Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Bottom Temperature</h3>
+                    <img src="public/croco_.gif" alt="Bottom Temperature Animation">
+                </div>
             </div>
         </div>
 
-        <!-- Right Section: Blurb -->
-        <div class="model-description">
-            <h2>SA S.East Model</h2>
-            <p>
-                Past, present and future ocean state at the water surface from a Coastal and Regional Ocean 
-                Community (CROCO) numerical model configuration of the Algoa Bay region. The model is 
-                initialized once a day, and produces output at an hourly temporal resolution for a period 
-                of 5 days into the past to 5 days into the future.
-            </p>
-            <p>
-                The provided variables are sea surface temperature (SST), sea surface height (SSH), salinity, 
-                and surface currents. Boundary conditions for the model are obtained from the ~9km resolution 
-                Mercator global ocean analysis and forecast product, while surface forcing is obtained from 
-                the Global Forecast System (GFS). 
-            </p>
-            <p>
-                Our configuration represents a 'downscaling' of the Mercator global ocean product to high 
-                resolution (~500 m) over Algoa Bay, allowing for the simulation of local bay-scale processes.
-            </p>
-        </div>
-
-    </div>
+    <hr> <!-- Boundary Line -->
 
 </body>
 </html>

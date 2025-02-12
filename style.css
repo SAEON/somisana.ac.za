@@ -302,10 +302,10 @@ html, body {
 
 /* Right Section: Description */
 .model-description {
-  max-width: 50%;
+  max-width: 100%;
   font-size: 18px;
   line-height: 1.6;
-  text-align: justify;
+  text-align: center;
 }
 
 /* Page Header */
@@ -425,6 +425,55 @@ html, body {
   height: auto;
 }
 
+/* Centered blurb section (Full Width) */
+.blurb-container {
+  text-align: center;
+  max-width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+/* Styling for Blurb Title */
+.blurb-container h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Styling for Blurb Paragraphs */
+.blurb-container p {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+/* Section Headers (Left-Aligned) */
+.section-header {
+  text-align: left;
+  margin-left: 20px;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+/* Ensure section dividers are clear */
+hr {
+  border: 1px solid #ddd;
+  margin: 30px 0;
+}
+
+
+/* Centered blurb inside each section, above buttons */
+.blurb-container {
+  text-align: center;
+  max-width: 80%;
+  margin: 10px auto 20px auto; /* Adjust spacing */
+  padding: 10px;
+}
+
+/* Styling for Blurb Paragraphs */
+.blurb-container p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: white; /* Matches text color of the section */
+}
 
 
 
@@ -470,14 +519,13 @@ html, body {
     margin: 0 auto;
   }
 
-  /* Ensure text (blurb) fills available space */
+  /* Ensure text (blurb) fills available space 
   .model-description {
     width: 100%;
     max-width: none;
-    text-align: left;
+    text-align: center;
     padding: 20px;
-  }
+  }*/
 }
-
 
 
