@@ -5,6 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Styles for the collapsible blurb */
+        .blurb-container {
+            position: relative;
+            overflow: hidden;
+            max-height: 120px; /* Initially collapsed height */
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .blurb-container.expanded {
+            max-height: 1000px; /* Expanded height */
+        }
+
+        .read-more-link {
+            display: inline;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+            margin-left: 5px;
+        }
+
+        .read-more-link:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
@@ -21,33 +47,89 @@
 
         <!-- Top Section: Our Models -->
         <div class="section models-section">
-            <h1>Forecast Models</h1>
-            <a href="sa-west-model.html" class="data-card-button button">
-                <span><span class="Anchor">SA West Model</span><br /></span>
-            </a>
-            <a href="sa-southeast-model.html" class="data-card-button button">
-                <span><span class="Anchor">SA S-East Model</span><br /></span>
-            </a>
+            <h1>Our Forecast Models</h1>
+
+            <!-- Blurb Section with Collapsible Text -->
+            <div class="blurb-container" id="blurb">
+                <p>
+                    Our South African Coastal Ocean Forecast System (SACOFS) provides predictions of the ocean state using specifically designed configurations of the Coastal and Regional Ocean COmmunity model (CROCO - https://www.croco-ocean.org/).
+                    The system focuses on high-priority regions along South Africa’s coast, where ocean forecasts are needed most. Our models provide operational forecasts at high spatial resolution (< 1 km at the coast) for two domains:
+                    <b>• SACOFS-west & SACOFS-southeast</b>
+                    <span id="more-text" style="display: none;">
+                        <br><br>
+                        Open boundary conditions for our models are obtained from two ~9 km resolution global ocean analysis and forecast products: MERCATOR (https://doi.org/10.48670/moi-00016) and HYCOM (https://www.hycom.org/dataserver/gofs-3pt1/analysis).
+                        Our models effectively represent a ‘downscaling’ of these global models to high resolution at the coast.
+                        <br><br>
+                        Surface forcing for our models is obtained from both the ~25 km resolution Global Forecast System (GFS) Model (https://www.nco.ncep.noaa.gov/pmb/products/gfs/) and a ~4 km resolution atmospheric forecast model run operationally by the South African Weather Service (SAWS).
+                        <br><br>
+                        The use of two different boundary forcing products and two different surface forcing products allows us to provide a four-member ensemble of forecasts for each of our domains. The ensemble members are named according to the BOUNDARY-SURFACE forcing combination:
+                        <br><b>• MERCATOR-GFS</b>
+                        <br><b>• MERCATOR-SAWS</b>
+                        <br><b>• HYCOM-GFS</b>
+                        <br><b>• HYCOM-SAWS</b>
+                        <br><br>
+                        Each ensemble member is initialized once a day, producing output throughout the water column at an hourly temporal resolution for a period of 5 days into the past and 5 days into the future.
+                    </span>
+                    <span class="read-more-link" id="read-more-btn">Read More</span>
+                </p>
+            </div>
+
+            <!-- Button Container -->
+            <div class="button-container">
+                <a href="sa-west-model.html" class="data-card-button button">
+                    <span><span class="Anchor">SACOFS-west</span><br /></span>
+                </a>
+                <a href="sa-southeast-model.html" class="data-card-button button">
+                    <span><span class="Anchor">SACOFS-southeast</span><br /></span>
+                </a>
+            </div>
         </div>
 
         <!-- Bottom Section: Satellite Derived Products -->
         <div class="section satellite-section">
             <h1>Satellite Derived Products</h1>
-            <a href="products.html" class="data-card-button button">
-                <span><span class="Anchor">Satellite SST</span><br /></span>
-            </a>
-            <a href="products.html" class="data-card-button button">
-                <span><span class="Anchor">Marine Heat Waves</span><br /></span>
-            </a>
-            <a href="products.html" class="data-card-button button">
-                <span><span class="Anchor">Lacce Algorythm</span><br /></span>
-            </a>
+
+            <!-- Blurb Section -->
+            <div class="blurb-container">
+                <p>
+                    Explore satellite-derived ocean products such as sea surface temperature, marine heat waves, and
+                    oceanographic algorithms. These products help in monitoring climate trends, detecting changes in ocean conditions, and supporting scientific research. Click the buttons below to learn more.
+                </p>
+            </div>
+
+            <!-- Button Container -->
+            <div class="button-container">
+                <a href="products.html" class="data-card-button button">
+                    <span><span class="Anchor">Satellite SST</span><br /></span>
+                </a>
+                <a href="products.html" class="data-card-button button">
+                    <span><span class="Anchor">Marine Heat Waves</span><br /></span>
+                </a>
+                <a href="products.html" class="data-card-button button">
+                    <span><span class="Anchor">Lacce Algorithm</span><br /></span>
+                </a>
+            </div>
         </div>
 
     </div>
 
+    <script>
+        // JavaScript for Collapsible Text
+        document.getElementById("read-more-btn").addEventListener("click", function() {
+            var moreText = document.getElementById("more-text");
+            var blurb = document.getElementById("blurb");
+
+            if (moreText.style.display === "none") {
+                moreText.style.display = "inline";
+                blurb.classList.add("expanded");
+                this.innerText = "Read Less";
+            } else {
+                moreText.style.display = "none";
+                blurb.classList.remove("expanded");
+                this.innerText = "Read More";
+            }
+        });
+    </script>
+
 </body>
 </html>
-
-
-
