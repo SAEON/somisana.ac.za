@@ -2,3 +2,7 @@
 2025-02-11: Success
 2025-02-12: Success
 2025-02-12: Success
+2025-02-18 - sa-west/HYCOM-GFS: Success
+2025-02-18 - sa-west/MERCATOR-GFS: Success
+2025-02-18 - sa-southeast/HYCOM-GFS: Success
+2025-02-18 - sa-southeast/MERCATOR-GFS: Success

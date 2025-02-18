@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Set the page background to navy */
+        body {
+            background-color: navy;
+            color: white; /* Ensures readability for non-section elements */
+            font-family: "Open Sans", sans-serif; /* Matches newpage.html */
+            margin: 0;
+            padding: 0;
+        }
+
         /* Styling for collapsible sections */
         .section-header {
             cursor: pointer;
@@ -32,7 +41,8 @@
             padding: 10px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            background-color: #f9f9f9;
+            background-color: white; /* Keeps sections white */
+            color: black; /* Ensures text inside sections is readable */
         }
 
         .gif-container {
@@ -45,6 +55,49 @@
             color: red;
             text-align: center;
         }
+
+        /* Ensure headers and text in sections remain readable */
+        .model-description {
+            background-color: white;
+            color: black;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto; /* Centers the blurb */
+            max-width: 80%; /* Matches newpage.html */
+            text-align: center;
+            font-size: 18px; /* Ensures consistent text size */
+            line-height: 1.6;
+        }
+
+        /* Page header styling */
+        .page-header {
+            background-color: #0056b3;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Make "SACOFS-west Model" header white */
+        .page-header h1 {
+            color: white;
+        }
+
+        /* Ensure buttons and back navigation are visible */
+        .back-nav img {
+            width: 30px;
+        }
+
+        /* Make links red, like in newpage.html */
+        .model-description a {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .model-description a:hover {
+            color: red;
+        }
+
     </style>
 </head>
 <body>
@@ -54,27 +107,41 @@
         <a href="newpage.html" class="back-nav">
             <img src="public/left-arrow.png" alt="Back">
         </a>
-        <h1 class="page-title">SACOFS-west Model</h1>
+        <h1 class="page-title" style="color: white;">SACOFS-west Model</h1>
     </div>
 
     <!-- Model Description -->
     <div class="model-description">
         <hr>
-            <!-- Page Header with Back Navigation -->
-    <div >
-        <h1 class="page-title">Configurations</h1>
-    </div>
+        <div>
+            <h1 class="page-title">Various Configuration Runs</h1>
+        </div>
         <p>
-            Past, present, and future ocean state at the water surface from a Coastal and Regional Ocean 
-            Community (CROCO) numerical model configuration of the South Benguela region. The model is 
-            initialized once a day and produces output at an hourly temporal resolution for a period 
-            of 5 days into the past to 5 days into the future.
-
-            The provided variables are sea surface temperature (SST), sea surface height (SSH), salinity, 
-            and surface currents. Boundary conditions for the model are obtained from the ~9km resolution 
-            Mercator global ocean analysis and forecast product, while surface forcing is obtained from 
-            the Global Forecast System (GFS). 
+            The animations below provide a visual representation of temperature and currents at the water surface, bottom, 
+            and a depth of 100 m. Animations are provided for the most recent successful simulation from each of the four 
+            ensemble members. The ensemble members are named according to the BOUNDARY-SURFACE forcing combination. <br><br>
+        
+            The model output files for these forecasts can be accessed via our 
+            <a href="https://somisana.ocean.gov.za/sa-west/v1.0/forecasts" target="_blank">
+                file server
+            </a>, or alternatively via 
+            <a href="https://somisana.ocean.gov.za/thredds/catalog/mnt/ocims-somisana/sa-west/v1.0/forecasts/catalog.html" 
+                target="_blank">
+                THREDDS
+            </a>.         
+            We have produced a similarly configured hindcast of this model domain, which can be accessed via our 
+            <a href="https://somisana.ocean.gov.za/sa-west/v1.0/hindcasts" target="_blank">
+                file server
+            </a>, or alternatively via 
+            <a href="https://somisana.ocean.gov.za/thredds/catalog/mnt/ocims-somisana/sa-west/v1.0/hindcasts/catalog.html" 
+                target="_blank">
+                THREDDS
+            </a>. 
+        
+            The hindcast validation report for this domain can be found here 
+            <span style="color: gray;">(link coming up soon)</span>.
         </p>
+        
     </div>
 
     <hr> <!-- Boundary Line -->
@@ -87,18 +154,56 @@
         <div class="model-images">
             <div class="gif-container">
                 <h3>Sea Surface Temperature</h3>
-                <img src="public/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
             </div>
             <div class="gif-container">
                 <h3>Temperature at 100m</h3>
-                <img src="public/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
             </div>
             <div class="gif-container">
                 <h3>Bottom Temperature</h3>
-                <img src="public/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
+
+        <script>
+            function toggleSection(sectionNumber) {
+                var content = document.getElementById("content-" + sectionNumber);
+                var button = document.getElementById("btn-" + sectionNumber);
+        
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    button.innerHTML = "-"; // Minimize icon
+                } else {
+                    content.style.display = "none";
+                    button.innerHTML = "+"; // Expand icon
+                }
+            }
+        </script>
+        
+
+        <!-- Anomalies Subsection -->
+        <h3 class="section-header" onclick="toggleSection(5)">
+            Anomalies <button class="toggle-btn" id="btn-5">+</button>
+        </h3>
+        <div class="content-container" id="content-5">
+            <div class="model-images">
+                <div class="gif-container">
+                    <h3>Sea Surface Temperature</h3>
+                    <img src="public/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Temperature at 100m</h3>
+                    <img src="public/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Bottom Temperature</h3>
+                    <img src="public/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                </div>
             </div>
         </div>
     </div>
+
 
     <!-- Second Section (Unavailable) -->
     <h2 class="section-header" onclick="toggleSection(2)">
@@ -109,25 +214,65 @@
     </div>
 
     <!-- Third Section -->
-    <h2 class="section-header" onclick="toggleSection(3)">
-        HYCOM-GFS <button class="toggle-btn" id="btn-3">+</button>
+
+    <h2 class="section-header" onclick="toggleSection(6)">
+        HYCOM-GFS <button class="toggle-btn" id="btn-6">+</button>
     </h2>
-    <div class="content-container model-content" id="content-3">
+    <div class="content-container model-content" id="content-6">
         <div class="model-images">
             <div class="gif-container">
                 <h3>Sea Surface Temperature</h3>
-                <img src="public/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
             </div>
             <div class="gif-container">
                 <h3>Temperature at 100m</h3>
-                <img src="public/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
             </div>
             <div class="gif-container">
                 <h3>Bottom Temperature</h3>
-                <img src="public/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
+
+        <script>
+            function toggleSection(sectionNumber) {
+                var content = document.getElementById("content-" + sectionNumber);
+                var button = document.getElementById("btn-" + sectionNumber);
+        
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    button.innerHTML = "-"; // Minimize icon
+                } else {
+                    content.style.display = "none";
+                    button.innerHTML = "+"; // Expand icon
+                }
+            }
+        </script>
+        
+
+        <!-- Anomalies Subsection -->
+        <h3 class="section-header" onclick="toggleSection(3)">
+            Anomalies <button class="toggle-btn" id="btn-3">+</button>
+        </h3>
+        <div class="content-container" id="content-3">
+            <div class="model-images">
+                <div class="gif-container">
+                    <h3>Sea Surface Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Temperature at 100m</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Bottom Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                </div>
             </div>
         </div>
     </div>
+
+    
 
     <!-- Fourth Section (Unavailable) -->
     <h2 class="section-header" onclick="toggleSection(4)">

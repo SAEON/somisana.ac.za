@@ -20,7 +20,7 @@
 
         .read-more-link {
             display: inline;
-            color: #007bff;
+            color: red;
             cursor: pointer;
             font-size: 14px;
             text-decoration: underline;
@@ -28,13 +28,13 @@
         }
 
         .read-more-link:hover {
-            color: #0056b3;
+            color: red;
         }
     </style>
 </head>
 <body>
 
-    <!-- Page Header with Back Navigation -->
+    <!-- Page Header with Back Navigation #0056b3 or #007bff-->
     <div class="page-header">
         <a href="index.html" class="back-nav">
             <img src="left-arrow.png" alt="Back">
@@ -52,23 +52,49 @@
             <!-- Blurb Section with Collapsible Text -->
             <div class="blurb-container" id="blurb">
                 <p>
-                    Our South African Coastal Ocean Forecast System (SACOFS) provides predictions of the ocean state using specifically designed configurations of the Coastal and Regional Ocean COmmunity model (CROCO - https://www.croco-ocean.org/).
-                    The system focuses on high-priority regions along South Africa’s coast, where ocean forecasts are needed most. Our models provide operational forecasts at high spatial resolution (< 1 km at the coast) for two domains:
+                    Our South African Coastal Ocean Forecast System (SACOFS) provides predictions of the ocean state using 
+                    specifically designed configurations of the Coastal and Regional Ocean COmmunity model 
+                    (<a href="https://www.croco-ocean.org/" target="_blank" style="color: red; text-decoration: underline;">
+                        CROCO
+                    </a>).
+                    The system focuses on high-priority regions along South Africa’s coast, where ocean forecasts are needed most. 
+                    Our models provide operational forecasts at high spatial resolution (< 1 km at the coast) for two domains:
                     <b>• SACOFS-west & SACOFS-southeast</b>
                     <span id="more-text" style="display: none;">
-                        <br><br>
-                        Open boundary conditions for our models are obtained from two ~9 km resolution global ocean analysis and forecast products: MERCATOR (https://doi.org/10.48670/moi-00016) and HYCOM (https://www.hycom.org/dataserver/gofs-3pt1/analysis).
+                        Open boundary conditions for our models are obtained from two ~9 km resolution global ocean analysis and forecast products: 
+                        <a href="https://doi.org/10.48670/moi-00016" target="_blank" style="color: red; text-decoration: underline;">
+                            MERCATOR
+                        </a> and 
+                        <a href="https://www.hycom.org/dataserver/gofs-3pt1/analysis" target="_blank" style="color: red; text-decoration: underline;">
+                            HYCOM
+                        </a>.
                         Our models effectively represent a ‘downscaling’ of these global models to high resolution at the coast.
+                    
+                        Surface forcing for our models is obtained from both the ~25 km resolution 
+                        <a href="https://www.nco.ncep.noaa.gov/pmb/products/gfs/" target="_blank" style="color: red; text-decoration: underline;">
+                            Global Forecast System (GFS) Model
+                        </a> and a ~4 km resolution atmospheric forecast model run operationally by the South African Weather Service (SAWS).
+                    
+                        The use of two different boundary forcing products and two different surface forcing products allows us to provide a 
+                        four-member ensemble of forecasts for each of our domains. The ensemble members are named according to the 
+                        BOUNDARY-SURFACE forcing combination:
                         <br><br>
-                        Surface forcing for our models is obtained from both the ~25 km resolution Global Forecast System (GFS) Model (https://www.nco.ncep.noaa.gov/pmb/products/gfs/) and a ~4 km resolution atmospheric forecast model run operationally by the South African Weather Service (SAWS).
+                        <b> MERCATOR-GFS</b>,
+                        <b> MERCATOR-SAWS</b>,
+                        <b> HYCOM-GFS</b>,
+                        <b> HYCOM-SAWS</b>
                         <br><br>
-                        The use of two different boundary forcing products and two different surface forcing products allows us to provide a four-member ensemble of forecasts for each of our domains. The ensemble members are named according to the BOUNDARY-SURFACE forcing combination:
-                        <br><b>• MERCATOR-GFS</b>
-                        <br><b>• MERCATOR-SAWS</b>
-                        <br><b>• HYCOM-GFS</b>
-                        <br><b>• HYCOM-SAWS</b>
+                        Each of the ensemble members are additionally forced with tides from 
+                        <a href="https://www.tpxo.net/global/tpxo10-atlas" target="_blank" style="color: red; text-decoration: underline;">
+                            TPXO10
+                        </a>.
+                        Each ensemble member is initialized once a day, producing output throughout the water column at an hourly temporal 
+                        resolution for a period of 5 days into the past to 5 days into the future. The SAWS-forced simulations are however 
+                        limited to a 2.5-day forecast due to the limited temporal availability of the forcing. The provided output variables 
+                        are seawater temperature, salinity, sea surface height, and currents.
                         <br><br>
-                        Each ensemble member is initialized once a day, producing output throughout the water column at an hourly temporal resolution for a period of 5 days into the past and 5 days into the future.
+                    
+                        Click the buttons below to see selected animations of the latest forecasts.
                     </span>
                     <span class="read-more-link" id="read-more-btn">Read More</span>
                 </p>
