@@ -7,7 +7,7 @@ source /home/nc.memela/anaconda3/etc/profile.d/conda.sh
 conda activate somisana_croco
 
 # Run the Python script
-python /home/nc.memela/Projects/somisana-current_running_file/public/download_gifs.py
+python /home/nc.memela/Projects/somisana.ac.za/public/download_gifs.py
 
 # Deactivate the environment (optional)
 conda deactivate

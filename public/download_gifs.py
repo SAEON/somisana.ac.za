@@ -3,27 +3,24 @@ import requests
 from datetime import datetime, timedelta
 
 # Define constants
-BASE_URL = "https://somisana.ocean.gov.za/sa-west/v1.0/forecasts"
-LOCAL_DIR = "/home/nc.memela/Projects/somisana-current_running_file/public"
-LOG_FILE = os.path.join(LOCAL_DIR, "download_log.txt")
+BASE_URLS = {
+    "sa-west": "https://somisana.ocean.gov.za/sa-west/v1.0/forecasts",
+    "sa-southeast": "https://somisana.ocean.gov.za/sa-southeast/v1.0/forecasts"
+}
 
+LOCAL_DIRS = {
+    "sa-west": "/home/nc.memela/Projects/somisana.ac.za/public/sa-west/latest_forecasts",
+    "sa-southeast": "/home/nc.memela/Projects/somisana.ac.za/public/sa-southeast/latest_forecasts"
+}
+
+MODELS = ["HYCOM-GFS", "MERCATOR-GFS"]
 GIF_FILES = ["croco_avg_temp_100m.gif", "croco_avg_temp_surf.gif", "croco_avg_temp_bot.gif"]
+LOG_FILE = "/home/nc.memela/Projects/somisana.ac.za/public/download_log.txt"
 
-def get_today_date_path():
-    """Return today's date path in the required format YYYYMM/YYYYMMDD."""
-    today = datetime.utcnow()
-    return f"{today.strftime('%Y%m')}/{today.strftime('%Y%m%d')}_00"
-
-def get_latest_available_url():
-    """Check for the latest available data, going back if today's is missing."""
-    today = datetime.utcnow()
-    
-    for days_back in range(7):  # Look back up to a week
-        date_path = (today - timedelta(days=days_back)).strftime('%Y%m/%Y%m%d_00')
-        url = f"{BASE_URL}/{date_path}/MERCATOR-GFS"
-        if check_url_exists(url):
-            return url
-    return None
+def get_date_path(days_back=0):
+    """Return the date path in the required format YYYYMM/YYYYMMDD."""
+    date = datetime.utcnow() - timedelta(days=days_back)
+    return f"{date.strftime('%Y%m')}/{date.strftime('%Y%m%d')}_00"
 
 def check_url_exists(url):
     """Check if the URL is reachable (test with HEAD request)."""
@@ -33,45 +30,55 @@ def check_url_exists(url):
     except requests.RequestException:
         return False
 
-def download_gif(url, filename):
+def get_latest_available_url(base_url):
+    """Find the latest available forecast data URL by checking past days."""
+    for days_back in range(7):  # Look back up to a week
+        date_path = get_date_path(days_back)
+        for model in MODELS:
+            url = f"{base_url}/{date_path}/{model}"
+            if check_url_exists(url):
+                return url, date_path
+    return None, None
+
+def download_gif(url, filename, local_path):
     """Download the GIF from the given URL and save it locally."""
     gif_url = f"{url}/{filename}"
-    local_path = os.path.join(LOCAL_DIR, filename)
-    
     try:
         response = requests.get(gif_url, timeout=15)
         if response.status_code == 200:
             with open(local_path, 'wb') as f:
                 f.write(response.content)
             return True
-        else:
-            return False
     except requests.RequestException:
-        return False
+        pass
+    return False
 
-def log_download_attempt(success, date):
+def log_download_attempt(region, model, success, date):
     """Log the attempt in a text file."""
     with open(LOG_FILE, "a") as log:
         status = "Success" if success else "Failure"
-        log.write(f"{date}: {status}\n")
+        log.write(f"{date} - {region}/{model}: {status}\n")
 
 def main():
-    """Main function to check and download the latest GIFs."""
-    os.makedirs(LOCAL_DIR, exist_ok=True)
-    
-    latest_url = get_latest_available_url()
-    if not latest_url:
-        print("No recent valid forecast found. Keeping existing files.")
-        log_download_attempt(False, datetime.utcnow().strftime('%Y-%m-%d'))
-        return
+    """Main function to download the latest GIFs from both regions."""
+    for region, base_url in BASE_URLS.items():
+        for model in MODELS:
+            latest_url, date_path = get_latest_available_url(base_url)
+            if not latest_url:
+                print(f"No recent valid forecast found for {region}/{model}. Skipping.")
+                log_download_attempt(region, model, False, datetime.utcnow().strftime('%Y-%m-%d'))
+                continue
 
-    success = False
-    for gif in GIF_FILES:
-        if download_gif(latest_url, gif):
-            success = True
+            save_dir = os.path.join(LOCAL_DIRS[region], model)
+            os.makedirs(save_dir, exist_ok=True)
 
-    log_download_attempt(success, datetime.utcnow().strftime('%Y-%m-%d'))
+            success = False
+            for gif in GIF_FILES:
+                local_path = os.path.join(save_dir, gif)
+                if download_gif(latest_url, gif, local_path):
+                    success = True
+
+            log_download_attempt(region, model, success, datetime.utcnow().strftime('%Y-%m-%d'))
 
 if __name__ == "__main__":
     main()
-

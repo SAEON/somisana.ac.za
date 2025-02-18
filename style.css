@@ -475,6 +475,17 @@ hr {
   color: white; /* Matches text color of the section */
 }
 
+video {
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  display: block;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+
 
 
 @media(max-width: 1600px) {
@@ -519,13 +530,7 @@ hr {
     margin: 0 auto;
   }
 
-  /* Ensure text (blurb) fills available space 
-  .model-description {
-    width: 100%;
-    max-width: none;
-    text-align: center;
-    padding: 20px;
-  }*/
+
 }
 
 
