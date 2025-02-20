@@ -9,13 +9,19 @@ BASE_URLS = {
 }
 
 LOCAL_DIRS = {
+    "sa-west": "/home/nkululeko/somisana.ac.za/public/sa-west/latest_forecasts",
+    "sa-southeast": "/home/nkululeko/somisana.ac.za/public/sa-southeast/latest_forecasts"
+}
+
+'''LOCAL_DIRS = {
     "sa-west": "/home/nc.memela/Projects/somisana.ac.za/public/sa-west/latest_forecasts",
     "sa-southeast": "/home/nc.memela/Projects/somisana.ac.za/public/sa-southeast/latest_forecasts"
-}
+}'''
+
 
 MODELS = ["HYCOM-GFS", "MERCATOR-GFS"]
 GIF_FILES = ["croco_avg_temp_100m.gif", "croco_avg_temp_surf.gif", "croco_avg_temp_bot.gif"]
-LOG_FILE = "/home/nc.memela/Projects/somisana.ac.za/public/download_log.txt"
+LOG_FILE = "/home/nkululeko/somisana.ac.za/public/download_log.txt"
 
 def get_date_path(days_back=0):
     """Return the date path in the required format YYYYMM/YYYYMMDD."""
