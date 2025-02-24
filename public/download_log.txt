@@ -22,3 +22,7 @@
 2025-02-22 - sa-west/MERCATOR-GFS: Failure
 2025-02-22 - sa-southeast/HYCOM-GFS: Failure
 2025-02-22 - sa-southeast/MERCATOR-GFS: Failure
+2025-02-23 - sa-west/HYCOM-GFS: Failure
+2025-02-23 - sa-west/MERCATOR-GFS: Failure
+2025-02-23 - sa-southeast/HYCOM-GFS: Failure
+2025-02-23 - sa-southeast/MERCATOR-GFS: Failure
