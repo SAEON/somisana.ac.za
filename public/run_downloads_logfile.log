@@ -42,3 +42,11 @@ No recent valid forecast found for sa-southeast/MERCATOR-GFS. Skipping.
   date = datetime.utcnow() - timedelta(days=days_back)
 /home/nkululeko/somisana.ac.za/public/download_gifs.py:28: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
   date = datetime.utcnow() - timedelta(days=days_back)
+/home/nkululeko/somisana.ac.za/public/download_gifs.py:75: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  log_download_attempt(region, model, False, datetime.utcnow().strftime('%Y-%m-%d'))
+No recent valid forecast found for sa-west/HYCOM-GFS. Skipping.
+No recent valid forecast found for sa-west/MERCATOR-GFS. Skipping.
+No recent valid forecast found for sa-southeast/HYCOM-GFS. Skipping.
+No recent valid forecast found for sa-southeast/MERCATOR-GFS. Skipping.
+/home/nkululeko/somisana.ac.za/public/download_gifs.py:28: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  date = datetime.utcnow() - timedelta(days=days_back)
