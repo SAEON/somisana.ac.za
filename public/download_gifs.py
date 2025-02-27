@@ -1,6 +1,15 @@
 import os
 import requests
+import socket
 from datetime import datetime, timedelta
+
+# Detect environment based on hostname
+hostname = socket.gethostname()
+
+if "ocimsvaps.ocean.gov.za" in hostname:  # Replace with actual server hostname
+    BASE_DIR = "/home/nkululeko/somisana.ac.za/public"
+else:
+    BASE_DIR = "/home/nc.memela/Projects/somisana.ac.za/public"
 
 # Define constants
 BASE_URLS = {
@@ -9,19 +18,13 @@ BASE_URLS = {
 }
 
 LOCAL_DIRS = {
-    "sa-west": "/home/nkululeko/somisana.ac.za/public/sa-west/latest_forecasts",
-    "sa-southeast": "/home/nkululeko/somisana.ac.za/public/sa-southeast/latest_forecasts"
+    "sa-west": os.path.join(BASE_DIR, "sa-west/latest_forecasts"),
+    "sa-southeast": os.path.join(BASE_DIR, "sa-southeast/latest_forecasts")
 }
-
-'''LOCAL_DIRS = {
-    "sa-west": "/home/nc.memela/Projects/somisana.ac.za/public/sa-west/latest_forecasts",
-    "sa-southeast": "/home/nc.memela/Projects/somisana.ac.za/public/sa-southeast/latest_forecasts"
-}'''
-
 
 MODELS = ["HYCOM-GFS", "MERCATOR-GFS"]
 GIF_FILES = ["croco_avg_temp_100m.gif", "croco_avg_temp_surf.gif", "croco_avg_temp_bot.gif"]
-LOG_FILE = "/home/nkululeko/somisana.ac.za/public/download_log.txt"
+LOG_FILE = os.path.join(BASE_DIR, "download_log.txt")
 
 def get_date_path(days_back=0):
     """Return the date path in the required format YYYYMM/YYYYMMDD."""
@@ -76,7 +79,7 @@ def main():
                 continue
 
             save_dir = os.path.join(LOCAL_DIRS[region], model)
-            os.makedirs(save_dir, exist_ok=True)
+            os.makedirs(save_dir, exist_ok=True)  # Ensure the directory exists
 
             success = False
             for gif in GIF_FILES:
