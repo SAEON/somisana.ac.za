@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SACOFS-west Model</title>
+    <title>Satellite SSH</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -104,17 +104,17 @@
 
     <!-- Page Header with Back Navigation -->
     <div class="page-header">
-        <a href="newpage.html" class="back-nav">
-            <img src="public/left-arrow.png" alt="Back">
-        </a>
-        <h1 class="page-title" style="color: white;">SACOFS-west Model</h1>
+        <a href="../../newpage.html" class="back-nav" style="position: absolute; top: 15px; left: 15px;">
+            <img src="../../public/left-arrow.png" alt="Back" style="width: 30px; height: auto;">
+        </a>        
+        <h1 class="page-title" style="color: white;">Sea Surface Heights</h1>
     </div>
 
     <!-- Model Description -->
     <div class="model-description">
         <hr>
         <div>
-            <h1 class="page-title">Various Configuration Runs</h1>
+            <h1 class="page-title">Satellite derived SSH & Anomalies</h1>
         </div>
         <p>
             The animations below provide a visual representation of temperature and currents at the water surface, bottom, 
@@ -154,16 +154,9 @@
         <div class="model-images">
             <div class="gif-container">
                 <h3>Sea Surface Temperature</h3>
-                <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                <img src="../../public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
             </div>
-            <div class="gif-container">
-                <h3>Temperature at 100m</h3>
-                <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
-            </div>
-            <div class="gif-container">
-                <h3>Bottom Temperature</h3>
-                <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
-            </div>
+
         </div>
 
         <script>
@@ -192,94 +185,9 @@
                     <h3>Sea Surface Temperature</h3>
                     <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
                 </div>
-                <div class="gif-container">
-                    <h3>Temperature at 100m</h3>
-                    <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
-                </div>
-                <div class="gif-container">
-                    <h3>Bottom Temperature</h3>
-                    <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
-                </div>
+
             </div>
         </div>
-    </div>
-
-
-    <!-- Second Section (Unavailable) -->
-    <h2 class="section-header" onclick="toggleSection(2)">
-        MERCATOR-SAWS <button class="toggle-btn" id="btn-2">+</button>
-    </h2>
-    <div class="content-container model-content" id="content-2">
-        <p class="unavailable">Currently Unavailable</p>
-    </div>
-
-    <!-- Third Section -->
-
-    <h2 class="section-header" onclick="toggleSection(6)">
-        HYCOM-GFS <button class="toggle-btn" id="btn-6">+</button>
-    </h2>
-    <div class="content-container model-content" id="content-6">
-        <div class="model-images">
-            <div class="gif-container">
-                <h3>Sea Surface Temperature</h3>
-                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
-            </div>
-            <div class="gif-container">
-                <h3>Temperature at 100m</h3>
-                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
-            </div>
-            <div class="gif-container">
-                <h3>Bottom Temperature</h3>
-                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
-            </div>
-        </div>
-
-        <script>
-            function toggleSection(sectionNumber) {
-                var content = document.getElementById("content-" + sectionNumber);
-                var button = document.getElementById("btn-" + sectionNumber);
-        
-                if (content.style.display === "none" || content.style.display === "") {
-                    content.style.display = "block";
-                    button.innerHTML = "-"; // Minimize icon
-                } else {
-                    content.style.display = "none";
-                    button.innerHTML = "+"; // Expand icon
-                }
-            }
-        </script>
-        
-
-        <!-- Anomalies Subsection 
-        <h3 class="section-header" onclick="toggleSection(3)">
-            Anomalies <button class="toggle-btn" id="btn-3">+</button>
-        </h3>-->
-        <div class="content-container" id="content-3">
-            <div class="model-images">
-                <div class="gif-container">
-                    <h3>Sea Surface Temperature</h3>
-                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
-                </div>
-                <div class="gif-container">
-                    <h3>Temperature at 100m</h3>
-                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
-                </div>
-                <div class="gif-container">
-                    <h3>Bottom Temperature</h3>
-                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    
-
-    <!-- Fourth Section (Unavailable) -->
-    <h2 class="section-header" onclick="toggleSection(4)">
-        HYCOM-SAWS <button class="toggle-btn" id="btn-4">+</button>
-    </h2>
-    <div class="content-container model-content" id="content-4">
-        <p class="unavailable">Currently Unavailable</p>
     </div>
 
     <hr> <!-- Boundary Line -->
