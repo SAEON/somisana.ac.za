@@ -6,9 +6,9 @@ from datetime import datetime, timedelta
 # Detect environment based on hostname
 hostname = socket.gethostname()
 
-if "ocimsvaps.ocean.gov.za" in hostname:  # Replace with actual server hostname
+if "ocimsvaps.ocean.gov.za" in hostname:  # Actual server hostname
     BASE_DIR = "/home/nkululeko/somisana.ac.za/public"
-else:
+elif "COMP000000183" in hostname: #server hostname
     BASE_DIR = "/home/nc.memela/Projects/somisana.ac.za/public"
 
 # Define constants

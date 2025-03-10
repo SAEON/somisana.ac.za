@@ -8,7 +8,7 @@ import plotly.io as pio
 import os
 
 # Define the input directory for SST data files
-input_directory = '/home/nc.memela/Projects/somisana.ac.za/public/products/satellite-sst'
+input_directory = '/home/nc.memela/Projects/somisana.ac.za/public/products/satellite-sst/'
 
 # Automatically find the most recent files in the directory
 sst_files = [f for f in os.listdir(input_directory) if f.endswith('.nc')]
@@ -19,7 +19,7 @@ original_file = os.path.join(input_directory, sst_files[-1])
 anomaly_file = os.path.join(input_directory, sst_files[0])
 
 # Load the additional long-term record file for 90th percentile
-MHW_long_record_file = "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_multi-vars_10.02E-39.97E_39.97S-20.02S_2024-01-01-2025-03-05.nc"
+MHW_long_record_file = "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_multi-vars_10.02E-39.97E_39.97S-20.02S_2024-01-01-2025-03-08.nc"
 long_record_file = os.path.join(input_directory, MHW_long_record_file)
 
 # Load datasets
@@ -52,37 +52,46 @@ marine_heatwave = marine_heatwave.where(marine_heatwave > 0)
 original_date_str = str(ds_original['time'].values[0])[:10]
 anomaly_date_str = str(ds_anomaly['time'].values[-1])[:10]
 
-# --- Static Side-by-Side Plot ---
+# --- Separate Static Plots for SST and Marine Heatwave ---
 
-fig, axs = plt.subplots(1, 2, figsize=(14, 6), subplot_kw={'projection': ccrs.PlateCarree()})
+# Plot 1: Sea Surface Temperature (SST)
+plt.figure(figsize=(8, 6))
+ax = plt.axes(projection=ccrs.PlateCarree())
 
-# Plot SST
-p1 = axs[0].pcolormesh(lon, lat, sst_original, cmap='jet', transform=ccrs.PlateCarree())
-axs[0].coastlines(resolution='50m', color='black', linewidth=1)
-axs[0].add_feature(cfeature.BORDERS, linestyle=':', edgecolor='black')
-axs[0].add_feature(cfeature.LAND, color='#404040')  # Dark grey land mask
-axs[0].set_title(f'Sea Surface Temperature (°C) ({original_date_str})', fontsize=14, pad=10)
-gl = axs[0].gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5)
+p1 = ax.pcolormesh(lon, lat, sst_original, cmap='jet', transform=ccrs.PlateCarree(), zorder=1)
+
+ax.coastlines(resolution='50m', color='black', linewidth=1, zorder=3)
+ax.add_feature(cfeature.BORDERS, linestyle=':', edgecolor='black', zorder=3)
+ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)  # Brown land mask
+ax.set_title(f'Sea Surface Temperature (°C) ({anomaly_date_str})', fontsize=14, pad=10)
+
+gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5)
 gl.top_labels = False
 gl.right_labels = False
-cbar = plt.colorbar(p1, ax=axs[0], orientation='vertical', shrink=0.8, pad=0.05)
+cbar = plt.colorbar(p1, orientation='vertical', shrink=0.8, pad=0.05)
 cbar.set_label('SST (°C)')
 
-# Plot Marine Heatwave
-p2 = axs[1].pcolormesh(lon, lat, marine_heatwave, cmap='RdBu', transform=ccrs.PlateCarree())
-axs[1].coastlines(resolution='50m', color='black', linewidth=1)
-axs[1].add_feature(cfeature.BORDERS, linestyle=':', edgecolor='black')
-axs[1].add_feature(cfeature.LAND, color='#404040')  # Dark grey land mask
-axs[1].set_title(f'Marine Heatwave (SST > 90th Percentile)\n({original_date_str} vs Long-term Mean)', fontsize=14, pad=10)
-gl = axs[1].gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5)
+plt.savefig('sst_static.png', dpi=300, bbox_inches='tight')
+plt.close()
+
+# Plot 2: Marine Heatwave
+plt.figure(figsize=(8, 6))
+ax = plt.axes(projection=ccrs.PlateCarree())
+
+p2 = ax.pcolormesh(lon, lat, marine_heatwave, cmap='YlOrRd', transform=ccrs.PlateCarree(), zorder=1)
+
+ax.coastlines(resolution='50m', color='black', linewidth=1, zorder=3)
+ax.add_feature(cfeature.BORDERS, linestyle=':', edgecolor='black', zorder=3)
+ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)  # Brown land mask
+ax.set_title(f'Marine Heatwave (SST > 90th Percentile)\n({original_date_str} vs Long-term Mean)', fontsize=14, pad=10)
+
+gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5)
 gl.top_labels = False
 gl.right_labels = False
-cbar = plt.colorbar(p2, ax=axs[1], orientation='vertical', shrink=0.8, pad=0.05)
+cbar = plt.colorbar(p2, orientation='vertical', shrink=0.8, pad=0.05)
 cbar.set_label('Marine Heatwave (°C)')
 
-plt.suptitle('Sea Surface Temperature and Marine Heatwave Detection', fontsize=16)
-plt.tight_layout()
-plt.savefig('sst_marine_heatwave_static.png', dpi=300, bbox_inches='tight')
+plt.savefig('marine_heatwave_static.png', dpi=300, bbox_inches='tight')
 plt.close()
 
 # --- Interactive Side-by-Side Plot with Plotly ---
@@ -110,7 +119,7 @@ fig1 = px.imshow(
 )
 fig1.update_geos(
     showland=True,
-    landcolor='#404040',  # Dark grey land mask
+    landcolor='saddlebrown',  # Brown land mask
     showcountries=True,
     showcoastlines=True,
     coastlinecolor='black'
@@ -139,7 +148,7 @@ fig2 = px.imshow(
 )
 fig2.update_geos(
     showland=True,
-    landcolor='#404040',  # Dark grey land mask
+    landcolor='saddlebrown',  # Brown land mask
     showcountries=True,
     showcoastlines=True,
     coastlinecolor='black'

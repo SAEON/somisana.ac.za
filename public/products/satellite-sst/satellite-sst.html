@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Satellite SST</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Set the page background to navy */
+        body {
+            background-color: navy;
+            color: white; /* Ensures readability for non-section elements */
+            font-family: "Open Sans", sans-serif; /* Matches newpage.html */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Styling for collapsible sections */
+        .section-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .content-container {
+        display: block; /* Always show the content */
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: white; /* Keeps sections white */
+        color: black; /* Ensures text inside sections is readable */
+        }
+
+        .gif-container {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .unavailable {
+            font-style: italic;
+            color: red;
+            text-align: center;
+        }
+
+        /* Ensure headers and text in sections remain readable */
+        .model-description {
+            background-color: white;
+            color: black;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto; /* Centers the blurb */
+            max-width: 80%; /* Matches newpage.html */
+            text-align: center;
+            font-size: 18px; /* Ensures consistent text size */
+            line-height: 1.6;
+        }
+
+        /* Page header styling */
+        .page-header {
+            background-color: #0056b3;
+            padding: 5px;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        /* Make "SACOFS-west Model" header white */
+        .page-header h1 {
+            color: white;
+        }
+
+        /* Ensure buttons and back navigation are visible */
+        .back-nav img {
+            width: 30px;
+        }
+
+        /* Make links red, like in newpage.html */
+        .model-description a {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .model-description a:hover {
+            color: red;
+        }
+        /* Ensure iframes are displayed side by side on large screens */
+        .model-images {
+            display: flex;
+            flex-wrap: wrap; /* Allows wrapping to the next line if needed */
+            justify-content: center; /* Centers the content */
+            gap: 20px; /* Adds space between the plots */
+        }
+
+        /* Ensure the iframe containers maintain a similar size */
+        .iframe-container {
+            flex: 1 1 45%; /* Flex-grow, flex-shrink, flex-basis */
+            max-width: 600px; /* Keeps the size manageable */
+            min-width: 300px; /* Prevents too small if resized */
+        }
+
+        /* Make sure the plots are responsive */
+        @media (max-width: 800px) {
+            .model-images {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Page Header with Back Navigation -->
+    <div class="page-header">
+        <a href="../../../newpage.html" class="back-nav" style="position: absolute; top: 15px; left: 15px;">
+            <img src="../../../public/left-arrow.png" alt="Back" style="width: 30px; height: auto;">
+        </a>        
+        <h1 class="page-title" style="color: white;">Sea Surface Temperatures</h1>
+    </div>
+
+    <!-- Model Description -->
+    <div class="model-description">
+        <hr>
+        <div>
+            <h1 class="page-title">Satellite derived SST & Anomalies</h1>
+        </div>
+        <p>
+            The animations below provide a visual representation of temperature and currents at the water surface, bottom, 
+            and a depth of 100 m. Animations are provided for the most recent successful simulation from each of the four 
+            ensemble members. 
+        </p>
+        
+    </div>
+
+    <hr> <!-- Boundary Line -->
+
+    <!-- First Section -->
+    <h2 class="section-header" onclick="toggleSection(1)">
+        Satellite SST <button class="toggle-btn" id="btn-1">-</button>
+    </h2>
+    <div class="content-container model-content" id="content-1">
+        <div class="model-images">
+            <div class="gif-container">
+                <h3>Sea Surface Temperature</h3>
+                <img src="analysed_sst_static.png" width="600px" height="400px" style="border:none;">
+            </div>
+
+            <div class="gif-container">
+                <h3>Anomalies</h3>
+                <img src="analysed_sst_anomaly_static.png" width="600px" height="400px" style="border:none;">
+            </div>
+<!--
+            <div class="iframe-container">
+                <h3>Sea Surface Temperature</h3>
+                <iframe src="analysed_sst_map_interactive_sst.html" width="600px" height="500px" style="border:none;">
+                    Your browser does not support iframes.
+                </iframe>
+            </div>
+            
+            <div class="iframe-container">
+                <h3>SSH Anomaly Map</h3>
+                <iframe src="analysed_sst_anomaly_map_interactive_sst.html" width="600px" height="500px" style="border:none;">
+                    Your browser does not support iframes.
+                </iframe>
+            </div>
+-->
+        </div>
+<!--
+        <script>
+            function toggleSection(sectionNumber) {
+                var content = document.getElementById("content-" + sectionNumber);
+                var button = document.getElementById("btn-" + sectionNumber);
+        
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    button.innerHTML = "-"; // Minimize icon
+                } else {
+                    content.style.display = "none";
+                    button.innerHTML = "+"; // Expand icon
+                }
+            }
+        </script>
+ -->       
+
+
+</body>
+</html>

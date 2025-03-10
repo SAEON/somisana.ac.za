@@ -530,6 +530,31 @@ video {
     margin: 0 auto;
   }
 
+/* Ensure iframes are displayed side by side */
+.model-images {
+  display: flex;
+  flex-wrap: nowrap; /* Prevents wrapping to the next line */
+  justify-content: center; /* Centers the content */
+  gap: 20px; /* Adds space between the plots */
+  align-items: flex-start; /* Aligns iframes to the top */
+}
+
+/* Ensure the iframe containers maintain a similar size */
+.iframe-container {
+  flex: 1 1 45%;
+  max-width: 600px;
+  min-width: 300px;
+}
+
+/* Add some margin to keep the page looking neat */
+.iframe-container h3 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+
+
 
 }
 
