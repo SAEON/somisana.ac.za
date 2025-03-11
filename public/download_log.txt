@@ -66,4 +66,3 @@
 2025-03-10 - sa-west/MERCATOR-GFS: Success
 2025-03-10 - sa-southeast/HYCOM-GFS: Success
 2025-03-10 - sa-southeast/MERCATOR-GFS: Success
-
