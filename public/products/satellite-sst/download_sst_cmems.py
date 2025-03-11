@@ -7,8 +7,8 @@ output_directory = "/home/nc.memela/Projects/somisana.ac.za/public/products/sate
 os.makedirs(output_directory, exist_ok=True)
 
 # Fetch credentials from environment variables
-username = os.getenv('nmemela1')
-password = os.getenv('Memela161')
+username = 'nmemela1'
+password = 'Memela161'
 
 # Initialize the date with today and set a maximum lookback period (7 days)
 current_date = datetime.today()
