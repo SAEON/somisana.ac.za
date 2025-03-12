@@ -8,7 +8,7 @@ import plotly.io as pio
 import os
 
 # Define the input directory for SST data files
-input_directory = '/home/nc.memela/Projects/somisana.ac.za/public/products/satellite-sst/'
+input_directory = '/home/nc.memela/Projects/tmp/sat-sst/long-record/'
 
 # Automatically find the most recent files in the directory
 sst_files = [f for f in os.listdir(input_directory) if f.endswith('.nc')]
@@ -19,7 +19,7 @@ original_file = os.path.join(input_directory, sst_files[-1])
 anomaly_file = os.path.join(input_directory, sst_files[0])
 
 # Load the additional long-term record file for 90th percentile
-MHW_long_record_file = "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_multi-vars_10.02E-39.97E_39.97S-20.02S_2024-01-01-2025-03-08.nc"
+MHW_long_record_file = "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_multi-vars_10.02E-39.97E_39.97S-20.02S_2024-01-01-2025-03-10.nc"
 long_record_file = os.path.join(input_directory, MHW_long_record_file)
 
 # Load datasets

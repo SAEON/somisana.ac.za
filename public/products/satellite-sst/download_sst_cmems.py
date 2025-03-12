@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import os
 
 # Define the output directory
-output_directory = "/home/nc.memela/Projects/somisana.ac.za/public/products/satellite-sst"
+output_directory = "/home/nc.memela/Projects/tmp/sat-sst/"
 os.makedirs(output_directory, exist_ok=True)
 
 # Fetch credentials from environment variables
@@ -35,7 +35,8 @@ for days_back in range(max_lookback_days):
             end_datetime=f"{date_str}T00:00:00",
             username=username,
             password=password,
-            output_directory=output_directory
+            output_directory=output_directory,
+            #force-download 
         )
         print(f"Data successfully downloaded for {date_str}.")
         data_downloaded = True

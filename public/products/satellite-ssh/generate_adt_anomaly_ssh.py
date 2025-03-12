@@ -5,16 +5,31 @@ import cartopy.feature as cfeature
 import numpy as np
 import plotly.express as px
 import plotly.io as pio
+import glob
 #import os
 
 # Load both datasets (original single day and long-term data)
-original_file = "cmems_obs-sl_glo_phy-ssh_nrt_all_multi-vars_10.06E-39.94E_39.94S-20.06S_2024-11-20-2025-03-06.nc"
-anomaly_file = "cmems_obs-sl_glo_phy-ssh_nrt_allsat-l4-duacs-0.125deg_P1D_multi-vars_10.06E-39.94E_39.94S-20.06S_2025-03-09-2025-03-10.nc"
+# Find NetCDF files
+original_files = glob.glob("/home/nc.memela/Projects/tmp/sat-ssh/long-record/*.nc")
+anomaly_files = glob.glob("/home/nc.memela/Projects/tmp/sat-ssh/*.nc")
 
+# Ensure at least one file exists
+if not original_files:
+    raise FileNotFoundError("❌ No original NetCDF files found in /home/nc.memela/Projects/tmp/sat-ssh/long-record/")
+if not anomaly_files:
+    raise FileNotFoundError("❌ No anomaly NetCDF files found in /home/nc.memela/Projects/tmp/sat-ssh/")
 
-# Load datasets
+# Select the first file
+original_file = original_files[0]
+anomaly_file = anomaly_files[0]
+
+print(f"📂 Using original file: {original_file}")
+print(f"📂 Using anomaly file: {anomaly_file}")
+
+# Open datasets
 ds_original = xr.open_dataset(original_file)
 ds_anomaly = xr.open_dataset(anomaly_file)
+
 
 # Access scale factor from attributes (default to 1 if not present)
 scale_factor = ds_original['adt'].attrs.get('scale_factor', 1)

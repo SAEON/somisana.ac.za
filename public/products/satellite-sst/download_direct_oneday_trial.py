@@ -6,7 +6,7 @@ import os
 today = datetime.today().strftime('%Y-%m-%d')
 last_year ='2024-01-01'
 # Define the output directory
-output_directory = "/home/nc.memela/Projects/somisana.ac.za/public/products/satellite-sst"
+output_directory = "/home/nc.memela/Projects/tmp/sat-sst/"
 
 # Ensure the output directory exists
 os.makedirs(output_directory, exist_ok=True)
