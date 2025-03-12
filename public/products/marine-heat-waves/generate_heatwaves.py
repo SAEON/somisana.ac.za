@@ -7,8 +7,22 @@ import plotly.express as px
 import plotly.io as pio
 import os
 
-# Define the input directory for SST data files
-input_directory = '/home/nc.memela/Projects/tmp/sat-sst/long-record/'
+import socket
+
+# Detect the environment based on hostname
+HOSTNAME = socket.gethostname()
+
+if HOSTNAME == "COMP000000183":
+    print("📌 Running on Local Machine")
+    BASE_DIR = "/home/nc.memela/Projects/tmp/sat-sst"
+elif "ocean-access" in HOSTNAME:  # Adjust this for your server naming convention
+    print("📌 Running on Server")
+    BASE_DIR = "/home/ocean-access/tmp/sat-sst"
+else:
+    raise EnvironmentError("🚨 Unknown environment. Please configure the correct BASE_DIR.")
+
+# Define input directories
+input_directory = os.path.join(BASE_DIR, "long-record")
 
 # Automatically find the most recent files in the directory
 sst_files = [f for f in os.listdir(input_directory) if f.endswith('.nc')]

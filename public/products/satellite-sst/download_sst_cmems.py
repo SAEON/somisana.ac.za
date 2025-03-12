@@ -2,13 +2,22 @@ import copernicusmarine
 from datetime import datetime, timedelta
 import os
 
-# Define the output directory
-output_directory = "/home/nc.memela/Projects/tmp/sat-sst/"
-os.makedirs(output_directory, exist_ok=True)
+# Detect the environment based on hostname
+HOSTNAME = os.uname().nodename
+
+if HOSTNAME == "COMP000000183":
+    print("Running on Local Machine:", HOSTNAME)
+    OUTPUT_DIR = "/home/nc.memela/Projects/tmp/sat-sst/"
+else:
+    print("Running on Server:", HOSTNAME)
+    OUTPUT_DIR = "/home/ocean-access/tmp/sat-sst/"
+
+# Ensure the output directory exists
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Fetch credentials from environment variables
-username = 'nmemela1'
-password = 'Memela161'
+username = os.getenv("CMEMS_USERNAME", "nmemela1")
+password = os.getenv("CMEMS_PASSWORD", "Memela161")
 
 # Initialize the date with today and set a maximum lookback period (7 days)
 current_date = datetime.today()
@@ -20,7 +29,7 @@ data_downloaded = False
 # Loop to attempt data download, going back one day if not available
 for days_back in range(max_lookback_days):
     date_str = current_date.strftime('%Y-%m-%d')
-    print(f"Attempting to fetch data for {date_str}...")
+    print(f"🌍 Attempting to fetch SST data for {date_str}...")
 
     try:
         # Attempt to fetch the data
@@ -35,17 +44,16 @@ for days_back in range(max_lookback_days):
             end_datetime=f"{date_str}T00:00:00",
             username=username,
             password=password,
-            output_directory=output_directory,
-            #force-download 
+            output_directory=OUTPUT_DIR,
         )
-        print(f"Data successfully downloaded for {date_str}.")
+        print(f"✅ Data successfully downloaded for {date_str}.")
         data_downloaded = True
         break  # Exit loop once data is downloaded
 
     except Exception as e:
-        print(f"No data available for {date_str}. Trying the previous day...")
+        print(f"❌ No data available for {date_str}. Trying the previous day...")
         # Move to the previous day
         current_date -= timedelta(days=1)
 
 if not data_downloaded:
-    print("No recent data available in the past 7 days. Keeping the existing file.")
+    print("⚠️ No recent data available in the past 7 days. Keeping the existing file.")

@@ -6,12 +6,24 @@ import numpy as np
 import plotly.express as px
 import plotly.io as pio
 import glob
-#import os
+import socket
+
+# Detect the environment based on hostname
+HOSTNAME = socket.gethostname()
+
+if HOSTNAME == "COMP000000183":
+    print("📌 Running on Local Machine")
+    BASE_DIR = "/home/nc.memela/Projects/tmp/sat-ssh"
+elif "ocean-access" in HOSTNAME:  # Adjust this for your server naming convention
+    print("📌 Running on Server")
+    BASE_DIR = "/home/ocean-access/tmp/sat-ssh"
+else:
+    raise EnvironmentError("🚨 Unknown environment. Please configure the correct BASE_DIR.")
 
 # Load both datasets (original single day and long-term data)
 # Find NetCDF files
-original_files = glob.glob("/home/nc.memela/Projects/tmp/sat-ssh/long-record/*.nc")
-anomaly_files = glob.glob("/home/nc.memela/Projects/tmp/sat-ssh/*.nc")
+original_files = glob.glob(f"{BASE_DIR}/long-record/*.nc")
+anomaly_files = glob.glob(f"{BASE_DIR}/*.nc")
 
 # Ensure at least one file exists
 if not original_files:
@@ -180,3 +192,10 @@ fig2.update_layout(
 # Save the interactive plots as HTML files
 pio.write_html(fig1, file='adt_map_interactive_ssh.html', auto_open=False)
 pio.write_html(fig2, file='adt_anomaly_map_interactive_ssh.html', auto_open=False)
+
+
+print("🚀 Checking ADT Anomaly Data:")
+print(f"  - Min: {np.nanmin(adt_anomaly.values)}")
+print(f"  - Max: {np.nanmax(adt_anomaly.values)}")
+print(f"  - Mean: {np.nanmean(adt_anomaly.values)}")
+print(f"  - NaN Count: {np.isnan(adt_anomaly.values).sum()} of {adt_anomaly.size} total points")

@@ -1,23 +1,60 @@
 #!/bin/bash
 
-# Set the script to exit if any command fails
+# Exit the script if any command fails
 set -e
 
-# Define the paths to your scripts
-DOWNLOAD_ssh="/home/nc.memela/Projects/somisana.ac.za/public/products/satellite-ssh/download_and_plot.sh"
-DOWNLOAD_sst="/home/nc.memela/Projects/somisana.ac.za/public/products/satellite-sst/download_and_plot.sh"
-PLOT_mhw="/home/nc.memela/Projects/somisana.ac.za/public/products/marine-heat-waves/generate_heatwaves.py"
+# Detect the environment based on hostname
+HOSTNAME=$(hostname)
 
-# Execute the download script bash script sstcd
-echo "Running download script for SST: $DOWNLOAD_sst"
-bash "$DOWNLOAD_sst"
+if [[ "$HOSTNAME" == "COMP000000183" ]]; then
+    echo "📌 Running on Local Machine ($HOSTNAME)"
+    BASE_DIR="/home/nc.memela/Projects/somisana.ac.za/public/products"
+    ENV_ACTIVATION="source ~/anaconda3/bin/activate somisana_croco"
+elif [[ "$HOSTNAME" == *"ocean-access"* ]]; then
+    echo "📌 Running on Server ($HOSTNAME)"
+    BASE_DIR="/home/ocean-access/somisana.ac.za/public/products"
+    ENV_ACTIVATION="source /home/ocean-access/python_venv/bin/activate"
+else
+    echo "🚨 Unknown environment: $HOSTNAME"
+    exit 1
+fi
 
-# Execute the download script bash script for ssh
-echo "Running download script for SSH: $DOWNLOAD_ssh"
-bash "$DOWNLOAD_ssh"
+# Define script paths dynamically
+DOWNLOAD_SSH="$BASE_DIR/satellite-ssh/download_and_plot.sh"
+DOWNLOAD_SST="$BASE_DIR/satellite-sst/download_and_plot.sh"
+PLOT_MHW="$BASE_DIR/marine-heat-waves/generate_heatwaves.py"
 
-# Execute the plot generation script
-echo "Running plot generation script: $PLOT_mhw"
-python $PLOT_mhw
+# Function to execute a script and handle errors
+run_script() {
+    local script_path="$1"
+    local script_type="$2"  # "bash" or "python"
 
-echo "Completed bash scripts successfully."
+    echo "🚀 Running $script_type script: $script_path"
+    
+    if [[ "$script_type" == "bash" ]]; then
+        bash "$script_path"
+    elif [[ "$script_type" == "python" ]]; then
+        python "$script_path"
+    else
+        echo "❌ Unsupported script type: $script_type"
+        exit 1
+    fi
+
+    if [[ $? -eq 0 ]]; then
+        echo "✅ Successfully executed: $script_path"
+    else
+        echo "❌ Failed to execute: $script_path"
+        exit 1
+    fi
+}
+
+# Activate the appropriate environment
+echo "🔄 Activating environment..."
+eval "$ENV_ACTIVATION"
+
+# Execute the scripts
+run_script "$DOWNLOAD_SST" "bash"
+run_script "$DOWNLOAD_SSH" "bash"
+run_script "$PLOT_MHW" "python"
+
+echo "🎉 All scripts executed successfully!"

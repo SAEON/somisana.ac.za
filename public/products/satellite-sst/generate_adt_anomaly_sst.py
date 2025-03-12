@@ -6,10 +6,21 @@ import numpy as np
 import plotly.express as px
 import plotly.io as pio
 import glob
+import os
+
+# Detect environment based on hostname
+HOSTNAME = os.uname().nodename
+
+if HOSTNAME == "COMP000000183":
+    print("Running on Local Machine:", HOSTNAME)
+    DATA_DIR = "/home/nc.memela/Projects/tmp/sat-sst"
+else:
+    print("Running on Server:", HOSTNAME)
+    DATA_DIR = "/home/ocean-access/tmp/sat-sst"
 
 # Find NetCDF files using glob
-original_files = glob.glob("/home/nc.memela/Projects/tmp/sat-sst/*.nc")
-anomaly_files = glob.glob("/home/nc.memela/Projects/tmp/sat-sst/long-record/*.nc")
+original_files = glob.glob(f"{DATA_DIR}/*.nc")
+anomaly_files = glob.glob(f"{DATA_DIR}/long-record/*.nc")
 
 # Ensure at least one file is found
 if not original_files:
