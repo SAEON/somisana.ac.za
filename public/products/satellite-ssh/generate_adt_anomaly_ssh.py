@@ -193,9 +193,3 @@ fig2.update_layout(
 pio.write_html(fig1, file='adt_map_interactive_ssh.html', auto_open=False)
 pio.write_html(fig2, file='adt_anomaly_map_interactive_ssh.html', auto_open=False)
 
-
-print("🚀 Checking ADT Anomaly Data:")
-print(f"  - Min: {np.nanmin(adt_anomaly.values)}")
-print(f"  - Max: {np.nanmax(adt_anomaly.values)}")
-print(f"  - Mean: {np.nanmean(adt_anomaly.values)}")
-print(f"  - NaN Count: {np.isnan(adt_anomaly.values).sum()} of {adt_anomaly.size} total points")
