@@ -13,7 +13,7 @@ if [[ "$HOSTNAME" == "COMP000000183" ]]; then
 else
     echo "Running on Server: $HOSTNAME"
     BASE_DIR="/home/ocean-access/tmp/sat-sst"
-    CONDA_PATH="/home/ocean-access/anaconda3/bin/activate"
+    CONDA_PATH="/home/ocean-access/python_venv/bin/activate"
 fi
 
 # Ensure Conda is available in non-interactive shells

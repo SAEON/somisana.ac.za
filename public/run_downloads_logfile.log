@@ -110,3 +110,6 @@ No recent valid forecast found for sa-southeast/MERCATOR-GFS. Skipping.
 Running on Server: ocimsvaps.ocean.gov.za
 /home/nkululeko/somisana.ac.za/public/download_gifs.py:31: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
   date = datetime.utcnow() - timedelta(days=days_back)
+Running on Server: ocimsvaps.ocean.gov.za
+/home/nkululeko/somisana.ac.za/public/download_gifs.py:31: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  date = datetime.utcnow() - timedelta(days=days_back)

@@ -7,10 +7,10 @@ HOSTNAME = os.uname().nodename
 
 if HOSTNAME == "COMP000000183":
     print("Running on Local Machine:", HOSTNAME)
-    output_directory = "/home/nc.memela/Projects/tmp/sat-sst/"
+    output_directory = "/home/nc.memela/Projects/tmp/sat-ssh/"
 else:
     print("Running on Server:", HOSTNAME)
-    output_directory = "/home/nkululeko/tmp/sat-sst/long-record/"  # Updated path with "/ocean-access" removed
+    output_directory = "/home/nkululeko/tmp/sat-ssh/long-record/"  # Updated path with "/ocean-access" removed
 
 # Ensure the output directory exists
 os.makedirs(output_directory, exist_ok=True)
@@ -34,8 +34,8 @@ for days_back in range(max_lookback_days):
     try:
         # Attempt to fetch the data
         copernicusmarine.subset(
-            dataset_id="METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2",
-            variables=["analysed_sst", "analysis_error", "mask", "sea_ice_fraction"],
+            dataset_id="cmems_obs-sl_glo_phy-ssh_nrt_allsat-l4-duacs-0.125deg_P1D",
+            variables=["adt", "err_sla", "err_ugosa", "err_vgosa", "flag_ice", "sla", "ugos", "ugosa", "vgos", "vgosa"],
             minimum_longitude=10,
             maximum_longitude=40,
             minimum_latitude=-40,

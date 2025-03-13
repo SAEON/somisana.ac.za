@@ -12,7 +12,7 @@ if [[ "$HOSTNAME" == "COMP000000183" ]]; then
     ENV_ACTIVATION="source ~/anaconda3/bin/activate somisana_croco"
 elif [[ "$HOSTNAME" == *"ocean-access"* ]]; then
     echo "📌 Running on Server ($HOSTNAME)"
-    BASE_DIR="/home/ocean-access/somisana.ac.za/public/products"
+    BASE_DIR="/home/somisana.ac.za/public/products"
     ENV_ACTIVATION="source /home/ocean-access/python_venv/bin/activate"
 else
     echo "🚨 Unknown environment: $HOSTNAME"

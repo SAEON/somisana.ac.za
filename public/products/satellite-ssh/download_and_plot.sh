@@ -18,14 +18,14 @@ if [[ "$HOSTNAME" == "COMP000000183" ]]; then
     # Set base directory
     BASE_DIR="/home/nc.memela/Projects/tmp/sat-ssh"
 
-elif [[ "$HOSTNAME" == *"ocean-access"* ]]; then
+elif [[ "$HOSTNAME" == *"ocimsvaps.ocean.gov.za"* ]]; then
     echo "📌 Running on Server: $HOSTNAME"
 
     # Ensure Virtual Environment is available in non-interactive shells
     source /home/ocean-access/python_venv/bin/activate
 
     # Set base directory
-    BASE_DIR="/home/ocean-access/tmp/sat-ssh"
+    BASE_DIR="/home/tmp/sat-ssh"
 
 else
     echo "🚨 Unknown environment: $HOSTNAME. Exiting."

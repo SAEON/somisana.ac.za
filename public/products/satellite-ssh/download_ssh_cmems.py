@@ -9,9 +9,9 @@ HOSTNAME = socket.gethostname()
 if HOSTNAME == "COMP000000183":
     print("📌 Running on Local Machine")
     BASE_DIR = "/home/nc.memela/Projects/tmp/sat-ssh"
-elif "ocean-access" in HOSTNAME:  # Adjust this based on your server naming convention
+elif "ocimsvaps.ocean.gov.za" in HOSTNAME:  # Adjust this based on your server naming convention
     print("📌 Running on Server")
-    BASE_DIR = "/home/ocean-access/tmp/sat-ssh"
+    BASE_DIR = "/home/nkululeko/tmp/sat-ssh"
 else:
     raise EnvironmentError("🚨 Unknown environment. Please configure the correct BASE_DIR.")
 

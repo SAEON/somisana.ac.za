@@ -16,7 +16,7 @@ if HOSTNAME == "COMP000000183":
     DATA_DIR = "/home/nc.memela/Projects/tmp/sat-sst"
 else:
     print("Running on Server:", HOSTNAME)
-    DATA_DIR = "/home/ocean-access/tmp/sat-sst"
+    DATA_DIR = "/home/tmp/sat-sst"
 
 # Find NetCDF files using glob
 original_files = glob.glob(f"{DATA_DIR}/*.nc")

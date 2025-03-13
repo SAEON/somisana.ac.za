@@ -6,7 +6,7 @@ import numpy as np
 import plotly.express as px
 import plotly.io as pio
 import os
-
+import glob
 import socket
 
 # Detect the environment based on hostname
@@ -17,7 +17,7 @@ if HOSTNAME == "COMP000000183":
     BASE_DIR = "/home/nc.memela/Projects/tmp/sat-sst"
 elif "ocean-access" in HOSTNAME:  # Adjust this for your server naming convention
     print("📌 Running on Server")
-    BASE_DIR = "/home/ocean-access/tmp/sat-sst"
+    BASE_DIR = "/home/tmp/sat-sst"
 else:
     raise EnvironmentError("🚨 Unknown environment. Please configure the correct BASE_DIR.")
 
@@ -33,7 +33,7 @@ original_file = os.path.join(input_directory, sst_files[-1])
 anomaly_file = os.path.join(input_directory, sst_files[0])
 
 # Load the additional long-term record file for 90th percentile
-MHW_long_record_file = "METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_multi-vars_10.02E-39.97E_39.97S-20.02S_2024-01-01-2025-03-10.nc"
+MHW_long_record_file = glob.glob(os.path.join(input_directory, "*.nc"))[0] #the [0] selects the first file on the list in the dir
 long_record_file = os.path.join(input_directory, MHW_long_record_file)
 
 # Load datasets
