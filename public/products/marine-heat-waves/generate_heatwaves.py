@@ -97,7 +97,7 @@ p2 = ax.pcolormesh(lon, lat, marine_heatwave, cmap='YlOrRd', transform=ccrs.Plat
 ax.coastlines(resolution='50m', color='black', linewidth=1, zorder=3)
 ax.add_feature(cfeature.BORDERS, linestyle=':', edgecolor='black', zorder=3)
 ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)  # Brown land mask
-ax.set_title(f'Marine Heatwave (SST > 90th Percentile)\n({original_date_str} vs Long-term Mean)', fontsize=14, pad=10)
+ax.set_title(f'Marine Heatwave (SST > 90th Percentile)\n({anomaly_date_str} vs Long-term Mean)', fontsize=14, pad=10)
 
 gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5)
 gl.top_labels = False
