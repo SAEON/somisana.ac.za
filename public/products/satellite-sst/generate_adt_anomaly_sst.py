@@ -16,7 +16,7 @@ if HOSTNAME == "COMP000000183":
     DATA_DIR = "/home/nc.memela/Projects/tmp/sat-sst"
 else:
     print("Running on Server:", HOSTNAME)
-    DATA_DIR = "/home/tmp/sat-sst"
+    DATA_DIR = "/home/nkululeko/tmp/sat-sst"
 
 # Find NetCDF files using glob
 original_files = glob.glob(f"{DATA_DIR}/*.nc")
@@ -24,10 +24,10 @@ anomaly_files = glob.glob(f"{DATA_DIR}/long-record/*.nc")
 
 # Ensure at least one file is found
 if not original_files:
-    raise FileNotFoundError("❌ No SST NetCDF files found in /home/nc.memela/Projects/tmp/sat-sst/")
+    raise FileNotFoundError(f"❌ No SST NetCDF files found in {DATA_DIR}")
 
 if not anomaly_files:
-    raise FileNotFoundError("❌ No anomaly NetCDF files found in /home/nc.memela/Projects/tmp/sat-sst/long-record/")
+    raise FileNotFoundError(f"❌ No anomaly NetCDF files found in {DATA_DIR}/long-record/")
 
 # Select the first file in each case
 original_file = original_files[0]  # Picks the first file

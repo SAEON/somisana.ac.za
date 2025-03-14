@@ -10,18 +10,24 @@ if [[ "$HOSTNAME" == "COMP000000183" ]]; then
     echo "Running on Local Machine: $HOSTNAME"
     BASE_DIR="/home/nc.memela/Projects/tmp/sat-sst"
     CONDA_PATH="/home/nc.memela/anaconda3/bin/activate"
+
+	# Activate the conda environment
+	echo "Activating conda environment: somisana_croco"
+	conda activate somisana_croco
+
+	# Ensure Conda is available in non-interactive shells
+	source $CONDA_PATH
+
 else
     echo "Running on Server: $HOSTNAME"
     BASE_DIR="/home/ocean-access/tmp/sat-sst"
-    CONDA_PATH="/home/ocean-access/python_venv/bin/activate"
+    PYTHON_PATH="/home/ocean-access/python_venv/bin/activate"
+
+    #Activate the python envirionment
+    echo "Activation of the Python Env"
+    source $PYTHON_PATH
 fi
 
-# Ensure Conda is available in non-interactive shells
-source $CONDA_PATH
-
-# Activate the conda environment
-echo "Activating conda environment: somisana_croco"
-conda activate somisana_croco
 
 # Move to the directory where this script is located
 cd "$(dirname "$0")"

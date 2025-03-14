@@ -10,7 +10,7 @@ if HOSTNAME == "COMP000000183":
     OUTPUT_DIR = "/home/nc.memela/Projects/tmp/sat-sst/"
 else:
     print("Running on Server:", HOSTNAME)
-    OUTPUT_DIR = "/home/tmp/sat-sst/"
+    OUTPUT_DIR = os.path.expanduser("~/tmp/sat-sst/")
 
 # Ensure the output directory exists
 os.makedirs(OUTPUT_DIR, exist_ok=True)
