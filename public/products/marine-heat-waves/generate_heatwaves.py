@@ -15,9 +15,9 @@ HOSTNAME = socket.gethostname()
 if HOSTNAME == "COMP000000183":
     print("📌 Running on Local Machine")
     BASE_DIR = "/home/nc.memela/Projects/tmp/sat-sst"
-elif "ocean-access" in HOSTNAME:  # Adjust this for your server naming convention
+elif HOSTNAME == "ocimsvaps.ocean.gov.za":  # Adjust this for your server naming convention
     print("📌 Running on Server")
-    BASE_DIR = "/home/tmp/sat-sst"
+    BASE_DIR = "/home/nkululeko/tmp/sat-sst"
 else:
     raise EnvironmentError("🚨 Unknown environment. Please configure the correct BASE_DIR.")
 
