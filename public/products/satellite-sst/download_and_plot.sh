@@ -71,5 +71,3 @@ python $PLOT_SCRIPT
 
 echo "✅ Plot generation completed successfully."
 
-# Deactivate Conda environment (optional)
-conda deactivate

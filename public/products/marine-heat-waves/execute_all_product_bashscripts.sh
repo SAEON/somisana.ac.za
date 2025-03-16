@@ -10,9 +10,9 @@ if [[ "$HOSTNAME" == "COMP000000183" ]]; then
     echo "📌 Running on Local Machine ($HOSTNAME)"
     BASE_DIR="/home/nc.memela/Projects/somisana.ac.za/public/products"
     ENV_ACTIVATION="source ~/anaconda3/bin/activate somisana_croco"
-elif [[ "$HOSTNAME" == *"ocean-access"* ]]; then
+elif [[ "$HOSTNAME" == "ocimsvaps.ocean.gov.za" ]]; then
     echo "📌 Running on Server ($HOSTNAME)"
-    BASE_DIR="/home/somisana.ac.za/public/products"
+    BASE_DIR="/home/nkululeko/somisana.ac.za/public/products"
     ENV_ACTIVATION="source /home/ocean-access/python_venv/bin/activate"
 else
     echo "🚨 Unknown environment: $HOSTNAME"
@@ -20,7 +20,7 @@ else
 fi
 
 # Define script paths dynamically
-DOWNLOAD_SSH="$BASE_DIR/satellite-ssh/download_and_plot.sh"
+DOWNLOAD_SSH="$BASE_DIR/satellite-ssh/download_and_plot.sh"i
 DOWNLOAD_SST="$BASE_DIR/satellite-sst/download_and_plot.sh"
 PLOT_MHW="$BASE_DIR/marine-heat-waves/generate_heatwaves.py"
 
@@ -50,7 +50,7 @@ run_script() {
 
 # Activate the appropriate environment
 echo "🔄 Activating environment..."
-eval "$ENV_ACTIVATION"
+source /home/ocean-access/python_venv/bin/activate
 
 # Execute the scripts
 run_script "$DOWNLOAD_SST" "bash"

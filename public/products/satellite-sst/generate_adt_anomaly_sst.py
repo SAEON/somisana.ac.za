@@ -14,9 +14,11 @@ HOSTNAME = os.uname().nodename
 if HOSTNAME == "COMP000000183":
     print("Running on Local Machine:", HOSTNAME)
     DATA_DIR = "/home/nc.memela/Projects/tmp/sat-sst"
-else:
+elif HOSTNAME == "ocimsvaps.ocean.gov.za":
     print("Running on Server:", HOSTNAME)
     DATA_DIR = "/home/nkululeko/tmp/sat-sst"
+else:
+    print("this is nonsense, what HOST it this?")
 
 # Find NetCDF files using glob
 original_files = glob.glob(f"{DATA_DIR}/*.nc")
