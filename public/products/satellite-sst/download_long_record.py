@@ -29,7 +29,8 @@ data_downloaded = False
 
 for days_back in range(max_lookback_days):
     end_date_str = current_date.strftime('%Y-%m-%d')
-    print(f"Attempting to fetch data from {start_date.strftime('%Y-%m-%d')} to {end_date_str}...")
+    start_date = datetime(2007, 2, 1).strftime('%Y-%m-%d')
+    print(f"Attempting to fetch data from {start_date} to {end_date_str}...")
 
     try:
         # Attempt to fetch the data
