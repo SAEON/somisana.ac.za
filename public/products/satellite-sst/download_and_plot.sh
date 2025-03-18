@@ -7,27 +7,27 @@ set -e
 HOSTNAME=$(hostname)
 
 if [[ "$HOSTNAME" == "COMP000000183" ]]; then
-    echo "Running on Local Machine: $HOSTNAME"
+    echo "🚀 Running on Local Machine: $HOSTNAME"
     BASE_DIR="/home/nc.memela/Projects/tmp/sat-sst"
-    CONDA_PATH="/home/nc.memela/anaconda3/bin/activate"
+    CONDA_PATH="/home/nc.memela/anaconda3"  # Corrected Conda path
 
-	# Activate the conda environment
-	echo "Activating conda environment: somisana_croco"
-	conda activate somisana_croco
+    # Ensure Conda is initialized for non-interactive shells
+    echo "🔄 Initializing Conda..."
+    source "$CONDA_PATH/bin/activate"
 
-	# Ensure Conda is available in non-interactive shells
-	source $CONDA_PATH
+    # Activate the Conda environment
+    echo "🐍 Activating Conda environment: somisana_croco"
+    conda activate somisana_croco
 
 else
-    echo "Running on Server: $HOSTNAME"
+    echo "🚀 Running on Server: $HOSTNAME"
     BASE_DIR="/home/ocean-access/tmp/sat-sst"
     PYTHON_PATH="/home/ocean-access/python_venv/bin/activate"
 
-    #Activate the python envirionment
-    echo "Activation of the Python Env"
+    # Activate the Python virtual environment
+    echo "🐍 Activating Python Virtual Environment"
     source $PYTHON_PATH
 fi
-
 
 # Move to the directory where this script is located
 cd "$(dirname "$0")"
@@ -41,20 +41,20 @@ DOWNLOAD_DIRECTORY="$BASE_DIR"
 FILE_PATTERN="METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_multi-vars_*.nc"
 
 # Check for existing files before download
-echo "Checking for existing files in $DOWNLOAD_DIRECTORY"
+echo "📂 Checking for existing files in $DOWNLOAD_DIRECTORY"
 existing_files=($DOWNLOAD_DIRECTORY/$FILE_PATTERN)
 
 # Remove old files before downloading new ones
 if [ -n "${existing_files[0]}" ]; then
-    echo "Removing old files before download..."
+    echo "🗑️ Removing old files before download..."
     rm -f "${existing_files[@]}"
-    echo "Old files removed successfully."
+    echo "✅ Old files removed successfully."
 else
-    echo "No old files found."
+    echo "✅ No old files found."
 fi
 
 # Execute the download script
-echo "Running download script: $DOWNLOAD_SCRIPT"
+echo "⬇️ Running download script: $DOWNLOAD_SCRIPT"
 python $DOWNLOAD_SCRIPT
 
 # Check if the download was successful
@@ -66,8 +66,7 @@ else
 fi
 
 # Execute the plot generation script
-echo "Running plot generation script: $PLOT_SCRIPT"
+echo "📊 Running plot generation script: $PLOT_SCRIPT"
 python $PLOT_SCRIPT
 
 echo "✅ Plot generation completed successfully."
-

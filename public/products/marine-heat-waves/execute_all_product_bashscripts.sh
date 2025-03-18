@@ -48,9 +48,6 @@ run_script() {
     fi
 }
 
-# Activate the appropriate environment
-echo "🔄 Activating environment..."
-source /home/ocean-access/python_venv/bin/activate
 
 # Execute the scripts
 run_script "$DOWNLOAD_SST" "bash"
