@@ -82,7 +82,7 @@ ax.clabel(cs, inline=True, fontsize=8, fmt='%1.1f', inline_spacing=5)
 ax.coastlines(resolution='50m', color='black', linewidth=1, zorder=3)
 ax.add_feature(cfeature.BORDERS, linestyle=':', edgecolor='black', zorder=3)
 ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)  # Brown land mask
-ax.set_title(f'Absolute Dynamic Topography ({anomaly_date_str})')
+ax.set_title(f'Absolute Dynamic Topography ({original_date_str})')
 
 gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5)
 gl.top_labels = False
@@ -103,7 +103,7 @@ p2 = ax.pcolormesh(lon, lat, adt_anomaly, cmap='RdBu', vmin=-vmax, vmax=vmax, tr
 ax.coastlines(resolution='50m', color='black', linewidth=1, zorder=3)
 ax.add_feature(cfeature.BORDERS, linestyle=':', edgecolor='black', zorder=3)
 ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)  # Brown land mask
-ax.set_title(f'SSH Anomaly ({anomaly_date_str} vs Long-term Mean)')
+ax.set_title(f'SSH Anomaly ({original_date_str} vs Long-term Mean)')
 
 gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5)
 gl.top_labels = False
