@@ -95,61 +95,48 @@ def weighted_monthly_mean(time_array, monthly_data):
     W_next = np.clip(W_next, 0, 1)
 
     # Convert month indices to datetime format
-    current_month_dates = time_index.to_period("M").to_timestamp()
-    prev_month_dates = (time_index - pd.DateOffset(months=1)).to_period("M").to_timestamp()
-    next_month_dates = (time_index + pd.DateOffset(months=1)).to_period("M").to_timestamp()
+    current_month = time_index.month
+    prev_month = (time_index - pd.DateOffset(months=1)).month
+    next_month = (time_index + pd.DateOffset(months=1)).month
 
-    # Select corresponding monthly means using `sel(time=..., method="nearest")`
-    smoothed_sst = (
-        (monthly_data.sel(time=prev_month_dates, method="nearest") * W_prev) +
-        (monthly_data.sel(time=current_month_dates, method="nearest") * W_current) +
-        (monthly_data.sel(time=next_month_dates, method="nearest") * W_next)
-    )
+    # Select historical averages for each month
+    historical_current = monthly_data.sel(time=monthly_data['time'].dt.month == current_month).mean(dim="time")
+    historical_prev = monthly_data.sel(time=monthly_data['time'].dt.month == prev_month).mean(dim="time")
+    historical_next = monthly_data.sel(time=monthly_data['time'].dt.month == next_month).mean(dim="time")
+
+    # Compute weighted SST using historical values
+    smoothed_sst = (historical_prev * W_prev) + (historical_current * W_current) + (historical_next * W_next)
 
     return smoothed_sst
 
-# Apply the weighted transition
+
+# -------------------- MAIN PROCESSING --------------------
+
+# Load daily SST dataset (Near real-time)
+ds_original = xr.open_dataset("/home/nkululeko/tmp/sat-sst/METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_multi-vars_10.02E-39.97E_39.97S-20.02S_2025-03-18.nc")
+
+# Load long-term monthly mean dataset
+ds_monthly = xr.open_dataset("/home/nkululeko/tmp/sat-sst/long-record/METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_monthly_2007-2025.nc")
+
+# Extract SST variable
+analysed_sst_original = ds_original['analysed_sst'].isel(time=0)
+
+# Apply the weighted transition for smoother anomalies
 print("🔍 Applying weighted monthly mean transition...")
-analysed_sst_smooth = weighted_monthly_mean(ds_original['time'], analysed_sst_monthly)
+analysed_sst_smooth = weighted_monthly_mean(ds_original['time'], ds_monthly['analysed_sst'])
 
-# DEBUG: Print available time coordinates in both datasets
-print("\n📅 Daily SST time values:\n", ds_original['time'].values[:5])
-print("\n📅 Monthly SST time values:\n", ds_monthly['time'].values[:5])
-print("\n📅 Weighted SST monthly mean time values:\n", analysed_sst_smooth['time'].values[:5])
-
-# Convert daily timestamps to match the nearest monthly mean timestamp
-daily_time_as_month = pd.to_datetime(ds_original['time'].values).normalize().to_period("M").to_timestamp(how="start")
-
-# Ensure conversion consistency
-print("\n🕒 Converted daily times to monthly start:\n", daily_time_as_month[:5])
-
-# Convert to xarray DataArray for compatibility
-daily_time_as_month = xr.DataArray(daily_time_as_month, dims="time", coords={"time": ds_original["time"]})
-
-# Convert monthly dataset time to datetime64 for consistency
-analysed_sst_smooth["time"] = analysed_sst_smooth["time"].astype("datetime64[ns]")
-
-# DEBUG: Verify time types
-print("\n🔍 Daily SST time dtype:", daily_time_as_month.dtype)
-print("\n🔍 Monthly SST time dtype:", analysed_sst_smooth["time"].dtype)
-
-# Select the corresponding monthly SST mean using nearest matching
-try:
-    monthly_sst_matched = analysed_sst_smooth.sel(time=daily_time_as_month, method="nearest", drop=True)
-    print("\n✅ Successfully matched monthly SST to daily times.")
-except KeyError as e:
-    print("\n❌ KeyError encountered while selecting time-matched SST:", e)
-
-# DEBUG: Print selected monthly SST times
-print("\n📅 Matched monthly SST time values:\n", monthly_sst_matched['time'].values[:5])
-
-# Compute SST anomaly
-analysed_sst_anomaly = analysed_sst_original - monthly_sst_matched
+# Compute the SST anomaly
+analysed_sst_anomaly = analysed_sst_original - analysed_sst_smooth
 
 # Extract date strings
 original_date_str = str(ds_original['time'].values[0])[:10]
 anomaly_date_str = str(ds_monthly['time'].values[-1])[:10]
 
+# -------------------- PLOTTING --------------------
+
+# Extract coordinates
+lon = ds_original['longitude']
+lat = ds_original['latitude']
 
 # --- Static SST Plot ---
 plt.figure(figsize=(8, 6))
@@ -168,8 +155,6 @@ ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)
 plt.savefig('analysed_sst_static.png', dpi=300, bbox_inches='tight')
 plt.close()
 
-
-
 # --- Static SST Anomaly Plot ---
 plt.figure(figsize=(8, 6))
 ax = plt.axes(projection=ccrs.PlateCarree())
@@ -187,6 +172,10 @@ ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)
 
 plt.savefig('analysed_sst_anomaly_static.png', dpi=300, bbox_inches='tight')
 plt.close()
+
+print("✅ Process complete! SST anomaly has been computed and plotted.")
+
+
 
 # --- Interactive SST Plot ---
 fig1 = px.imshow(
