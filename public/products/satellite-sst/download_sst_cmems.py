@@ -1,6 +1,7 @@
 import copernicusmarine
 from datetime import datetime, timedelta
 import os
+import glob  # ✅ Added import for 'glob'
 
 # Detect the environment based on hostname
 HOSTNAME = os.uname().nodename
@@ -30,6 +31,19 @@ data_downloaded = False
 for days_back in range(max_lookback_days):
     date_str = current_date.strftime('%Y-%m-%d')
     print(f"🌍 Attempting to fetch SST data for {date_str}...")
+    
+    # Define expected filename pattern (modify if necessary)
+    expected_filename_pattern = os.path.join(OUTPUT_DIR, f"*{date_str}*.nc")
+
+    # Check if any matching file exists in the directory
+    existing_files = glob.glob(expected_filename_pattern)
+
+    # If a file exists, delete it
+    if existing_files:
+        for file in existing_files:
+            os.remove(file)
+            print(f"🗑️ Deleted existing file: {file}")
+
 
     try:
         # Attempt to fetch the data
