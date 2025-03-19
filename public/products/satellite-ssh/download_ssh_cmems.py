@@ -2,6 +2,7 @@ import copernicusmarine
 from datetime import datetime, timedelta
 import os
 import socket
+import glob  # ✅ Added import for 'glob'
 
 # Detect the environment based on hostname
 HOSTNAME = socket.gethostname()
@@ -35,13 +36,14 @@ for days_back in range(max_lookback_days):
     date_str = current_date.strftime('%Y-%m-%d') # Today's date
     print(f"🔍 Attempting to fetch SSH data for {date_str}...")
 
-    #current_date = datetime.today()
-    #previous_date = current_date - timedelta(days=1)
-    #previous_date_str = previous_date.strftime('%Y-%m-%d')  # Yesterday's date
+    # 🆕 Check & Remove Existing Files
+    expected_filename_pattern = os.path.join(BASE_DIR, f"*{date_str}*.nc")
+    existing_files = glob.glob(expected_filename_pattern)
 
-    #print(f"Today: {date_str}")
-    #print(f"Previous Day: {previous_date_str}")
-
+    if existing_files:
+        for file in existing_files:
+            os.remove(file)
+            print(f"🗑️ Deleted existing file: {file}")
 
     try:
         # Attempt to fetch the data
