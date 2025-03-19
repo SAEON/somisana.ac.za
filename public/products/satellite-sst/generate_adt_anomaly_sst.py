@@ -108,16 +108,48 @@ def weighted_monthly_mean(time_array, monthly_data):
 
     return smoothed_sst
 
-
 # Apply the weighted transition
+print("🔍 Applying weighted monthly mean transition...")
 analysed_sst_smooth = weighted_monthly_mean(ds_original['time'], analysed_sst_monthly)
 
-# Compute SST anomalies using the smoothed monthly mean
-analysed_sst_anomaly = analysed_sst_original - analysed_sst_smooth.sel(time=ds_original.time, method="nearest")
+# DEBUG: Print available time coordinates in both datasets
+print("\n📅 Daily SST time values:\n", ds_original['time'].values[:5])
+print("\n📅 Monthly SST time values:\n", ds_monthly['time'].values[:5])
+print("\n📅 Weighted SST monthly mean time values:\n", analysed_sst_smooth['time'].values[:5])
+
+# Convert daily timestamps to match the nearest monthly mean timestamp
+daily_time_as_month = pd.to_datetime(ds_original['time'].values).normalize().to_period("M").to_timestamp(how="start")
+
+# Ensure conversion consistency
+print("\n🕒 Converted daily times to monthly start:\n", daily_time_as_month[:5])
+
+# Convert to xarray DataArray for compatibility
+daily_time_as_month = xr.DataArray(daily_time_as_month, dims="time", coords={"time": ds_original["time"]})
+
+# Convert monthly dataset time to datetime64 for consistency
+analysed_sst_smooth["time"] = analysed_sst_smooth["time"].astype("datetime64[ns]")
+
+# DEBUG: Verify time types
+print("\n🔍 Daily SST time dtype:", daily_time_as_month.dtype)
+print("\n🔍 Monthly SST time dtype:", analysed_sst_smooth["time"].dtype)
+
+# Select the corresponding monthly SST mean using nearest matching
+try:
+    monthly_sst_matched = analysed_sst_smooth.sel(time=daily_time_as_month, method="nearest", drop=True)
+    print("\n✅ Successfully matched monthly SST to daily times.")
+except KeyError as e:
+    print("\n❌ KeyError encountered while selecting time-matched SST:", e)
+
+# DEBUG: Print selected monthly SST times
+print("\n📅 Matched monthly SST time values:\n", monthly_sst_matched['time'].values[:5])
+
+# Compute SST anomaly
+analysed_sst_anomaly = analysed_sst_original - monthly_sst_matched
 
 # Extract date strings
 original_date_str = str(ds_original['time'].values[0])[:10]
 anomaly_date_str = str(ds_monthly['time'].values[-1])[:10]
+
 
 # --- Static SST Plot ---
 plt.figure(figsize=(8, 6))
@@ -135,6 +167,8 @@ ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)
 
 plt.savefig('analysed_sst_static.png', dpi=300, bbox_inches='tight')
 plt.close()
+
+
 
 # --- Static SST Anomaly Plot ---
 plt.figure(figsize=(8, 6))
