@@ -67,18 +67,22 @@ analysed_sst_monthly = analysed_sst_monthly.where(analysed_sst_monthly != fill_v
 def weighted_monthly_mean(time_array, monthly_data):
     """
     Computes a dynamically weighted SST mean based on proximity to mid-month.
-    Handles all month lengths and leap years correctly.
+    Handles all month lengths, leap years, and missing months correctly.
     """
     time_index = pd.to_datetime(time_array.values)
+
+    # Print debug info
+    print("\n🕒 Daily SST Time Values:\n", time_index)
+    print("📅 Monthly SST Time Values:\n", monthly_data['time'].values[:5])  # Print first 5 timestamps
+
     month_days = time_index.days_in_month
     day_of_month = time_index.day
 
-    # Initialize weight arrays
+    # Compute weights
     W_prev = np.zeros_like(day_of_month, dtype=float)
     W_current = np.zeros_like(day_of_month, dtype=float)
     W_next = np.zeros_like(day_of_month, dtype=float)
 
-    # Compute weights for all cases
     mask_before_mid = day_of_month < 15
     W_prev[mask_before_mid] = 1 - (day_of_month[mask_before_mid] / 15)
     W_current[mask_before_mid] = day_of_month[mask_before_mid] / 15
@@ -90,36 +94,40 @@ def weighted_monthly_mean(time_array, monthly_data):
     W_current[mask_after_mid] = 1 - ((day_of_month[mask_after_mid] - 15) / (month_days[mask_after_mid] - 15))
     W_next[mask_after_mid] = (day_of_month[mask_after_mid] - 15) / (month_days[mask_after_mid] - 15)
 
+    # Clip weights
     W_prev = np.clip(W_prev, 0, 1)
     W_current = np.clip(W_current, 0, 1)
     W_next = np.clip(W_next, 0, 1)
 
-    # Convert month indices to datetime format
-    current_month = time_index.month
-    prev_month = (time_index - pd.DateOffset(months=1)).month
-    next_month = (time_index + pd.DateOffset(months=1)).month
+    # Convert to scalar integers
+    current_month = int(time_index.month[0])  # Extract single value
+    prev_month = int((time_index - pd.DateOffset(months=1)).month[0])
+    next_month = int((time_index + pd.DateOffset(months=1)).month[0])
 
-    # Select historical averages for each month
-    historical_current = monthly_data.sel(time=monthly_data['time'].dt.month == current_month).mean(dim="time")
-    historical_prev = monthly_data.sel(time=monthly_data['time'].dt.month == prev_month).mean(dim="time")
-    historical_next = monthly_data.sel(time=monthly_data['time'].dt.month == next_month).mean(dim="time")
+    # Debugging prints
+    print("\n📅 Current Month:", current_month)
+    print("📅 Previous Month:", prev_month)
+    print("📅 Next Month:", next_month)
+    # print("🔎 Monthly Data Unique Months:", np.unique(monthly_data['time'].dt.month))
 
-    # Compute weighted SST using historical values
+    # Ensure selection works properly by using `.where()` instead of `.sel()`
+    historical_current = monthly_data.where(monthly_data['time'].dt.month == current_month, drop=True).mean(dim="time", skipna=True)
+    historical_prev = monthly_data.where(monthly_data['time'].dt.month == prev_month, drop=True).mean(dim="time", skipna=True)
+    historical_next = monthly_data.where(monthly_data['time'].dt.month == next_month, drop=True).mean(dim="time", skipna=True)
+
+    # Debugging prints for dataset filtering
+    #print("\n🔍 Filtered Historical Current SST:\n", historical_current)
+    #print("🔍 Filtered Historical Previous SST:\n", historical_prev)
+    #print("🔍 Filtered Historical Next SST:\n", historical_next)
+
+    # Compute weighted SST
     smoothed_sst = (historical_prev * W_prev) + (historical_current * W_current) + (historical_next * W_next)
 
     return smoothed_sst
 
 
+
 # -------------------- MAIN PROCESSING --------------------
-
-# Load daily SST dataset (Near real-time)
-ds_original = xr.open_dataset("/home/nkululeko/tmp/sat-sst/METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_multi-vars_10.02E-39.97E_39.97S-20.02S_2025-03-18.nc")
-
-# Load long-term monthly mean dataset
-ds_monthly = xr.open_dataset("/home/nkululeko/tmp/sat-sst/long-record/METOFFICE-GLO-SST-L4-NRT-OBS-SST-V2_monthly_2007-2025.nc")
-
-# Extract SST variable
-analysed_sst_original = ds_original['analysed_sst'].isel(time=0)
 
 # Apply the weighted transition for smoother anomalies
 print("🔍 Applying weighted monthly mean transition...")
@@ -133,10 +141,6 @@ original_date_str = str(ds_original['time'].values[0])[:10]
 anomaly_date_str = str(ds_monthly['time'].values[-1])[:10]
 
 # -------------------- PLOTTING --------------------
-
-# Extract coordinates
-lon = ds_original['longitude']
-lat = ds_original['latitude']
 
 # --- Static SST Plot ---
 plt.figure(figsize=(8, 6))
@@ -173,10 +177,6 @@ ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)
 plt.savefig('analysed_sst_anomaly_static.png', dpi=300, bbox_inches='tight')
 plt.close()
 
-print("✅ Process complete! SST anomaly has been computed and plotted.")
-
-
-
 # --- Interactive SST Plot ---
 fig1 = px.imshow(
     analysed_sst_original.values,
@@ -198,7 +198,8 @@ fig2 = px.imshow(
     aspect='auto',
     origin='lower'
 )
-
 pio.write_html(fig1, file='analysed_sst_map_interactive.html', auto_open=False)
 pio.write_html(fig2, file='analysed_sst_anomaly_map_interactive.html', auto_open=False)
+
+print("✅ Process complete! SST anomaly has been computed and plotted.")
 
