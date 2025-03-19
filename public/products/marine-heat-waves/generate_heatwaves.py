@@ -60,7 +60,7 @@ sst_threshold = sst_long_record.quantile(0.9, dim='time')
 
 # Compute marine heatwave as SST exceeding the 90th percentile
 marine_heatwave = sst_original - sst_threshold
-marine_heatwave = marine_heatwave.where(marine_heatwave > 0)
+marine_heatwave = marine_heatwave.where(marine_heatwave > 0) - 273.15
 
 # Extract date strings
 original_date_str = str(ds_original['time'].values[0])[:10]
