@@ -22,7 +22,7 @@ LOCAL_DIRS = {
     "sa-southeast": os.path.join(BASE_DIR, "sa-southeast/latest_forecasts")
 }
 
-MODELS = ["HYCOM-GFS", "MERCATOR-GFS"]
+MODELS = ["HYCOM-GFS", "MERCATOR-GFS","HYCOM-SAWS", "MERCATOR-SAWS"]
 GIF_FILES = ["croco_avg_temp_100m.gif", "croco_avg_temp_surf.gif", "croco_avg_temp_bot.gif"]
 LOG_FILE = os.path.join(BASE_DIR, "download_log.txt")
 
