@@ -210,7 +210,57 @@
         MERCATOR-SAWS <button class="toggle-btn" id="btn-2">+</button>
     </h2>
     <div class="content-container model-content" id="content-2">
-        <p class="unavailable">Currently Unavailable</p>
+        <div class="model-images">
+            <div class="gif-container">
+                <h3>Sea Surface Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Temperature at 100m</h3>
+                <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Bottom Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
+
+        <script>
+            function toggleSection(sectionNumber) {
+                var content = document.getElementById("content-" + sectionNumber);
+                var button = document.getElementById("btn-" + sectionNumber);
+        
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    button.innerHTML = "-"; // Minimize icon
+                } else {
+                    content.style.display = "none";
+                    button.innerHTML = "+"; // Expand icon
+                }
+            }
+        </script>
+        
+
+        <!-- Anomalies Subsection 
+        <h3 class="section-header" onclick="toggleSection(5)">
+            Anomalies <button class="toggle-btn" id="btn-5">+</button>
+        </h3>-->
+        <div class="content-container" id="content-5">
+            <div class="model-images">
+                <div class="gif-container">
+                    <h3>Sea Surface Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Temperature at 100m</h3>
+                    <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Bottom Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Third Section -->
@@ -279,7 +329,57 @@
         HYCOM-SAWS <button class="toggle-btn" id="btn-4">+</button>
     </h2>
     <div class="content-container model-content" id="content-4">
-        <p class="unavailable">Currently Unavailable</p>
+        <div class="model-images">
+            <div class="gif-container">
+                <h3>Sea Surface Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Temperature at 100m</h3>
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Bottom Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
+
+        <script>
+            function toggleSection(sectionNumber) {
+                var content = document.getElementById("content-" + sectionNumber);
+                var button = document.getElementById("btn-" + sectionNumber);
+        
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    button.innerHTML = "-"; // Minimize icon
+                } else {
+                    content.style.display = "none";
+                    button.innerHTML = "+"; // Expand icon
+                }
+            }
+        </script>
+        
+
+        <!-- Anomalies Subsection 
+        <h3 class="section-header" onclick="toggleSection(3)">
+            Anomalies <button class="toggle-btn" id="btn-3">+</button>
+        </h3>-->
+        <div class="content-container" id="content-3">
+            <div class="model-images">
+                <div class="gif-container">
+                    <h3>Sea Surface Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Temperature at 100m</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Bottom Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                </div>
+            </div>
+        </div>
     </div>
 
     <hr> <!-- Boundary Line -->
