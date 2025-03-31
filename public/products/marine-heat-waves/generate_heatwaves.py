@@ -15,60 +15,57 @@ HOSTNAME = socket.gethostname()
 if HOSTNAME == "COMP000000183":
     print("📌 Running on Local Machine")
     BASE_DIR = "/home/nc.memela/Projects/tmp/sat-sst"
-elif HOSTNAME == "ocimsvaps.ocean.gov.za":  # Adjust this for your server naming convention
+elif HOSTNAME == "ocimsvaps.ocean.gov.za":
     print("📌 Running on Server")
     BASE_DIR = "/home/nkululeko/tmp/sat-sst"
 else:
     raise EnvironmentError("🚨 Unknown environment. Please configure the correct BASE_DIR.")
 
-# Define input directories
+# Define input directory
 input_directory = os.path.join(BASE_DIR, "long-record")
 
-# Automatically find the most recent files in the directory
+# Find all .nc files in the long-record directory
 sst_files = [f for f in os.listdir(input_directory) if f.endswith('.nc')]
 sst_files.sort()
 
-# Assuming the last file is the most recent for the single day and the first is the long-term data
-original_file = os.path.join(input_directory, sst_files[-1])
-anomaly_file = os.path.join(input_directory, sst_files[0])
+# Use the most recent file as today's file
+todays_file = os.path.join(input_directory, sst_files[-1])
 
-# Load the additional long-term record file for 90th percentile
-MHW_long_record_file = glob.glob(os.path.join(input_directory, "*.nc"))[0] #the [0] selects the first file on the list in the dir
-long_record_file = os.path.join(input_directory, MHW_long_record_file)
+# Use the first file in the list as the long-term record file
+long_record_file = os.path.join(input_directory, sst_files[0])
 
 # Load datasets
-ds_original = xr.open_dataset(original_file)
-ds_anomaly = xr.open_dataset(anomaly_file)
+ds_todays = xr.open_dataset(todays_file)
 ds_long_record = xr.open_dataset(long_record_file)
 
-# Select the SST variable and convert to degrees Celsius
-sst_original = ds_original['analysed_sst'].isel(time=0) - 273.15
-sst_long_term = ds_anomaly['analysed_sst'] - 273.15
+# Select SST variable and convert to degrees Celsius
+sst_original = ds_todays['analysed_sst'].isel(time=0) - 273.15
 sst_long_record = ds_long_record['analysed_sst'] - 273.15
 
 # Extract coordinates
-lon = ds_original['longitude']
-lat = ds_original['latitude']
+lon = ds_todays['longitude']
+lat = ds_todays['latitude']
 
 # Handle fill values
 sst_original = sst_original.where(sst_original != -2147483647)
-sst_long_term = sst_long_term.where(sst_long_term != -2147483647)
 sst_long_record = sst_long_record.where(sst_long_record != -2147483647)
 
-# Compute the long-term 90th percentile threshold using the long record
+# Compute the 90th percentile threshold using long-term record
 sst_threshold = sst_long_record.quantile(0.9, dim='time')
 
 # Compute marine heatwave as SST exceeding the 90th percentile
 marine_heatwave = sst_original - sst_threshold
 marine_heatwave = marine_heatwave.where(marine_heatwave > 0) - 273.15
 
-# Extract date strings
-original_date_str = str(ds_original['time'].values[0])[:10]
-anomaly_date_str = str(ds_anomaly['time'].values[-1])[:10]
+# Extract date string
+original_date_str = str(ds_todays['time'].values[0])[:10]
+#anomaly_date_str = original_date_str  # Reusing the same date
+long_record_date_str = str(ds_long_record['time'].values[-1])[:10]
 
-# --- Separate Static Plots for SST and Marine Heatwave ---
+print("original_date_str",original_date_str)
+print("long_record_date_str",long_record_date_str)
 
-# Plot 1: Sea Surface Temperature (SST)
+# --- Static Plot: Sea Surface Temperature ---
 plt.figure(figsize=(8, 6))
 ax = plt.axes(projection=ccrs.PlateCarree())
 
@@ -76,19 +73,20 @@ p1 = ax.pcolormesh(lon, lat, sst_original, cmap='jet', transform=ccrs.PlateCarre
 
 ax.coastlines(resolution='50m', color='black', linewidth=1, zorder=3)
 ax.add_feature(cfeature.BORDERS, linestyle=':', edgecolor='black', zorder=3)
-ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)  # Brown land mask
-ax.set_title(f'Sea Surface Temperature (°C) ({anomaly_date_str})', fontsize=14, pad=10)
+ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)
+ax.set_title(f'Sea Surface Temperature (°C) ({long_record_date_str})', fontsize=14, pad=10)
 
 gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5)
 gl.top_labels = False
 gl.right_labels = False
+
 cbar = plt.colorbar(p1, orientation='vertical', shrink=0.8, pad=0.05)
 cbar.set_label('SST (°C)')
 
 plt.savefig('sst_static.png', dpi=300, bbox_inches='tight')
 plt.close()
 
-# Plot 2: Marine Heatwave
+# --- Static Plot: Marine Heatwave ---
 plt.figure(figsize=(8, 6))
 ax = plt.axes(projection=ccrs.PlateCarree())
 
@@ -96,32 +94,33 @@ p2 = ax.pcolormesh(lon, lat, marine_heatwave, cmap='YlOrRd', transform=ccrs.Plat
 
 ax.coastlines(resolution='50m', color='black', linewidth=1, zorder=3)
 ax.add_feature(cfeature.BORDERS, linestyle=':', edgecolor='black', zorder=3)
-ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)  # Brown land mask
-ax.set_title(f'Marine Heatwave (SST > 90th Percentile)\n({anomaly_date_str} vs Long-term Mean)', fontsize=14, pad=10)
+ax.add_feature(cfeature.LAND, color='saddlebrown', zorder=0)
+ax.set_title(f'Marine Heatwave (SST > 90th Percentile)\n({long_record_date_str} vs Long-term Mean)', fontsize=14, pad=10)
 
 gl = ax.gridlines(draw_labels=True, linewidth=0.5, color='gray', alpha=0.5)
 gl.top_labels = False
 gl.right_labels = False
+
 cbar = plt.colorbar(p2, orientation='vertical', shrink=0.8, pad=0.05)
 cbar.set_label('Marine Heatwave (°C)')
 
 plt.savefig('marine_heatwave_static.png', dpi=300, bbox_inches='tight')
 plt.close()
 
-# --- Interactive Side-by-Side Plot with Plotly ---
+# --- Interactive Plotly Plots ---
 
-# Prepare data for interactive plots
+# Prepare data
 sst_original_data = sst_original.values
 marine_heatwave_data = marine_heatwave.values
 lon_values, lat_values = np.meshgrid(lon, lat)
 
-# Ensure correct orientation
+# Flip latitude if needed
 if lat_values[0, 0] > lat_values[-1, 0]:
     sst_original_data = np.flipud(sst_original_data)
     marine_heatwave_data = np.flipud(marine_heatwave_data)
     lat_values = np.flipud(lat_values)
 
-# Create side-by-side interactive plots
+# Interactive SST plot
 fig1 = px.imshow(
     sst_original_data,
     labels={'color': 'SST (°C)'},
@@ -130,13 +129,6 @@ fig1 = px.imshow(
     color_continuous_scale='Jet',
     aspect='auto',
     origin='lower'
-)
-fig1.update_geos(
-    showland=True,
-    landcolor='saddlebrown',  # Brown land mask
-    showcountries=True,
-    showcoastlines=True,
-    coastlinecolor='black'
 )
 fig1.update_layout(
     title={
@@ -151,6 +143,7 @@ fig1.update_layout(
     coloraxis_colorbar=dict(title='SST (°C)', title_side='right'),
 )
 
+# Interactive Marine Heatwave plot
 fig2 = px.imshow(
     marine_heatwave_data,
     labels={'color': 'Marine Heatwave (°C)'},
@@ -159,13 +152,6 @@ fig2 = px.imshow(
     color_continuous_scale='YlOrRd',
     aspect='auto',
     origin='lower'
-)
-fig2.update_geos(
-    showland=True,
-    landcolor='saddlebrown',  # Brown land mask
-    showcountries=True,
-    showcoastlines=True,
-    coastlinecolor='black'
 )
 fig2.update_layout(
     title={
@@ -180,6 +166,6 @@ fig2.update_layout(
     coloraxis_colorbar=dict(title='Marine Heatwave (°C)', title_side='right'),
 )
 
-# Save the interactive plots as HTML files
+# Save HTML versions
 pio.write_html(fig1, file='sst_map_interactive_sst.html', auto_open=False)
 pio.write_html(fig2, file='marine_heatwave_map_interactive_sst.html', auto_open=False)
