@@ -44,11 +44,11 @@ ds_anomaly = xr.open_dataset(anomaly_file)
 
 
 # Access scale factor from attributes (default to 1 if not present)
-scale_factor = ds_original['adt'].attrs.get('scale_factor', 1)
+scale_factor = ds_original['sla'].attrs.get('scale_factor', 1)
 
 # Select the ADT (Absolute Dynamic Topography) variable and apply the scale factor
-adt_original = ds_original['adt'].isel(time=0) * scale_factor
-adt_long_term = ds_anomaly['adt'] * scale_factor
+adt_original = ds_original['sla'].isel(time=0) * scale_factor
+adt_long_term = ds_anomaly['sla'] * scale_factor
 
 # Extract coordinates
 lon = ds_original['longitude']
