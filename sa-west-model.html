@@ -212,82 +212,91 @@
 
     <hr> <!-- Boundary Line -->
 
-    <script>
-        function renderSection(title, folder, id, anomId) {
-          document.write(`
-            <h2 class='section-header' onclick='toggleSection(${id})'>
-              ${title} <button class='toggle-btn' id='btn-${id}'>+</button>
-            </h2>
-            <div class='content-container' id='content-${id}'>
-              <div class='model-images'>
-                <div style='text-align: left; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; max-width: 100px;'>
-                  <button onclick='rewindVideos(this)' class='video-control-btn'> Rewind</button>
-                  <button onclick='toggleVideosIn(this)' class='video-control-btn'> Pause</button>
-                  <button onclick='forwardVideos(this)' class='video-control-btn'> Forward</button>
-                </div>
 
-                <div class='gif-container'>
-                  <h3>Sea Surface Temperature</h3>
-                  <video class='model-video' autoplay loop muted playsinline>
-                    <source src='public/sa-west/latest_forecasts/${folder}/croco_avg_surf.mp4' type='video/mp4'>
-                  </video>
-                </div>
-                <div class='gif-container'>
-                  <h3>Temperature at 100m</h3>
-                  <video class='model-video' autoplay loop muted playsinline>
-                    <source src='public/sa-west/latest_forecasts/${folder}/croco_avg_100m.mp4' type='video/mp4'>
-                  </video>
-                </div>
-                <div class='gif-container'>
-                  <h3>Bottom Temperature</h3>
-                  <video class='model-video' autoplay loop muted playsinline>
-                    <source src='public/sa-west/latest_forecasts/${folder}/croco_avg_bot.mp4' type='video/mp4'>
-                  </video>
-                </div>
-              </div>
-      
-              <h3 class='anom-section-header' onclick='toggleSection(${anomId})'>
-                Anomalies <button class='toggle-btn' id='btn-${anomId}'>+</button>
-              </h3>
-              <div class='content-container' id='content-${anomId}'>
-              <div class='model-images'>
-                <div style='text-align: left; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; max-width: 100px;'>
-                  <button onclick='rewindVideos(this)' class='video-control-btn'> Rewind</button>
-                  <button onclick='toggleVideosIn(this)' class='video-control-btn'> Pause</button>
-                  <button onclick='forwardVideos(this)' class='video-control-btn'> Forward</button>
-                </div>
+<script>
+  // Local base for all models (no date logic)
+  const localBase = "public/sa-west/latest_forecasts";
 
+  function renderSection(title, folder, id, anomId) {
+    document.write(`
+      <h2 class='section-header' onclick='toggleSection(${id})'>
+        ${title} <button class='toggle-btn' id='btn-${id}'>+</button>
+      </h2>
+      <div class='content-container' id='content-${id}'>
+        <div class='model-images'>
+          <div style='text-align: left; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; max-width: 100px;'>
+            <button onclick='rewindVideos(this)' class='video-control-btn'> Rewind</button>
+            <button onclick='toggleVideosIn(this)' class='video-control-btn'> Pause</button>
+            <button onclick='forwardVideos(this)' class='video-control-btn'> Forward</button>
+          </div>
 
+          <div class='gif-container'>
+            <h3>Sea Surface Temperature</h3>
+            <video class='model-video' autoplay loop muted playsinline>
+              <source src='${localBase}/${folder}/croco_avg_temp_surf.mp4' type='video/mp4'>
+            </video>
+          </div>
+          <div class='gif-container'>
+            <h3>Temperature at 100m</h3>
+            <video class='model-video' autoplay loop muted playsinline>
+              <source src='${localBase}/${folder}/croco_avg_temp_100m.mp4' type='video/mp4'>
+            </video>
+          </div>
+          <div class='gif-container'>
+            <h3>Bottom Temperature</h3>
+            <video class='model-video' autoplay loop muted playsinline>
+              <source src='${localBase}/${folder}/croco_avg_temp_bot.mp4' type='video/mp4'>
+            </video>
+          </div>
+        </div>
 
-                  <div class='gif-container'>
-                    <h3>Sea Surface Temperature Anomaly</h3>
-                    <video class='model-video' autoplay loop muted playsinline>
-                      <source src='public/sa-west/latest_forecasts/${folder}/croco_avg_ANOMALY_surface.mp4' type='video/mp4'>
-                    </video>
-                  </div>
-                  <div class='gif-container'>
-                    <h3>Temperature Anomaly at 100m</h3>
-                    <video class='model-video' autoplay loop muted playsinline>
-                      <source src='public/sa-west/latest_forecasts/${folder}/croco_avg_ANOMALY_100m.mp4' type='video/mp4'>
-                    </video>
-                  </div>
-                  <div class='gif-container'>
-                    <h3>Bottom Temperature Anomaly</h3>
-                    <video class='model-video' autoplay loop muted playsinline>
-                      <source src='public/sa-west/latest_forecasts/${folder}/croco_avg_ANOMALY_bottom.mp4' type='video/mp4'>
-                    </video>
-                  </div>
-                </div>
-              </div>
+        <h3 class='anom-section-header' onclick='toggleSection(${anomId})'>
+          Anomalies <button class='toggle-btn' id='btn-${anomId}'>+</button>
+        </h3>
+        <div class='content-container' id='content-${anomId}'>
+          <div class='model-images'>
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin: 10px 0;">
+              <button onclick="skipVideo(this, -0.5)" class="video-control-btn white-bg-btn">
+                <img src="public/rewind.png" alt="Rewind" width="24" height="24">
+              </button>
+              <button onclick='toggleVideosIn(this)' class='video-control-btn'> Pause</button>
+              <button onclick="skipVideo(this, 0.5)" class="video-control-btn white-bg-btn">
+                <img src="public/fast-forward.png" alt="Fast Forward" width="24" height="24">
+              </button>
             </div>
-          `);
-        }
-      
-        renderSection("MERCATOR-GFS", "MERCATOR-GFS", 1, 2);
-        renderSection("MERCATOR-SAWS", "MERCATOR-SAWS", 3, 4);
-        renderSection("HYCOM-GFS", "HYCOM-GFS", 5, 6);
-        renderSection("HYCOM-SAWS", "HYCOM-SAWS", 7, 8);
-      </script>
+
+            <div class='gif-container'>
+              <h3>Sea Surface Temperature Anomaly</h3>
+              <video class='model-video' autoplay loop muted playsinline>
+                <source src='${localBase}/${folder}/croco_avg_ANOMALY_surface.mp4' type='video/mp4'>
+              </video>
+            </div>
+            <div class='gif-container'>
+              <h3>Temperature Anomaly at 100m</h3>
+              <video class='model-video' autoplay loop muted playsinline>
+                <source src='${localBase}/${folder}/croco_avg_ANOMALY_100m.mp4' type='video/mp4'>
+              </video>
+            </div>
+            <div class='gif-container'>
+              <h3>Bottom Temperature Anomaly</h3>
+              <video class='model-video' autoplay loop muted playsinline>
+                <source src='${localBase}/${folder}/croco_avg_ANOMALY_bottom.mp4' type='video/mp4'>
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    `);
+  }
+
+  // Use your existing calls
+  renderSection("MERCATOR-GFS", "MERCATOR-GFS", 1, 2);
+  renderSection("MERCATOR-SAWS", "MERCATOR-SAWS", 3, 4);
+  renderSection("HYCOM-GFS", "HYCOM-GFS", 5, 6);
+  renderSection("HYCOM-SAWS", "HYCOM-SAWS", 7, 8);
+</script>
+
+    
       
       <script>
         function toggleSection(sectionNumber) {

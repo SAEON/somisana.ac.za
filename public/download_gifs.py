@@ -23,7 +23,7 @@ LOCAL_DIRS = {
 }
 
 MODELS = ["HYCOM-GFS", "MERCATOR-GFS","HYCOM-SAWS", "MERCATOR-SAWS"]
-GIF_FILES = ["croco_avg_temp_100m.gif", "croco_avg_temp_surf.gif", "croco_avg_temp_bot.gif"]
+GIF_FILES = ["croco_avg_temp_100m.mp4", "croco_avg_temp_surf.mp4", "croco_avg_temp_bot.mp4"]
 LOG_FILE = os.path.join(BASE_DIR, "download_log.txt")
 
 def get_date_path(days_back=0):
