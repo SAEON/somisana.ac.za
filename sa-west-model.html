@@ -255,16 +255,11 @@
         </h3>
         <div class='content-container' id='content-${anomId}'>
           <div class='model-images'>
-            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin: 10px 0;">
-              <button onclick="skipVideo(this, -0.5)" class="video-control-btn white-bg-btn">
-                <img src="public/rewind.png" alt="Rewind" width="24" height="24">
-              </button>
-              <button onclick='toggleVideosIn(this)' class='video-control-btn'> Pause</button>
-              <button onclick="skipVideo(this, 0.5)" class="video-control-btn white-bg-btn">
-                <img src="public/fast-forward.png" alt="Fast Forward" width="24" height="24">
-              </button>
-            </div>
-
+          <div style='text-align: left; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; max-width: 100px;'>
+            <button onclick='rewindVideos(this)' class='video-control-btn'> Rewind</button>
+            <button onclick='toggleVideosIn(this)' class='video-control-btn'> Pause</button>
+            <button onclick='forwardVideos(this)' class='video-control-btn'> Forward</button>
+          </div>
             <div class='gif-container'>
               <h3>Sea Surface Temperature Anomaly</h3>
               <video class='model-video' autoplay loop muted playsinline>
