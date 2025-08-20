@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      background-color: navy;
+      font-family: "Open Sans", sans-serif;
+      color: white;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      color: black;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: navy;
+      margin-bottom: 20px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: navy;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #003f7f;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: white;
+      text-decoration: underline;
+    }
+
+    .back-link:hover {
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="contact-form">
+    <h2>Send Us a Message</h2>
+    <form action="https://formspree.io/f/xwpqkkol" method="POST"
+          onsubmit="alert('Thank you! Your message has been sent.');">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+
+      <!-- 🛡️ Honeypot Anti-spam Field -->
+      <input type="text" name="_gotcha" style="display:none">
+
+      <!-- ⏱️ Time Trap Field -->
+      <input type="hidden" name="timestamp" id="timestamp">
+
+      <!-- Submit -->
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <a href="index.html" class="back-link"> ← Back to Home </a>
+  <div style="text-align: center; margin-top: 40px; font-size: 18px; font-weight: bold; color: white;">
+    somisana.ac.za
+  </div>
+
+  <!-- Time Trap Script -->
+  <script>
+    window.addEventListener("DOMContentLoaded", function () {
+      const tsField = document.getElementById("timestamp");
+      if (tsField) {
+        tsField.value = Date.now();
+      }
+    });
+  </script>
+
+</body>
+</html>
