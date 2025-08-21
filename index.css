@@ -90,9 +90,10 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
+  width: 120px;
 }
 .home-egagasini-logo {
-  width: 90px;
+  width: 120px;
   object-fit: cover;
 }
 .home-navbar2 {
@@ -113,6 +114,7 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
+  padding-left: 30px;
 }
 .home-link01 {
   display: contents;
@@ -1115,7 +1117,7 @@
     width: 94px;
   }
   .home-egagasini-logo {
-    width: 50px;
+    width: 150px;
     height: 50px;
   }
   .home-navbar2 {
