@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,28 +8,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <style>
-        body{background-color:navy;color:white;font-family:"Open Sans",sans-serif;margin:0;padding:0}
-        video{max-width:100%;height:auto;border-radius:6px}
-        .video-control-btn{min-width:65px;margin-top:8px;padding:6px 12px;font-size:14px;border:none;border-radius:4px;background-color:navy;color:white;cursor:pointer}
-        .video-control-btn:hover{background-color:#0056b3}
-        .skip-icon{color:black;font-size:14px}
-        .white-bg-btn{background-color:white;color:black;border:1px solid #ccc;border-radius:6px;padding:6px 10px}
-        .white-bg-btn:hover{background-color:#f0f0f0}
-        .section-header{cursor:pointer;display:flex;justify-content:space-between;align-items:center;background-color:#007bff;color:white;padding:10px;border-radius:5px;margin:10px 0}
-        .toggle-btn{background:none;border:none;color:white;font-size:20px;cursor:pointer}
-        .content-container{display:none;padding:10px;border:1px solid #ddd;border-radius:5px;background-color:white;color:black}
-        .gif-container{text-align:center;margin:10px 0}
-        .unavailable{font-style:italic;color:red;text-align:center}
-        .model-description{background-color:white;color:black;padding:15px;border-radius:8px;margin:20px auto;max-width:80%;text-align:center;font-size:18px;line-height:1.6}
-        .page-header{background-color:#0056b3;padding:15px;text-align:center;color:white;font-size:24px}
-        .page-header h1{color:white}
-        .back-nav img{width:30px}
-        .model-description a{color:blue;text-decoration:underline}
-        .model-description a:hover{color:red}
-        .anom-section-header{cursor:pointer;display:flex;justify-content:space-between;align-items:center;background-color:#f8495a;color:white;border:2px solid black;padding:10px;border-radius:5px;margin:10px 0;clip-path:polygon(0% 0%,5% 0%,35% 0%,49% 45%,51% 45%,65% 0%,95% 0%,100% 0%,100% 100%,95% 100%,65% 100%,51% 55%,49% 55%,35% 100%,5% 100%,0% 100%)}
+        /* Set the page background to navy */
+        body {
+            background-color: navy;
+            color: white; /* Ensures readability for non-section elements */
+            font-family: "Open Sans", sans-serif; /* Matches newpage.html */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Styling for collapsible sections */
+        .section-header {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .content-container {
+            display: none; /* Initially collapsed */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: white; /* Keeps sections white */
+            color: black; /* Ensures text inside sections is readable */
+        }
+
+        .gif-container {
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .unavailable {
+            font-style: italic;
+            color: red;
+            text-align: center;
+        }
+
+        /* Ensure headers and text in sections remain readable */
+        .model-description {
+            background-color: white;
+            color: black;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px auto; /* Centers the blurb */
+            max-width: 80%; /* Matches newpage.html */
+            text-align: center;
+            font-size: 18px; /* Ensures consistent text size */
+            line-height: 1.6;
+        }
+
+        /* Page header styling */
+        .page-header {
+            background-color: #0056b3;
+            padding: 15px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        /* Make "SACOFS-west Model" header white */
+        .page-header h1 {
+            color: white;
+        }
+
+        /* Ensure buttons and back navigation are visible */
+        .back-nav img {
+            width: 30px;
+        }
+
+        /* Make links red, like in newpage.html */
+        .model-description a {
+            color: blue;
+            text-decoration: underline;
+        }
+
+        .model-description a:hover {
+            color: red;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- Page Header with Back Navigation -->
     <div class="page-header">
         <a href="newpage.html" class="back-nav">
             <img src="public/left-arrow.png" alt="Back">
@@ -35,139 +112,296 @@
         <h1 class="page-title" style="color: white;">SACOFS-west Model</h1>
     </div>
 
+    <!-- Model Description -->
     <div class="model-description">
         <hr>
-        <div><h1 class="page-title">Various Configuration FORECAST Runs</h1></div>
+        <div>
+            <h1 class="page-title">Various Configuration Runs</h1>
+        </div>
         <p>
             The animations below provide a visual representation of temperature and currents at the water surface, bottom, 
             and a depth of 100 m. Animations are provided for the most recent successful simulation from each of the four 
             ensemble members. The ensemble members are named according to the BOUNDARY-SURFACE forcing combination. <br><br>
+        
             The model output files for these forecasts can be accessed via our 
-            <a href="https://somisana.ocean.gov.za/sa-west/v1.0/forecasts" target="_blank">file server</a>, or alternatively via 
-            <a href="https://somisana.ocean.gov.za/thredds/catalog/mnt/ocims-somisana/sa-west/v1.0/forecasts/catalog.html" target="_blank">THREDDS</a>.         
+            <a href="https://somisana.ocean.gov.za/sa-west/v1.0/forecasts" target="_blank">
+                file server
+            </a>, or alternatively via 
+            <a href="https://somisana.ocean.gov.za/thredds/catalog/mnt/ocims-somisana/sa-west/v1.0/forecasts/catalog.html" 
+                target="_blank">
+                THREDDS
+            </a>.         
             We have produced a similarly configured hindcast of this model domain, which can be accessed via our 
-            <a href="https://somisana.ocean.gov.za/sa-west/v1.0/hindcasts" target="_blank">file server</a>, or alternatively via 
-            <a href="https://somisana.ocean.gov.za/thredds/catalog/mnt/ocims-somisana/sa-west/v1.0/hindcasts/catalog.html" target="_blank">THREDDS</a>. 
+            <a href="https://somisana.ocean.gov.za/sa-west/v1.0/hindcasts" target="_blank">
+                file server
+            </a>, or alternatively via 
+            <a href="https://somisana.ocean.gov.za/thredds/catalog/mnt/ocims-somisana/sa-west/v1.0/hindcasts/catalog.html" 
+                target="_blank">
+                THREDDS
+            </a>. 
+        
             The hindcast validation report for this domain can be found here 
-            <a href="public/sa-west/South_Western_Cape_Coast_CROCO_Validation.pdf" target="_blank">Validation Report (PDF)</a>.
-            The Forecast skills assessment report for this domain can be found here
             <span style="color: gray;">(link coming up soon)</span>.
         </p>
+        
     </div>
 
-    <hr>
+    <hr> <!-- Boundary Line -->
 
-<script>
-  // Local base for all models (no date logic)
-  const localBase = "/home/somisana/ops/main/20250828_00/sa_west_02/croco_v1.3.1";
-
-  function renderSection(title, folder, id, anomId) {
-    document.write(`
-      <h2 class='section-header' onclick='toggleSection(${id})'>
-        ${title} <button class='toggle-btn' id='btn-${id}'>+</button>
-      </h2>
-      <div class='content-container' id='content-${id}'>
-        <div class='model-images'>
-          <div style='text-align: left; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; max-width: 100px;'>
-            <button onclick='rewindVideos(this)' class='video-control-btn'> Rewind</button>
-            <button onclick='toggleVideosIn(this)' class='video-control-btn'> Pause</button>
-            <button onclick='forwardVideos(this)' class='video-control-btn'> Forward</button>
-          </div>
-
-          <div class='gif-container'>
-            <h3>Sea Surface Temperature</h3>
-            <video class='model-video' autoplay loop muted playsinline>
-              <source src='${localBase}/${folder}/croco_avg_temp_surf.mp4' type='video/mp4'>
-            </video>
-          </div>
-          <div class='gif-container'>
-            <h3>Temperature at 100m</h3>
-            <video class='model-video' autoplay loop muted playsinline>
-              <source src='${localBase}/${folder}/croco_avg_temp_100m.mp4' type='video/mp4'>
-            </video>
-          </div>
-          <div class='gif-container'>
-            <h3>Bottom Temperature</h3>
-            <video class='model-video' autoplay loop muted playsinline>
-              <source src='${localBase}/${folder}/croco_avg_temp_bot.mp4' type='video/mp4'>
-            </video>
-          </div>
+    <!-- First Section -->
+    <h2 class="section-header" onclick="toggleSection(1)">
+        MERCATOR-GFS <button class="toggle-btn" id="btn-1">+</button>
+    </h2>
+    <div class="content-container model-content" id="content-1">
+        <div class="model-images">
+            <div class="gif-container">
+                <h3>Sea Surface Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Temperature at 100m</h3>
+                <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Bottom Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+            </div>
         </div>
 
-        <h3 class='anom-section-header' onclick='toggleSection(${anomId})'>
-          Anomalies <button class='toggle-btn' id='btn-${anomId}'>+</button>
-        </h3>
-        <div class='content-container' id='content-${anomId}'>
-          <div class='model-images'>
-            <div style='text-align: left; margin: 10px 0; display: flex; flex-direction: column; gap: 8px; max-width: 100px;'>
-              <button onclick='rewindVideos(this)' class='video-control-btn'> Rewind</button>
-              <button onclick='toggleVideosIn(this)' class='video-control-btn'> Pause</button>
-              <button onclick='forwardVideos(this)' class='video-control-btn'> Forward</button>
+        <script>
+            function toggleSection(sectionNumber) {
+                var content = document.getElementById("content-" + sectionNumber);
+                var button = document.getElementById("btn-" + sectionNumber);
+        
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    button.innerHTML = "-"; // Minimize icon
+                } else {
+                    content.style.display = "none";
+                    button.innerHTML = "+"; // Expand icon
+                }
+            }
+        </script>
+        
+
+        <!-- Anomalies Subsection 
+        <h3 class="section-header" onclick="toggleSection(5)">
+            Anomalies <button class="toggle-btn" id="btn-5">+</button>
+        </h3>-->
+        <div class="content-container" id="content-5">
+            <div class="model-images">
+                <div class="gif-container">
+                    <h3>Sea Surface Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Temperature at 100m</h3>
+                    <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Bottom Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/MERCATOR-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                </div>
             </div>
-            <div class='gif-container'>
-              <h3>Sea Surface Temperature Anomaly</h3>
-              <video class='model-video' autoplay loop muted playsinline>
-                <source src='${localBase}/${folder}/croco_avg_ANOMALY_surface.mp4' type='video/mp4'>
-              </video>
-            </div>
-            <div class='gif-container'>
-              <h3>Temperature Anomaly at 100m</h3>
-              <video class='model-video' autoplay loop muted playsinline>
-                <source src='${localBase}/${folder}/croco_avg_ANOMALY_100m.mp4' type='video/mp4'>
-              </video>
-            </div>
-            <div class='gif-container'>
-              <h3>Bottom Temperature Anomaly</h3>
-              <video class='model-video' autoplay loop muted playsinline>
-                <source src='${localBase}/${folder}/croco_avg_ANOMALY_bottom.mp4' type='video/mp4'>
-              </video>
-            </div>
-          </div>
         </div>
-      </div>
-    `);
-  }
+    </div>
 
-  // MERCATOR-GFS: updated to exact new folder
-  renderSection("MERCATOR-GFS", "C06_I99_MERCATOR_GFS_TPXO10/postprocess", 1, 2);
 
-  // Others unchanged until you provide their new folders
-  renderSection("MERCATOR-SAWS", "MERCATOR-SAWS", 3, 4);
-  renderSection("HYCOM-GFS", "HYCOM-GFS", 5, 6);
-  renderSection("HYCOM-SAWS", "HYCOM-SAWS", 7, 8);
-</script>
+    <!-- Second Section (Unavailable) -->
+    <h2 class="section-header" onclick="toggleSection(2)">
+        MERCATOR-SAWS <button class="toggle-btn" id="btn-2">+</button>
+    </h2>
+    <div class="content-container model-content" id="content-2">
+        <div class="model-images">
+            <div class="gif-container">
+                <h3>Sea Surface Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Temperature at 100m</h3>
+                <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Bottom Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
 
-<script>
-  function toggleSection(sectionNumber){
-    const content=document.getElementById("content-"+sectionNumber);
-    const button=document.getElementById("btn-"+sectionNumber);
-    if(content.style.display==="none"||content.style.display===""){
-      content.style.display="block";button.innerHTML="-";
-    }else{
-      content.style.display="none";button.innerHTML="+";
-    }
-  }
-  function toggleVideosIn(buttonElement){
-    const section=buttonElement.closest('.model-images');
-    const videos=section.querySelectorAll('.model-video');
-    const firstVideo=videos[0];
-    const isPaused=firstVideo.paused;
-    videos.forEach(v=>{ if(isPaused){v.play()}else{v.pause()} });
-    buttonElement.textContent=isPaused?'Pause':'Play';
-  }
-  function rewindVideos(buttonElement){
-    const section=buttonElement.closest('.model-images');
-    const videos=section.querySelectorAll('.model-video');
-    videos.forEach(v=>{ v.currentTime=Math.max(0,v.currentTime-0.2) });
-  }
-  function forwardVideos(buttonElement){
-    const section=buttonElement.closest('.model-images');
-    const videos=section.querySelectorAll('.model-video');
-    videos.forEach(v=>{ v.currentTime=Math.min(v.duration,v.currentTime+0.2) });
-  }
-</script>
+        <script>
+            function toggleSection(sectionNumber) {
+                var content = document.getElementById("content-" + sectionNumber);
+                var button = document.getElementById("btn-" + sectionNumber);
+        
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    button.innerHTML = "-"; // Minimize icon
+                } else {
+                    content.style.display = "none";
+                    button.innerHTML = "+"; // Expand icon
+                }
+            }
+        </script>
+        
 
-<hr>
+        <!-- Anomalies Subsection 
+        <h3 class="section-header" onclick="toggleSection(5)">
+            Anomalies <button class="toggle-btn" id="btn-5">+</button>
+        </h3>-->
+        <div class="content-container" id="content-5">
+            <div class="model-images">
+                <div class="gif-container">
+                    <h3>Sea Surface Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Temperature at 100m</h3>
+                    <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Bottom Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/MERCATOR-SAWS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Third Section -->
+
+    <h2 class="section-header" onclick="toggleSection(6)">
+        HYCOM-GFS <button class="toggle-btn" id="btn-6">+</button>
+    </h2>
+    <div class="content-container model-content" id="content-6">
+        <div class="model-images">
+            <div class="gif-container">
+                <h3>Sea Surface Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Temperature at 100m</h3>
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Bottom Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
+
+        <script>
+            function toggleSection(sectionNumber) {
+                var content = document.getElementById("content-" + sectionNumber);
+                var button = document.getElementById("btn-" + sectionNumber);
+        
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    button.innerHTML = "-"; // Minimize icon
+                } else {
+                    content.style.display = "none";
+                    button.innerHTML = "+"; // Expand icon
+                }
+            }
+        </script>
+        
+
+        <!-- Anomalies Subsection 
+        <h3 class="section-header" onclick="toggleSection(3)">
+            Anomalies <button class="toggle-btn" id="btn-3">+</button>
+        </h3>-->
+        <div class="content-container" id="content-3">
+            <div class="model-images">
+                <div class="gif-container">
+                    <h3>Sea Surface Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Temperature at 100m</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Bottom Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Fourth Section (Unavailable) -->
+    <h2 class="section-header" onclick="toggleSection(4)">
+        HYCOM-SAWS <button class="toggle-btn" id="btn-4">+</button>
+    </h2>
+    <div class="content-container model-content" id="content-4">
+        <div class="model-images">
+            <div class="gif-container">
+                <h3>Sea Surface Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Temperature at 100m</h3>
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+            </div>
+            <div class="gif-container">
+                <h3>Bottom Temperature</h3>
+                <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+            </div>
+        </div>
+
+        <script>
+            function toggleSection(sectionNumber) {
+                var content = document.getElementById("content-" + sectionNumber);
+                var button = document.getElementById("btn-" + sectionNumber);
+        
+                if (content.style.display === "none" || content.style.display === "") {
+                    content.style.display = "block";
+                    button.innerHTML = "-"; // Minimize icon
+                } else {
+                    content.style.display = "none";
+                    button.innerHTML = "+"; // Expand icon
+                }
+            }
+        </script>
+        
+
+        <!-- Anomalies Subsection 
+        <h3 class="section-header" onclick="toggleSection(3)">
+            Anomalies <button class="toggle-btn" id="btn-3">+</button>
+        </h3>-->
+        <div class="content-container" id="content-3">
+            <div class="model-images">
+                <div class="gif-container">
+                    <h3>Sea Surface Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_surf.gif" alt="Sea Surface Temperature Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Temperature at 100m</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_100m.gif" alt="Temperature at 100m Animation">
+                </div>
+                <div class="gif-container">
+                    <h3>Bottom Temperature</h3>
+                    <img src="public/sa-west/latest_forecasts/HYCOM-GFS/croco_avg_temp_bot.gif" alt="Bottom Temperature Animation">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr> <!-- Boundary Line -->
+
+    <script>
+        // Function to toggle section visibility
+        function toggleSection(sectionNumber) {
+            var content = document.getElementById("content-" + sectionNumber);
+            var button = document.getElementById("btn-" + sectionNumber);
+
+            if (content.style.display === "none" || content.style.display === "") {
+                content.style.display = "block";
+                button.innerHTML = "-"; // Change to minimize icon
+            } else {
+                content.style.display = "none";
+                button.innerHTML = "+"; // Change to expand icon
+            }
+        }
+    </script>
+
 </body>
 </html>
 
