@@ -18,16 +18,32 @@ if [[ "$HOSTNAME" == "COMP000000183" ]]; then
     # Deactivate the environment (optional)
     conda deactivate
 
+#else
+#    echo "Running on Server: $HOSTNAME"
+    
+#    # Ensure Virtual Environment is available in non-interactive shells
+#    source /home/ocean-access/python_venv/bin/activate
+
+#    # Run the Python script
+#    python /home/nkululeko/somisana.ac.za/public/download_gifs.py
+
+#    # Deactivate the environment (optional)
+#    deactivate
+#fi
+
 else
     echo "Running on Server: $HOSTNAME"
-    
-    # Ensure Virtual Environment is available in non-interactive shells
-    source /home/ocean-access/python_venv/bin/activate
+
+    # Ensure Conda is available in non-interactive shells
+    source /home/nkululeko/miniforge3/etc/profile.d/conda.sh
+
+    # Activate Conda environment
+    conda activate somisana_croco
 
     # Run the Python script
     python /home/nkululeko/somisana.ac.za/public/download_gifs.py
 
     # Deactivate the environment (optional)
-    deactivate
+    conda deactivate
 fi
 

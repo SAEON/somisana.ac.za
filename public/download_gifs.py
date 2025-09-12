@@ -1,93 +1,148 @@
+#!/usr/bin/env python3
 import os
-import requests
 import socket
 from datetime import datetime, timedelta
 
-# Detect environment based on hostname
-hostname = socket.gethostname()
+import requests
 
-if "ocimsvaps.ocean.gov.za" in hostname:  # Actual server hostname
-    BASE_DIR = "/home/nkululeko/somisana.ac.za/public"
-elif "COMP000000183" in hostname: #server hostname
-    BASE_DIR = "/home/nc.memela/Projects/somisana.ac.za/public"
+# ---------------- CONFIG ----------------
+LOOKBACK_DAYS = 7  # how many days back to search
+TIMEOUT = 20       # seconds for HTTP requests
+DEBUG = os.getenv("DL_DEBUG", "0") == "1"
 
-# Define constants
+# Regions and base URLs on your file server
 BASE_URLS = {
     "sa-west": "https://somisana.ocean.gov.za/sa-west/v1.0/forecasts",
-    "sa-southeast": "https://somisana.ocean.gov.za/sa-southeast/v1.0/forecasts"
+    "sa-southeast": "https://somisana.ocean.gov.za/sa-southeast/v1.0/forecasts",
 }
+
+# Models and filenames to download
+MODELS = ["HYCOM-GFS", "MERCATOR-GFS", "HYCOM-SAWS", "MERCATOR-SAWS"]
+GIF_FILES = [
+    "croco_avg_temp_100m.mp4",
+    "croco_avg_temp_surf.mp4",
+    "croco_avg_temp_bot.mp4",
+    "croco_avg_temp_anom_100m.mp4",
+    "croco_avg_temp_anom_surf.mp4",
+    "croco_avg_temp_anom_bot.mp4",
+
+]
+
+# ---------------- PATHS -----------------
+hostname = socket.gethostname().lower()
+if "ocimsvaps" in hostname:
+    BASE_DIR = "/home/nkululeko/somisana.ac.za/public"
+elif "comp000000183" in hostname:
+    BASE_DIR = "/home/nc.memela/Projects/somisana.ac.za/public"
+else:
+    BASE_DIR = os.getcwd()  # fallback
 
 LOCAL_DIRS = {
     "sa-west": os.path.join(BASE_DIR, "sa-west/latest_forecasts"),
-    "sa-southeast": os.path.join(BASE_DIR, "sa-southeast/latest_forecasts")
+    "sa-southeast": os.path.join(BASE_DIR, "sa-southeast/latest_forecasts"),
 }
-
-MODELS = ["HYCOM-GFS", "MERCATOR-GFS","HYCOM-SAWS", "MERCATOR-SAWS"]
-GIF_FILES = ["croco_avg_temp_100m.mp4", "croco_avg_temp_surf.mp4", "croco_avg_temp_bot.mp4"]
 LOG_FILE = os.path.join(BASE_DIR, "download_log.txt")
 
-def get_date_path(days_back=0):
-    """Return the date path in the required format YYYYMM/YYYYMMDD."""
-    date = datetime.utcnow() - timedelta(days=days_back)
-    return f"{date.strftime('%Y%m')}/{date.strftime('%Y%m%d')}_00"
 
-def check_url_exists(url):
-    """Check if the URL is reachable (test with HEAD request)."""
+# --------------- UTILS ------------------
+def log(msg: str):
+    ts = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+    print(f"[{ts}] {msg}")
+
+def dprint(msg: str):
+    if DEBUG:
+        log(f"DEBUG: {msg}")
+
+def get_date_path(days_back=0):
+    """Return 'YYYYMMDD_00' (no YYYYMM directory)."""
+    date = datetime.utcnow() - timedelta(days=days_back)
+    return f"{date.strftime('%Y%m%d')}_00"
+
+
+def check_file_exists(url: str, timeout=TIMEOUT) -> bool:
+    """
+    Use GET with a Range header so we don't download the whole file.
+    Many servers mishandle HEAD; accept 200 or 206 (Partial Content).
+    """
     try:
-        response = requests.head(url, timeout=10)
-        return response.status_code == 200
-    except requests.RequestException:
+        headers = {"Range": "bytes=0-0"}
+        r = requests.get(
+            url, headers=headers, timeout=timeout, allow_redirects=True, stream=True
+        )
+        dprint(f"check_file_exists: {url} -> {r.status_code}")
+        return r.status_code in (200, 206)
+    except requests.RequestException as e:
+        dprint(f"check_file_exists ERROR: {url} -> {e}")
         return False
 
-def get_latest_available_url(base_url):
-    """Find the latest available forecast data URL by checking past days."""
-    for days_back in range(7):  # Look back up to a week
+def get_latest_available_url(base_url: str, model: str):
+    """
+    Find the latest directory URL that actually contains any of the GIF_FILES
+    for the specified model. Returns (dir_url, date_path) or (None, None).
+    """
+    for days_back in range(LOOKBACK_DAYS):
         date_path = get_date_path(days_back)
-        for model in MODELS:
-            url = f"{base_url}/{date_path}/{model}"
-            if check_url_exists(url):
-                return url, date_path
+        # Test existence by checking one of the files under that path
+        for fname in GIF_FILES:
+            test_url = f"{base_url}/{date_path}/{model}/{fname}"
+            dprint(f"Probing: {test_url}")
+            if check_file_exists(test_url):
+                # Return the directory URL so we can fetch all files from it
+                dir_url = f"{base_url}/{date_path}/{model}"
+                return dir_url, date_path
     return None, None
 
-def download_gif(url, filename, local_path):
-    """Download the GIF from the given URL and save it locally."""
-    gif_url = f"{url}/{filename}"
+def download_file(url: str, local_path: str) -> bool:
+    """
+    Download a file via GET. Returns True on success.
+    """
     try:
-        response = requests.get(gif_url, timeout=15)
-        if response.status_code == 200:
-            with open(local_path, 'wb') as f:
-                f.write(response.content)
+        r = requests.get(url, timeout=TIMEOUT, allow_redirects=True)
+        if r.status_code == 200 and r.content:
+            with open(local_path, "wb") as f:
+                f.write(r.content)
             return True
-    except requests.RequestException:
-        pass
-    return False
+        else:
+            dprint(f"download_file WARN: {url} -> {r.status_code}")
+            return False
+    except requests.RequestException as e:
+        dprint(f"download_file ERROR: {url} -> {e}")
+        return False
 
-def log_download_attempt(region, model, success, date):
-    """Log the attempt in a text file."""
-    with open(LOG_FILE, "a") as log:
-        status = "Success" if success else "Failure"
-        log.write(f"{date} - {region}/{model}: {status}\n")
+def log_download_attempt(region: str, model: str, success: bool, date_str: str):
+    os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+    status = "Success" if success else "Failure"
+    with open(LOG_FILE, "a") as logf:
+        logf.write(f"{date_str} - {region}/{model}: {status}\n")
 
+
+# --------------- MAIN -------------------
 def main():
-    """Main function to download the latest GIFs from both regions."""
+    today = datetime.utcnow().strftime("%Y-%m-%d")
     for region, base_url in BASE_URLS.items():
         for model in MODELS:
-            latest_url, date_path = get_latest_available_url(base_url)
-            if not latest_url:
-                print(f"No recent valid forecast found for {region}/{model}. Skipping.")
-                log_download_attempt(region, model, False, datetime.utcnow().strftime('%Y-%m-%d'))
+            dir_url, date_path = get_latest_available_url(base_url, model)
+            if not dir_url:
+                log(f"No recent valid forecast found for {region}/{model}. Skipping.")
+                log_download_attempt(region, model, False, today)
                 continue
 
             save_dir = os.path.join(LOCAL_DIRS[region], model)
-            os.makedirs(save_dir, exist_ok=True)  # Ensure the directory exists
+            os.makedirs(save_dir, exist_ok=True)
 
-            success = False
-            for gif in GIF_FILES:
-                local_path = os.path.join(save_dir, gif)
-                if download_gif(latest_url, gif, local_path):
-                    success = True
+            success_any = False
+            for fname in GIF_FILES:
+                src = f"{dir_url}/{fname}"
+                dst = os.path.join(save_dir, fname)
+                if download_file(src, dst):
+                    log(f"Downloaded {region}/{model}/{fname} from {date_path} -> {dst}")
+                    success_any = True
+                else:
+                    log(f"Missing/failed: {region}/{model}/{fname} ({src})")
 
-            log_download_attempt(region, model, success, datetime.utcnow().strftime('%Y-%m-%d'))
+            log_download_attempt(region, model, success_any, today)
+
 
 if __name__ == "__main__":
     main()
+
