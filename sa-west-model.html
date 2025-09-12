@@ -215,9 +215,10 @@
 
 <script>
   // Local base for all models (no date logic)
-  const localBase = "/home/somisana/ops/main/20250828_00/sa_west_02/croco_v1.3.1/C06_I99_MERCATOR_GFS_TPXO10/postprocess";
+  //const localBase = "/home/somisana/ops/main/20250828_00/sa_west_02/croco_v1.3.1/C06_I99_MERCATOR_GFS_TPXO10/postprocess";
 
   function renderSection(title, folder, id, anomId) {
+	const localBase = `public/sa-west/latest_forecasts/${folder}`;
     document.write(`
       <h2 class='section-header' onclick='toggleSection(${id})'>
         ${title} <button class='toggle-btn' id='btn-${id}'>+</button>
@@ -233,19 +234,19 @@
           <div class='gif-container'>
             <h3>Sea Surface Temperature</h3>
             <video class='model-video' autoplay loop muted playsinline>
-              <source src='${localBase}/croco_avg_t1.nc' type='video/mp4'>
+              <source src='${localBase}/croco_avg_temp_surf.mp4' type='video/mp4'>
             </video>
           </div>
           <div class='gif-container'>
             <h3>Temperature at 100m</h3>
             <video class='model-video' autoplay loop muted playsinline>
-              <source src='${localBase}/croco_avg_temp_anom_100m.mp4' type='video/mp4'>
+              <source src='${localBase}/croco_avg_temp_100m.mp4' type='video/mp4'>
             </video>
           </div>
           <div class='gif-container'>
             <h3>Bottom Temperature</h3>
             <video class='model-video' autoplay loop muted playsinline>
-              <source src='${localBase}/croco_avg_t3.nc' type='video/mp4'>
+              <source src='${localBase}/croco_avg_temp_100m.mp4' type='video/mp4'>
             </video>
           </div>
         </div>
