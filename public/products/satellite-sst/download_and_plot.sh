@@ -19,15 +19,17 @@ if [[ "$HOSTNAME" == "COMP000000183" ]]; then
     echo "🐍 Activating Conda environment: somisana_croco"
     conda activate somisana_croco
 
-else
+elif [[ "$HOSTNAME" == *"ocimsvaps.ocean.gov.za"* || "$HOSTNAME" == *"ocimsvaps"* ]]; then
     echo "🚀 Running on Server: $HOSTNAME"
     BASE_DIR="/home/ocean-access/tmp/sat-sst"
-    PYTHON_PATH="/home/ocean-access/python_venv/bin/activate"
 
-    # Activate the Python virtual environment
-    echo "🐍 Activating Python Virtual Environment"
-    source $PYTHON_PATH
-fi
+    # Initialize Conda for non-interactive shells (server)
+    echo "🔄 Initializing Conda..."
+    source "/home/nkululeko/miniforge3/etc/profile.d/conda.sh"
+
+    # Activate the Conda environment
+    echo "🐍 Activating Conda environment: somisana_croco"
+    conda activate somisana_croco
 
 # Move to the directory where this script is located
 cd "$(dirname "$0")"
@@ -70,3 +72,6 @@ echo "📊 Running plot generation script: $PLOT_SCRIPT"
 python $PLOT_SCRIPT
 
 echo "✅ Plot generation completed successfully."
+
+# Deactivate the environment (optional)
+conda deactivate

@@ -21,8 +21,11 @@ if [[ "$HOSTNAME" == "COMP000000183" ]]; then
 elif [[ "$HOSTNAME" == *"ocimsvaps.ocean.gov.za"* ]]; then
     echo "📌 Running on Server: $HOSTNAME"
 
-    # Ensure Virtual Environment is available in non-interactive shells
-    source /home/ocean-access/python_venv/bin/activate
+    # Ensure Conda is available in non-interactive shells
+    source /home/nkululeko/miniforge3/etc/profile.d/conda.sh
+
+    # Activate Conda environment
+    conda activate somisana_croco
 
     # Set base directory
     BASE_DIR="/home/tmp/sat-ssh"
@@ -77,5 +80,5 @@ echo "🎉 Plot generation completed successfully."
 if [[ "$HOSTNAME" == "COMP000000183" ]]; then
     conda deactivate
 elif [[ "$HOSTNAME" == *"ocean-access"* ]]; then
-    deactivate
+    conda deactivate
 fi
