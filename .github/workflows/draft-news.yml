@@ -1,0 +1,27 @@
+name: Draft SOMISANA News cards
+
+on:
+  push:
+    branches: [somisana-news-preview]
+    paths: ['scripts/draft_news.py', '.github/workflows/draft-news.yml']
+  workflow_dispatch:
+  schedule:
+    - cron: '25 6 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check eNews and build a preview
+        run: |
+          mkdir -p review
+          set -o pipefail
+          python3 scripts/draft_news.py --preview review/index.html | tee review/report.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: somisana-news-preview
+          path: review/
