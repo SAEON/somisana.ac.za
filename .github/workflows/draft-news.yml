@@ -2,6 +2,11 @@ name: Draft SOMISANA News cards
 
 on:
   workflow_dispatch:
+    inputs:
+      test_delivery:
+        description: Verify drafting and GitHub notification without changing the website
+        type: boolean
+        default: false
   schedule:
     - cron: '25 6 * * 1'
 
@@ -29,9 +34,29 @@ jobs:
       - name: Install the newsletter archive parser
         run: python3 -m pip install 'lxml>=5,<7'
       - name: Check eNews and build a preview
+        env:
+          TEST_DELIVERY: ${{ inputs.test_delivery }}
         run: |
           mkdir -p review
-          python3 scripts/draft_news.py --preview review/index.html --manifest review/cards.json | tee review/report.txt
+          args=()
+          if [ "$TEST_DELIVERY" = true ]; then
+            cat > review/test-feed.xml <<'XML'
+          <rss xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+            <channel><item>
+              <title>SOMISANA workflow delivery test</title>
+              <link>https://enews.saeon.ac.za/somisana-delivery-test/</link>
+              <pubDate>Mon, 16 Nov 2026 08:25:00 +0200</pubDate>
+              <content:encoded><![CDATA[<p>By Nkululeko Memela</p><p>This sample verifies generation of the newsletter card. The website is unchanged by the test pull request.</p>]]></content:encoded>
+            </item></channel>
+          </rss>
+          XML
+            args+=(--feed-file review/test-feed.xml)
+          fi
+          python3 scripts/draft_news.py "${args[@]}" --preview review/index.html --manifest review/cards.json | tee review/report.txt
+          if [ "$TEST_DELIVERY" = true ]; then
+            jq -e 'length == 1' review/cards.json > /dev/null
+            grep -Fq '<strong>Nkululeko Memela</strong>' review/index.html
+          fi
       - uses: actions/upload-artifact@v4
         with:
           name: somisana-news-preview
@@ -40,6 +65,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           NEWS_REVIEWER: ${{ vars.SOMISANA_NEWS_REVIEWER }}
+          TEST_DELIVERY: ${{ inputs.test_delivery }}
         run: |
           if jq -e 'length == 0' review/cards.json > /dev/null; then
             exit 0
@@ -47,6 +73,18 @@ jobs:
 
           key="$(jq -r '.[].url' review/cards.json | sort | sha256sum | cut -c1-16)"
           branch="automation/news-$key"
+          title="Review new SOMISANA newsletter cards"
+          args=()
+          if [ "$TEST_DELIVERY" = true ]; then
+            branch="automation/news-delivery-test-$GITHUB_RUN_ID"
+            title="Test SOMISANA newsletter review notification"
+            args+=(--draft)
+          fi
+          if [ -z "$NEWS_REVIEWER" ]; then
+            printf '%s\n' '::error::Set SOMISANA_NEWS_REVIEWER to the GitHub login that should receive the review notification.'
+            exit 1
+          fi
+
           existing="$(gh pr list --state all --base main --head "$branch" --json number --jq 'length')"
           if [ "$existing" != 0 ]; then
             exit 0
@@ -54,23 +92,31 @@ jobs:
 
           if ! git ls-remote --exit-code --heads origin "refs/heads/$branch" > /dev/null; then
             git switch -c "$branch"
-            cp review/index.html index.html
+            if [ "$TEST_DELIVERY" = true ]; then
+              file=".github/news-delivery-test-$GITHUB_RUN_ID.md"
+              printf 'Newsletter delivery test for Actions run %s. No website changes.\n' "$GITHUB_RUN_ID" > "$file"
+            else
+              file=index.html
+              cp review/index.html "$file"
+            fi
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add -- index.html
+            git add -- "$file"
             git diff --cached --check
             git commit -m "Draft new SAEON eNews cards"
             git push origin "HEAD:refs/heads/$branch"
           fi
 
           {
-            printf 'Review these automatically matched newsletters before publishing.\n\n'
-            jq -r '.[] | "- " + .url' review/cards.json
+            if [ "$TEST_DELIVERY" = true ]; then
+              printf 'This draft tests the reviewer notification. Close it after confirming receipt.\n\n'
+            else
+              printf 'Review these automatically matched newsletters before publishing.\n\n'
+              jq -r '.[] | "- " + .url' review/cards.json
+            fi
+            printf '\n[Preview artifact and run details](%s/%s/actions/runs/%s)\n' \
+              "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID"
           } > review/pr-body.md
 
-          args=()
-          if [ -n "$NEWS_REVIEWER" ]; then
-            args+=(--assignee "$NEWS_REVIEWER")
-          fi
-          gh pr create --base main --head "$branch" \
-            --title "Review new SOMISANA newsletter cards" --body-file review/pr-body.md "${args[@]}"
+          gh pr create --base main --head "$branch" --assignee "$NEWS_REVIEWER" \
+            --title "$title" --body-file review/pr-body.md "${args[@]}"
