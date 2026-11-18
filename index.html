@@ -159,6 +159,7 @@
   <link rel="stylesheet" href="./style.css" />
   <div>
     <link href="./index.css" rel="stylesheet" />
+    <link href="./news.css" rel="stylesheet" />
     <div class="home-container">
       <div data-role="Header" class="home-navbar-container" style="display: none;">
         <header class="home-navbar"><a href="https://forms.gle/PjkXcj1vu8zobvwN6" target="_blank"
@@ -358,11 +359,72 @@
 
       <div id="news" class="home-news">
         <div class="home-heading-container2">
-          <h2 class="home-text73">News</h2><span class="home-text74">Highlights from the most recent SAEON news-letter
-            articles on
-            ocean modeling.</span>
+          <h2 id="news-heading" class="home-text73">News</h2><span class="home-text74">Highlights from SAEON eNews on ocean modelling.</span>
         </div>
-        <div class="home-cards-container1">
+        <div class="news-controls" hidden>
+          <button type="button" aria-controls="news-stories">← Newer stories</button>
+          <button type="button" aria-controls="news-stories">Older stories →</button>
+        </div>
+        <div id="news-stories" class="home-cards-container1" role="region"
+          aria-labelledby="news-heading" tabindex="0">
+          <!-- Add the new story cards here, newest first. -->
+          <article class="home-testimonial-card">
+            <div class="home-card-heading">
+              <div class="home-name-and-position">
+                <a href="https://enews.saeon.ac.za/shaping-africas-marine-future-inside-the-opera-african-digital-twin-workshops-cotonou-benin-12-16-october-2026/" target="_blank" rel="noopener noreferrer"
+                  class="home-name"><strong>Shaping Africa’s marine future: Inside the OPERA and African Digital Twin Ocean workshops</strong></a>
+                <span class="home-position">Workshop held 12 to 16 October 2026</span>
+              </div>
+            </div>
+            <p class="home-text77"><strong>Nkululeko Memela</strong> reports from Cotonou, Benin, where OPERA announced that SAEON had been selected to lead an African ocean forecasting consortium backed by R15 million in funding. <strong>Jennifer Veitch</strong>, SOMISANA’s team lead, will lead the consortium as principal investigator and help strengthen ocean forecasting across Africa.
+              <br /><br />
+              <a href="https://enews.saeon.ac.za/shaping-africas-marine-future-inside-the-opera-african-digital-twin-workshops-cotonou-benin-12-16-october-2026/" target="_blank" rel="noopener noreferrer">
+                <strong>Read more on SAEON eNews ↗</strong>
+              </a>
+            </p>
+          </article>
+          <article class="home-testimonial-card">
+            <div class="home-card-heading">
+              <div class="home-name-and-position">
+                <a href="https://enews.saeon.ac.za/from-south-africa-to-scotland-advancing-ocean-science-at-osm-2026/" target="_blank" rel="noopener noreferrer"
+                  class="home-name"><strong>From South Africa to Scotland: Advancing ocean science at OSM 2026</strong></a>
+                <span class="home-position">Issue 02, 2026</span>
+              </div>
+            </div>
+            <p class="home-text77">At the Ocean Sciences Meeting in Glasgow, <strong>Jennifer Veitch</strong> showcased South Africa’s open coastal forecasting tools, while <strong>Philile Mvula</strong> presented modelling research on how currents around the Kingklip Ridge can help retain fish larvae.<br /><br />
+              <a href="https://enews.saeon.ac.za/from-south-africa-to-scotland-advancing-ocean-science-at-osm-2026/" target="_blank" rel="noopener noreferrer">
+                <strong>Read more on SAEON eNews ↗</strong>
+              </a>
+            </p>
+          </article>
+          <article class="home-testimonial-card">
+            <div class="home-card-heading">
+              <div class="home-name-and-position">
+                <a href="https://enews.saeon.ac.za/modelling-oil-spills-from-ship-to-ship-fuel-transfers-in-algoa-bay-a-potential-threat-to-the-critically-endangered-african-penguin/" target="_blank" rel="noopener noreferrer"
+                  class="home-name"><strong>Modelling oil spills in Algoa Bay: Risks to African penguins</strong></a>
+                <span class="home-position">Issue 01, 2026</span>
+              </div>
+            </div>
+            <p class="home-text77"><strong>Giles Fearon</strong> and colleagues modelled spills from offshore refuelling in Algoa Bay. Their simulations showed that oil can linger in African penguin feeding grounds for days, underscoring the need for stronger spill preparedness and wildlife rescue.<br /><br />
+              <a href="https://enews.saeon.ac.za/modelling-oil-spills-from-ship-to-ship-fuel-transfers-in-algoa-bay-a-potential-threat-to-the-critically-endangered-african-penguin/" target="_blank" rel="noopener noreferrer">
+                <strong>Read more on SAEON eNews ↗</strong>
+              </a>
+            </p>
+          </article>
+          <article class="home-testimonial-card">
+            <div class="home-card-heading">
+              <div class="home-name-and-position">
+                <a href="https://enews.saeon.ac.za/issue-06-2025/empowering-the-next-generation-of-ocean-scientists/" target="_blank" rel="noopener noreferrer"
+                  class="home-name"><strong>Empowering the next generation of ocean scientists</strong></a>
+                <span class="home-position">Issue 06, 2025</span>
+              </div>
+            </div>
+            <p class="home-text77">At workshops in Cape Town and Mombasa, <strong>Jennifer Veitch</strong> showed how regional ocean models improve coastal forecasts, and <strong>Gustav Rautenbach</strong> guided participants through OpenDrift simulations to explore how currents transport particles and spread oil.<br /><br />
+              <a href="https://enews.saeon.ac.za/issue-06-2025/empowering-the-next-generation-of-ocean-scientists/" target="_blank" rel="noopener noreferrer">
+                <strong>Read more on SAEON eNews ↗</strong>
+              </a>
+            </p>
+          </article>
           <div class="home-testimonial-card">
             <div class="home-card-heading"><a
                 href="https://enews.saeon.ac.za/issue-06-2025/working-together-for-a-smarter-ocean-somisanas-growing-modelling-team/"
@@ -515,6 +577,7 @@
       </div>
     </div>
   </div>
+  <script src="./news.js" defer></script>
   <script src="https://unpkg.com/@teleporthq/teleport-custom-scripts"></script>
 </body>
 
