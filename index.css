@@ -1,3 +1,19 @@
+html:has(> body.somisana-homepage) {
+  overflow-x: clip;
+}
+
+body.somisana-homepage {
+  --site-header-height: 121px;
+  height: auto;
+  min-height: 100%;
+  padding-top: var(--site-header-height);
+  overflow-x: clip;
+}
+
+.somisana-homepage .home-container :is(#about-us, #data, #people, #news, #contact) {
+  scroll-margin-top: calc(var(--site-header-height) + 8px);
+}
+
 .home-container {
   width: 100%;
   height: auto;
@@ -66,14 +82,15 @@
 }
 
 .home-navbar-container1 {
-  top: 0;
-  width: 100%;
-  height: max-content;
+  inset: 0 0 auto;
+  width: auto;
+  height: var(--site-header-height);
+  box-sizing: border-box;
   padding-top: 20px;
   padding-bottom: 20px;
   display: flex;
-  z-index: 100;
-  position: sticky;
+  z-index: 1000;
+  position: fixed;
   align-items: center;
   border-color: rgba(0, 0, 0, 0.34);
   border-width: 1px;
@@ -86,11 +103,81 @@
   border-bottom-width: 1px;
 }
 
-@media(max-width: 500px) {
-  .nav-links {
-    flex-direction: column;
-    margin-left: 20px;
+.mobile-site-menu {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  body.somisana-homepage {
+    --site-header-height: 96px;
   }
+
+  .home-navbar-container1 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) max-content;
+    padding: 7px 12px;
+    gap: 10px;
+  }
+
+  .home-navbar-container1 .nav-container-wrapper {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    align-items: center;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .home-navbar-container1 .nav-logo {
+    width: 100%;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  .home-navbar-container1 .nav-links {
+    display: none;
+  }
+
+  .mobile-site-menu {
+    display: block;
+  }
+
+  .mobile-site-menu summary {
+    min-height: 44px;
+    display: grid;
+    place-items: center;
+    padding: 0 12px;
+    border: 1px solid #48636b;
+    border-radius: 0.4rem;
+    color: #142832;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .mobile-site-menu summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-site-menu nav {
+    position: absolute;
+    top: 100%;
+    right: 12px;
+    width: min(12rem, calc(100% - 24px));
+    padding: 0.4rem;
+    border: 1px solid #48636b;
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: 0 0.5rem 1rem #10252d26;
+  }
+
+  .mobile-site-menu nav a {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+    padding: 0 0.65rem;
+    color: #142832;
+  }
+
 }
 
 .home-navbar1 {

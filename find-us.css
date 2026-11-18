@@ -1,0 +1,106 @@
+#contact.find-us {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  width: min(calc(100% - 2rem), 74rem);
+  margin: 0 auto clamp(2rem, 6vw, 5rem);
+  border: 1px solid #42636c;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  background: #142832;
+  color: #fff;
+  box-shadow: 0 1rem 2.5rem #10252d24;
+  scroll-margin-top: 7.5rem;
+}
+
+.find-us-details {
+  min-width: 0;
+  padding: clamp(1.5rem, 4.5vw, 4rem);
+  background: linear-gradient(145deg, #102029, #193740);
+}
+
+.find-us h2 {
+  margin-bottom: 1.2rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
+}
+
+.find-us h3 {
+  margin-bottom: 0.45rem;
+  color: #e7f2f5;
+  font-size: 1.15rem;
+}
+
+.find-us address {
+  color: #d6e6e9;
+  font-style: normal;
+}
+
+.find-us-links {
+  display: grid;
+  justify-items: start;
+  gap: 0.35rem;
+  margin-top: 1.35rem;
+  overflow-wrap: anywhere;
+}
+
+.find-us-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.8rem 1.15rem;
+  margin-top: 1.6rem;
+}
+
+.find-us a:hover {
+  text-decoration: underline;
+}
+
+.find-us a:focus-visible {
+  outline: 2px solid #b8f2f2;
+  outline-offset: 3px;
+}
+
+.find-us-button {
+  padding: 0.55rem 0.95rem;
+  border-radius: 0.45rem;
+  background: #a9d9de;
+  color: #10252d;
+  font-weight: 700;
+}
+
+.find-us-map {
+  position: relative;
+  display: grid;
+  min-height: 17rem;
+  align-items: end;
+}
+
+.find-us-map img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.find-us-map span {
+  position: relative;
+  justify-self: start;
+  margin: 1rem;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.45rem;
+  background: #142832;
+  color: #fff;
+  font-weight: 700;
+}
+
+.find-us-map:focus-visible {
+  z-index: 1;
+  outline-offset: -4px;
+}
+
+@media (max-width: 760px) {
+  #contact.find-us {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
