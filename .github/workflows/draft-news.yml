@@ -1,27 +1,76 @@
 name: Draft SOMISANA News cards
 
 on:
-  push:
-    branches: [somisana-news-preview]
-    paths: ['scripts/draft_news.py', '.github/workflows/draft-news.yml']
   workflow_dispatch:
   schedule:
     - cron: '25 6 * * 1'
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: somisana-news-drafts
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
 
 jobs:
   draft:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the newsletter archive parser
+        run: python3 -m pip install 'lxml>=5,<7'
       - name: Check eNews and build a preview
         run: |
           mkdir -p review
-          set -o pipefail
-          python3 scripts/draft_news.py --preview review/index.html | tee review/report.txt
+          python3 scripts/draft_news.py --preview review/index.html --manifest review/cards.json | tee review/report.txt
       - uses: actions/upload-artifact@v4
         with:
           name: somisana-news-preview
           path: review/
+      - name: Open and assign a review pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NEWS_REVIEWER: ${{ vars.SOMISANA_NEWS_REVIEWER }}
+        run: |
+          if jq -e 'length == 0' review/cards.json > /dev/null; then
+            exit 0
+          fi
+
+          key="$(jq -r '.[].url' review/cards.json | sort | sha256sum | cut -c1-16)"
+          branch="automation/news-$key"
+          existing="$(gh pr list --state all --base main --head "$branch" --json number --jq 'length')"
+          if [ "$existing" != 0 ]; then
+            exit 0
+          fi
+
+          if ! git ls-remote --exit-code --heads origin "refs/heads/$branch" > /dev/null; then
+            git switch -c "$branch"
+            cp review/index.html index.html
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add -- index.html
+            git diff --cached --check
+            git commit -m "Draft new SAEON eNews cards"
+            git push origin "HEAD:refs/heads/$branch"
+          fi
+
+          {
+            printf 'Review these automatically matched newsletters before publishing.\n\n'
+            jq -r '.[] | "- " + .url' review/cards.json
+          } > review/pr-body.md
+
+          args=()
+          if [ -n "$NEWS_REVIEWER" ]; then
+            args+=(--assignee "$NEWS_REVIEWER")
+          fi
+          gh pr create --base main --head "$branch" \
+            --title "Review new SOMISANA newsletter cards" --body-file review/pr-body.md "${args[@]}"

@@ -9,7 +9,7 @@ import re
 import sys
 from urllib.error import URLError
 from urllib.parse import urlsplit
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -88,7 +88,7 @@ def matching_authors(names):
 def read_feed(location):
     if location:
         return Path(location).read_bytes()
-    with urlopen(FEED, timeout=20) as response:
+    with urlopen(Request(FEED, headers={"User-Agent": "Mozilla/5.0"}), timeout=20) as response:
         return response.read()
 
 
@@ -140,15 +140,33 @@ def find_stories(feed, homepage):
         summary = paragraphs[0].split(" The post ", 1)[0].removesuffix(" […]")
         if len(summary) > 225:
             summary = summary[:222].rsplit(" ", 1)[0] + "…"
-        drafts.append((published, title, url, names, summary))
+        drafts.append((published, title, url, names, summary, f"{published.day} {published:%B %Y}"))
         report.append(f"Drafted: {title} ({', '.join(authors)})")
         for image in dict.fromkeys(content.images):
             report.append(f"  Article image to review: {image}")
     return sorted(drafts, key=lambda draft: draft[0], reverse=True), report
 
 
+def find_archive_stories(homepage):
+    from enews_archive import fetch_candidates
+
+    urls = {canonical(url) for url in re.findall(r'href="([^"]+)"', homepage)}
+    drafts, report = [], []
+    for article, note in fetch_candidates(urls, canonical):
+        if note:
+            report.append(note)
+            continue
+        sort_date, title, url, byline, summary, issue = article
+        names = byline_names(byline)
+        if matching_authors(names):
+            excerpt = summary if len(summary) <= 225 else summary[:222].rsplit(" ", 1)[0] + "…"
+            drafts.append((sort_date, title, url, names, excerpt, issue))
+            report.append(f"Drafted: {title}")
+    return sorted(drafts, key=lambda draft: draft[0], reverse=True), report
+
+
 def render_card(draft, photos):
-    published, title, url, authors, summary = draft
+    _, title, url, authors, summary, date = draft
     photo = photos.get(url)
     image = ""
     if photo:
@@ -168,7 +186,6 @@ def render_card(draft, photos):
         f"<strong>{escape(author)}</strong>" if author.casefold() in matched else escape(author)
         for author in authors
     )
-    date = f"{published.day} {published:%B %Y}"
     return f'''          <article class="home-testimonial-card">{image}
             <div class="home-card-heading">
               <div class="home-name-and-position">
@@ -189,12 +206,23 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--feed-file", help="Use saved RSS XML instead of requesting the live feed")
     parser.add_argument("--preview", type=Path, help="Write a separate HTML preview with draft cards")
+    parser.add_argument("--manifest", type=Path, help="Write draft titles and links as JSON")
     parser.add_argument("--photos", type=Path, help="JSON mapping article URLs to approved photo paths and credits")
     args = parser.parse_args()
     homepage = ROOT / "index.html"
     source = homepage.read_text(encoding="utf-8")
     try:
-        drafts, report = find_stories(read_feed(args.feed_file), source)
+        try:
+            drafts, report = find_stories(read_feed(args.feed_file), source)
+        except (URLError, ET.ParseError, ValueError) as error:
+            if args.feed_file:
+                raise
+            print(f"Trying the eNews issue archive: {error}", file=sys.stderr)
+            drafts, report = find_archive_stories(source)
+        if args.manifest:
+            args.manifest.write_text(json.dumps([
+                {"title": draft[1], "url": draft[2]} for draft in drafts
+            ], ensure_ascii=False), encoding="utf-8")
         if args.preview:
             if source.count(MARKER) != 1:
                 raise ValueError("News insertion marker is missing or duplicated")
