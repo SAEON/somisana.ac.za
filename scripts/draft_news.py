@@ -140,7 +140,7 @@ def find_stories(feed, homepage):
         summary = paragraphs[0].split(" The post ", 1)[0].removesuffix(" […]")
         if len(summary) > 225:
             summary = summary[:222].rsplit(" ", 1)[0] + "…"
-        drafts.append((published, title, url, authors, summary))
+        drafts.append((published, title, url, names, summary))
         report.append(f"Drafted: {title} ({', '.join(authors)})")
         for image in dict.fromkeys(content.images):
             report.append(f"  Article image to review: {image}")
@@ -163,7 +163,11 @@ def render_card(draft, photos):
             f'<small class="news-photo-credit">{escape(credit)}</small>'
         )
     title, url, summary = map(escape, (title, url, summary))
-    authors = ", ".join(f"<strong>{escape(author)}</strong>" for author in authors)
+    matched = {alias.casefold() for name in matching_authors(authors) for alias in ROSTER[name]}
+    byline = ", ".join(
+        f"<strong>{escape(author)}</strong>" if author.casefold() in matched else escape(author)
+        for author in authors
+    )
     date = f"{published.day} {published:%B %Y}"
     return f'''          <article class="home-testimonial-card">{image}
             <div class="home-card-heading">
@@ -173,9 +177,11 @@ def render_card(draft, photos):
                 <span class="home-position">{date}</span>
               </div>
             </div>
-            <p class="home-text77">SOMISANA authors: {authors}. {summary}<br /><br />
-              <strong>Read more on SAEON eNews ↗</strong>
-            </p>
+            <p class="home-text77">{summary}</p>
+            <footer class="news-card-footer">
+              <p class="news-byline">By {byline}</p>
+              <strong class="news-read-more">Read more on SAEON eNews ↗</strong>
+            </footer>
           </article>'''
 
 
