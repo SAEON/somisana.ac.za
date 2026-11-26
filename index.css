@@ -1634,3 +1634,11 @@ body.somisana-homepage {
     padding: 5px;
   }
 }
+.mobile-menu-icon {
+  display: block;
+  width: 20px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  box-shadow: 0 -6px currentColor, 0 6px currentColor;
+}
